@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="{{ $locale }}">
 <head>
@@ -5,6 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ $pageDescription }}">
     <title>{{ $pageTitle }}</title>
+
+    {{-- INICIO: SEO dinámico de Home --}}
+    @if ($page === 'home' && !empty($pageSeo))
+        <meta name="robots" content="{{ $pageSeo['robots'] }}">
+
+        <link rel="canonical" href="{{ $pageSeo['canonical'] }}">
+
+        <link rel="alternate" hreflang="es" href="{{ $pageSeo['alternates']['es'] }}">
+        <link rel="alternate" hreflang="en" href="{{ $pageSeo['alternates']['en'] }}">
+        <link rel="alternate" hreflang="x-default" href="{{ $pageSeo['alternates']['es'] }}">
+
+        {{-- LinkedIn y redes sociales: Open Graph --}}
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="Feat.">
+        <meta property="og:locale" content="{{ $pageSeo['og_locale'] }}">
+        <meta property="og:url" content="{{ $pageSeo['canonical'] }}">
+        <meta property="og:title" content="{{ $pageSeo['og_title'] }}">
+        <meta property="og:description" content="{{ $pageSeo['og_description'] }}">
+
+        @if (!empty($pageSeo['og_image']))
+            <meta property="og:image" content="{{ $pageSeo['og_image'] }}">
+
+            @if (!empty($pageSeo['og_image_alt']))
+                <meta property="og:image:alt" content="{{ $pageSeo['og_image_alt'] }}">
+            @endif
+        @endif
+    @endif
+    {{-- FIN: SEO dinámico de Home --}}
+
     <link rel="icon" href="{{ asset('assets/feat-black.svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="{{ asset('css/site.css') }}">
     <script src="{{ asset('js/site.js') }}" defer></script>
