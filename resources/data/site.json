@@ -1,0 +1,642 @@
+{
+  "es": {
+    "cta": "Hablemos",
+    "explore": "Ver",
+    "demoTag": "Dato demostrativo",
+    "addrLabel": "Dirección",
+    "phoneLabel": "Teléfono",
+    "clientsNote": "Marcas con las que hemos trabajado.",
+    "nav": [
+      "Servicios",
+      "Casos",
+      "Nosotros",
+      "Blog",
+      "Contacto"
+    ],
+    "hero": {
+      "eyebrow": "Collab Driven Growth",
+      "titlePre": "Combinamos especializaciones para acelerar tu ",
+      "titleAccent": "marca.",
+      "cardText": "5 especialidades integrales para el desarrollo de tu marca. Conoce nuestros equipos.",
+      "card1Btn": "Ver servicios",
+      "reelBtn": "Ver el reel",
+      "card2Text": "Innovación y comunicación estratégica para el desarrollo de marca. Desciframos el Brief en un Workshop.",
+      "card2Btn": "Solicitar Workshop",
+      "sub": "Feat. es una agencia integrada de publicidad y growth marketing en Centroamérica. Estrategia, creatividad, medios y tecnología, trabajando como un solo equipo.",
+      "ctaPrimary": "Iniciar un proyecto",
+      "ctaSecondary": "Ver Performance",
+      "videoNote": "Reel de marca — video optimizado (placeholder)"
+    },
+    "proof": [
+      {
+        "big": "9",
+        "label": "Mercados acompañando a las marcas."
+      },
+      {
+        "big": "2025",
+        "label": "DesignRush · Best Digital Agency."
+      },
+      {
+        "big": "3",
+        "label": "Premios Effie desde 2017 — efectividad probada."
+      }
+    ],
+    "proofKicker": "Reconocimiento",
+    "proofTitle": "Efectividad regional con respaldo local.",
+    "servicesKicker": "Qué hacemos",
+    "servicesTitle1": "Cinco especializaciones,",
+    "servicesTitle2": "un equipo.",
+    "servicesIntro": "No vendemos servicios sueltos. Combinamos disciplinas alrededor de tu objetivo de negocio.",
+    "servicesHint": "Pasa el cursor sobre cada especialización — cada una con su propio color.",
+    "servicesBtn": "Ver especialización",
+    "services": [
+      {
+        "title": "Performance & Connections",
+        "kind": "Ver detalle →",
+        "desc": "Estrategia y gestión de medios, dashboards en vivo, data science y auditoría de ejecución.",
+        "tags": [
+          "Media",
+          "Data Science",
+          "Dashboards"
+        ]
+      },
+      {
+        "title": "Brand & Consulting",
+        "kind": "",
+        "desc": "Identidad, storytelling, ecosistema de marca y sprints creativos.",
+        "tags": [
+          "Identity",
+          "Storytelling",
+          "PR"
+        ]
+      },
+      {
+        "title": "Experience & Tech",
+        "kind": "",
+        "desc": "UX, interface design, e-commerce y experiencias en vivo.",
+        "tags": [
+          "UX",
+          "E-commerce",
+          "BTL"
+        ]
+      },
+      {
+        "title": "Makitha",
+        "kind": "Tech Growth Partner",
+        "desc": "Tecnología para Marketing y Ventas: web, apps, integraciones, data, growth e IA aplicada al negocio.",
+        "tags": [
+          "Web & Apps",
+          "Data",
+          "IA"
+        ]
+      },
+      {
+        "title": "Social Media Strategies",
+        "kind": "",
+        "desc": "Contenido de conexión, campañas, DCO y analítica.",
+        "tags": [
+          "Content",
+          "DCO",
+          "Analytics"
+        ]
+      }
+    ],
+    "casesKicker": "Resultados",
+    "casesTitle": "El trabajo habla.",
+    "cases": [
+      {
+        "client": "Retail CA",
+        "metric": "+38%",
+        "metricLabel": "ROAS en campaña de temporada",
+        "desc": "Reestructura de medios y creatividad dinámica en 3 mercados."
+      },
+      {
+        "client": "Consumo masivo",
+        "metric": "2.4×",
+        "metricLabel": "Alcance incremental vs. año anterior",
+        "desc": "Estrategia de conexión social + producción in-house."
+      },
+      {
+        "client": "Tech / e-commerce",
+        "metric": "−27%",
+        "metricLabel": "CPA tras auditoría de ejecución",
+        "desc": "Data science aplicado a la optimización de embudo."
+      }
+    ],
+    "collabKicker": "Nuestra diferencia",
+    "collabQuote": "La colaboración no es una palabra bonita: es cómo operamos.",
+    "collabResult": "una sola idea que acelera tu marca.",
+    "collabBody": "Cada proyecto reúne a las especializaciones que necesita y solo esas. Sin silos, sin traspasos que diluyen la idea. Un solo equipo responsable del resultado.",
+    "clientsTitle": "Marcas que confían en Feat.",
+    "clients": [
+      "Xiaomi",
+      "McDonald’s",
+      "Nivea",
+      "Eucerin",
+      "Menarini",
+      "Miniso",
+      "CMI"
+    ],
+    "marketKicker": "Dónde operamos",
+    "marketTitle": "Centroamérica, con base en Guatemala.",
+    "marketBody": "Guatemala es nuestra ancla. Operamos con presencia local en cada mercado — no una sola señal peleando consigo misma. Elige un mercado para ver su oficina.",
+    "offices": [
+      {
+        "city": "Guatemala",
+        "tag": "Oficina central",
+        "code": "GT",
+        "mk": "gt",
+        "message": "El hub de nuestra operación: talento listo para dar soporte local dondequiera que esté tu marca.",
+        "address": "Ciudad de Guatemala, Guatemala · [dirección placeholder]",
+        "phone": "+502 0000 0000"
+      },
+      {
+        "city": "San José",
+        "tag": "Costa Rica",
+        "code": "CR",
+        "mk": "cr",
+        "message": "Presencia local en Costa Rica, conectada al mismo equipo regional.",
+        "address": "San José, Costa Rica · [dirección placeholder]",
+        "phone": "+506 0000 0000"
+      },
+      {
+        "city": "Miami",
+        "tag": "US · internacional",
+        "code": "US",
+        "mk": "us",
+        "message": "Nuestra puerta a los mercados de US e internacionales, con el mismo estándar de ejecución.",
+        "address": "Miami, FL, US · [dirección placeholder]",
+        "phone": "+1 000 000 0000"
+      }
+    ],
+    "footer": {
+      "tagline": "Combinamos especializaciones para acelerar el desarrollo de las marcas.",
+      "cols": [
+        {
+          "head": "Servicios",
+          "items": [
+            "Performance & Connections",
+            "Brand & Consulting",
+            "Experience & Tech",
+            "Makitha",
+            "Social Media"
+          ]
+        },
+        {
+          "head": "Agencia",
+          "items": [
+            "Nosotros",
+            "Casos",
+            "Premios",
+            "Blog"
+          ]
+        },
+        {
+          "head": "Contacto",
+          "items": [
+            "Iniciar proyecto",
+            "Guatemala",
+            "Costa Rica",
+            "Miami"
+          ]
+        }
+      ],
+      "legal": "© 2026 Feat. Todos los derechos reservados.",
+      "offices": "GT · CR · SV · US"
+    },
+    "perf": {
+      "crumbServices": "Servicios",
+      "crumbCurrent": "Performance & Connections",
+      "kicker": "Performance & Connections",
+      "h1": "Growth Marketing en Guatemala que se mide en negocio, no en likes.",
+      "answerTag": "Respuesta directa",
+      "answer": "Performance & Connections de Feat. gestiona tu inversión de medios con estrategia, data science y dashboards en vivo para bajar el CPA y subir el ROAS de forma medible en Guatemala y Centroamérica.",
+      "problemH": "El problema",
+      "problem": "La mayoría de las marcas invierten en medios sin saber qué campaña genera negocio. Reportes tarde, sin conexión con ventas, y decisiones a ciegas.",
+      "capsH": "Capacidades",
+      "caps": [
+        {
+          "n": "01",
+          "title": "Media Strategies",
+          "desc": "Planeación de medios conectada al objetivo de negocio."
+        },
+        {
+          "n": "02",
+          "title": "Media Management",
+          "desc": "Gestión y optimización continua de la inversión."
+        },
+        {
+          "n": "03",
+          "title": "Live Analytics & Dashboards",
+          "desc": "Visibilidad en tiempo real, no reportes de fin de mes."
+        },
+        {
+          "n": "04",
+          "title": "Data Science",
+          "desc": "Modelos de atribución y optimización de embudo."
+        },
+        {
+          "n": "05",
+          "title": "Execution Audit",
+          "desc": "Auditoría independiente de tu ejecución actual."
+        }
+      ],
+      "processH": "Cómo trabajamos",
+      "process": [
+        {
+          "n": "01",
+          "title": "Diagnóstico",
+          "desc": "Auditoría de ejecución y línea base de métricas."
+        },
+        {
+          "n": "02",
+          "title": "Estrategia",
+          "desc": "Plan de medios conectado a objetivos de negocio."
+        },
+        {
+          "n": "03",
+          "title": "Activación",
+          "desc": "Ejecución y optimización continua con dashboards en vivo."
+        },
+        {
+          "n": "04",
+          "title": "Escala",
+          "desc": "Reasignación de presupuesto hacia lo que funciona."
+        }
+      ],
+      "casesH": "Casos ligados",
+      "cases": [
+        {
+          "client": "Retail CA",
+          "metric": "+38%",
+          "metricLabel": "ROAS en temporada alta",
+          "desc": "Reestructura de medios en 3 mercados."
+        },
+        {
+          "client": "Tech",
+          "metric": "−27%",
+          "metricLabel": "CPA tras auditoría",
+          "desc": "Data science aplicado al embudo."
+        }
+      ],
+      "faqH": "Preguntas frecuentes",
+      "faq": [
+        {
+          "q": "¿Qué es Performance & Connections?",
+          "a": "Es la especialización de Feat. que gestiona la inversión de medios de una marca con estrategia, data science y dashboards en vivo, orientada a resultados de negocio medibles."
+        },
+        {
+          "q": "¿En qué mercados operan?",
+          "a": "Guatemala como ancla, más Costa Rica, El Salvador y Miami. Cada mercado con presencia y medición local."
+        },
+        {
+          "q": "¿Cómo miden el resultado?",
+          "a": "Con dashboards en vivo conectados a ROAS, CPA y objetivos de negocio — no reportes de fin de mes."
+        },
+        {
+          "q": "¿Trabajan con la ejecución que ya tengo?",
+          "a": "Sí. Empezamos con una Execution Audit independiente antes de proponer cambios."
+        }
+      ],
+      "ctaTitle": "¿Tu inversión de medios trabaja para tu negocio?",
+      "ctaBody": "Empecemos con una auditoría de ejecución. Sin compromiso, con datos sobre la mesa.",
+      "ctaBtn": "Solicitar auditoría",
+      "related": [
+        {
+          "tag": "También te puede servir",
+          "title": "Experience & Tech",
+          "desc": "Sitios, e-commerce y productos digitales que convierten la inversión de medios en ventas.",
+          "cta": "Ver especialización",
+          "bg": "#15F7A8"
+        },
+        {
+          "tag": "También te puede servir",
+          "title": "Social Media",
+          "desc": "Contenido y comunidad que sostienen la demanda entre campañas.",
+          "cta": "Ver especialización",
+          "bg": "#D48BFD"
+        }
+      ]
+    }
+  },
+  "en": {
+    "cta": "Let’s talk",
+    "explore": "View",
+    "demoTag": "Demo data",
+    "addrLabel": "Address",
+    "phoneLabel": "Phone",
+    "clientsNote": "Brands we’ve worked with.",
+    "nav": [
+      "Services",
+      "Work",
+      "About",
+      "Blog",
+      "Contact"
+    ],
+    "hero": {
+      "eyebrow": "Collab Driven Growth",
+      "titlePre": "We combine specializations to accelerate your ",
+      "titleAccent": "brand.",
+      "cardText": "5 integrated specializations for your brand’s development. Meet our teams.",
+      "card1Btn": "See services",
+      "reelBtn": "Watch the reel",
+      "card2Text": "Innovation and strategic communication for brand development. We decode your brief in a Workshop.",
+      "card2Btn": "Request a Workshop",
+      "sub": "Feat. is an integrated advertising and growth marketing agency in Central America. Strategy, creative, media and technology working as one team.",
+      "ctaPrimary": "Start a project",
+      "ctaSecondary": "See Performance",
+      "videoNote": "Brand reel — optimized video (placeholder)"
+    },
+    "proof": [
+      {
+        "big": "9",
+        "label": "Markets supporting brands."
+      },
+      {
+        "big": "2025",
+        "label": "DesignRush · Best Digital Agency."
+      },
+      {
+        "big": "3",
+        "label": "Effie Awards since 2017 — proven effectiveness."
+      }
+    ],
+    "proofKicker": "Recognition",
+    "proofTitle": "Regional effectiveness with local backing.",
+    "servicesKicker": "What we do",
+    "servicesTitle1": "Five specializations,",
+    "servicesTitle2": "one team.",
+    "servicesIntro": "We don’t sell standalone services. We combine disciplines around your business goal.",
+    "servicesHint": "Hover each specialization — each one owns its color.",
+    "servicesBtn": "View specialization",
+    "services": [
+      {
+        "title": "Performance & Connections",
+        "kind": "View detail →",
+        "desc": "Media strategy and management, live dashboards, data science and execution audit.",
+        "tags": [
+          "Media",
+          "Data Science",
+          "Dashboards"
+        ]
+      },
+      {
+        "title": "Brand & Consulting",
+        "kind": "",
+        "desc": "Identity, storytelling, brand ecosystem and creative sprints.",
+        "tags": [
+          "Identity",
+          "Storytelling",
+          "PR"
+        ]
+      },
+      {
+        "title": "Experience & Tech",
+        "kind": "",
+        "desc": "UX, interface design, e-commerce and live experiences.",
+        "tags": [
+          "UX",
+          "E-commerce",
+          "BTL"
+        ]
+      },
+      {
+        "title": "Makitha",
+        "kind": "Tech Growth Partner",
+        "desc": "Technology for Marketing and Sales: web, apps, integrations, data, growth and applied AI.",
+        "tags": [
+          "Web & Apps",
+          "Data",
+          "AI"
+        ]
+      },
+      {
+        "title": "Social Media Strategies",
+        "kind": "",
+        "desc": "Connection content, campaigns, DCO and analytics.",
+        "tags": [
+          "Content",
+          "DCO",
+          "Analytics"
+        ]
+      }
+    ],
+    "casesKicker": "Results",
+    "casesTitle": "The work speaks.",
+    "cases": [
+      {
+        "client": "Retail CA",
+        "metric": "+38%",
+        "metricLabel": "ROAS on seasonal campaign",
+        "desc": "Media restructure and dynamic creative across 3 markets."
+      },
+      {
+        "client": "CPG",
+        "metric": "2.4×",
+        "metricLabel": "Incremental reach vs. prior year",
+        "desc": "Social connection strategy + in-house production."
+      },
+      {
+        "client": "Tech / e-commerce",
+        "metric": "−27%",
+        "metricLabel": "CPA after execution audit",
+        "desc": "Data science applied to funnel optimization."
+      }
+    ],
+    "collabKicker": "Our difference",
+    "collabQuote": "Collaboration isn’t a nice word — it’s how we operate.",
+    "collabResult": "one idea that accelerates your brand.",
+    "collabBody": "Every project brings together the specializations it needs and only those. No silos, no handoffs that dilute the idea. One team accountable for the outcome.",
+    "clientsTitle": "Brands that trust Feat.",
+    "clients": [
+      "Xiaomi",
+      "McDonald’s",
+      "Nivea",
+      "Eucerin",
+      "Menarini",
+      "Miniso",
+      "CMI"
+    ],
+    "marketKicker": "Where we operate",
+    "marketTitle": "Central America, headquartered in Guatemala.",
+    "marketBody": "Guatemala is our anchor. We operate with local presence in each market — not a single signal fighting itself. Pick a market to see its office.",
+    "offices": [
+      {
+        "city": "Guatemala",
+        "tag": "Headquarters",
+        "code": "GT",
+        "mk": "gt",
+        "message": "The hub of our operation: talent ready to give local support wherever your brand is.",
+        "address": "Guatemala City, Guatemala · [address placeholder]",
+        "phone": "+502 0000 0000"
+      },
+      {
+        "city": "San José",
+        "tag": "Costa Rica",
+        "code": "CR",
+        "mk": "cr",
+        "message": "Local presence in Costa Rica, connected to the same regional team.",
+        "address": "San José, Costa Rica · [address placeholder]",
+        "phone": "+506 0000 0000"
+      },
+      {
+        "city": "Miami",
+        "tag": "US · international",
+        "code": "US",
+        "mk": "us",
+        "message": "Our gateway to US and international markets, with the same execution standard.",
+        "address": "Miami, FL, US · [address placeholder]",
+        "phone": "+1 000 000 0000"
+      }
+    ],
+    "footer": {
+      "tagline": "We combine specializations to accelerate brand development.",
+      "cols": [
+        {
+          "head": "Services",
+          "items": [
+            "Performance & Connections",
+            "Brand & Consulting",
+            "Experience & Tech",
+            "Makitha",
+            "Social Media"
+          ]
+        },
+        {
+          "head": "Agency",
+          "items": [
+            "About",
+            "Work",
+            "Awards",
+            "Blog"
+          ]
+        },
+        {
+          "head": "Contact",
+          "items": [
+            "Start a project",
+            "Guatemala",
+            "Costa Rica",
+            "Miami"
+          ]
+        }
+      ],
+      "legal": "© 2026 Feat. All rights reserved.",
+      "offices": "GT · CR · SV · US"
+    },
+    "perf": {
+      "crumbServices": "Services",
+      "crumbCurrent": "Performance & Connections",
+      "kicker": "Performance & Connections",
+      "h1": "Growth marketing measured in business, not likes.",
+      "answerTag": "Direct answer",
+      "answer": "Feat.’s Performance & Connections manages your media investment with strategy, data science and live dashboards to lower CPA and raise ROAS measurably across Central America.",
+      "problemH": "The problem",
+      "problem": "Most brands invest in media without knowing which campaign drives business. Late reports, disconnected from sales, decisions made blind.",
+      "capsH": "Capabilities",
+      "caps": [
+        {
+          "n": "01",
+          "title": "Media Strategies",
+          "desc": "Media planning connected to the business goal."
+        },
+        {
+          "n": "02",
+          "title": "Media Management",
+          "desc": "Continuous management and optimization of spend."
+        },
+        {
+          "n": "03",
+          "title": "Live Analytics & Dashboards",
+          "desc": "Real-time visibility, not month-end reports."
+        },
+        {
+          "n": "04",
+          "title": "Data Science",
+          "desc": "Attribution modeling and funnel optimization."
+        },
+        {
+          "n": "05",
+          "title": "Execution Audit",
+          "desc": "Independent audit of your current execution."
+        }
+      ],
+      "processH": "How we work",
+      "process": [
+        {
+          "n": "01",
+          "title": "Diagnosis",
+          "desc": "Execution audit and metric baseline."
+        },
+        {
+          "n": "02",
+          "title": "Strategy",
+          "desc": "Media plan connected to business objectives."
+        },
+        {
+          "n": "03",
+          "title": "Activation",
+          "desc": "Execution and continuous optimization with live dashboards."
+        },
+        {
+          "n": "04",
+          "title": "Scale",
+          "desc": "Reallocate budget toward what works."
+        }
+      ],
+      "casesH": "Linked work",
+      "cases": [
+        {
+          "client": "Retail CA",
+          "metric": "+38%",
+          "metricLabel": "ROAS in peak season",
+          "desc": "Media restructure across 3 markets."
+        },
+        {
+          "client": "Tech",
+          "metric": "−27%",
+          "metricLabel": "CPA after audit",
+          "desc": "Data science applied to the funnel."
+        }
+      ],
+      "faqH": "FAQ",
+      "faq": [
+        {
+          "q": "What is Performance & Connections?",
+          "a": "It is Feat.’s specialization that manages a brand’s media investment with strategy, data science and live dashboards, focused on measurable business results."
+        },
+        {
+          "q": "Which markets do you operate in?",
+          "a": "Guatemala as anchor, plus Costa Rica, El Salvador and Miami. Each market with local presence and measurement."
+        },
+        {
+          "q": "How do you measure results?",
+          "a": "With live dashboards connected to ROAS, CPA and business objectives — not month-end reports."
+        },
+        {
+          "q": "Do you work with my existing execution?",
+          "a": "Yes. We start with an independent Execution Audit before proposing changes."
+        }
+      ],
+      "ctaTitle": "Is your media investment working for your business?",
+      "ctaBody": "Let’s start with an execution audit. No commitment, data on the table.",
+      "ctaBtn": "Request an audit",
+      "related": [
+        {
+          "tag": "You may also need",
+          "title": "Experience & Tech",
+          "desc": "Sites, e-commerce and digital products that turn media investment into sales.",
+          "cta": "View specialization",
+          "bg": "#15F7A8"
+        },
+        {
+          "tag": "You may also need",
+          "title": "Social Media",
+          "desc": "Content and community that sustain demand between campaigns.",
+          "cta": "View specialization",
+          "bg": "#D48BFD"
+        }
+      ]
+    }
+  }
+}

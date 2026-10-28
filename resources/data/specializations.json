@@ -1,0 +1,678 @@
+{
+  "es": {
+    "brand": {
+      "name": "Brand & Consulting",
+      "intro": "Estrategia, identidad y narrativa para construir marcas con una dirección clara y una personalidad propia.",
+      "kicker": "02 / Pensar antes de hacer",
+      "title": "Una marca no se explica.",
+      "accent": "Se reconoce.",
+      "lead": "Estrategia que se ve. Identidad que se siente.",
+      "cta": "Démosle dirección a tu marca",
+      "specimen": "El carácter está en los detalles.",
+      "stamp": "Con intención, siempre.",
+      "sheet": "Identidad en construcción",
+      "note": "Una idea clara. Muchas formas de expresarla.",
+      "questionsTitle": "Primero, las preguntas correctas.",
+      "questionsIntro": "El diseño empieza mucho antes del primer boceto. Nos sentamos contigo a entender qué hace diferente a tu negocio y por qué debería importarle a alguien.",
+      "questions": [
+        [
+          "¿Qué lugar quieres ocupar?",
+          "Encontramos el territorio de tu marca: el contexto, las personas y esa oportunidad que merece una posición propia."
+        ],
+        [
+          "¿Qué tienes para decir?",
+          "Definimos una idea central y una voz consistente. Del nombre al mensaje, cada palabra tiene un trabajo que hacer."
+        ],
+        [
+          "¿Cómo se vuelve reconocible?",
+          "Convertimos la estrategia en un sistema visual y verbal que se reconoce en una pantalla, en un empaque o en una conversación."
+        ]
+      ],
+      "systemKicker": "Una marca es un sistema",
+      "systemTitle": "Todo dice algo.",
+      "systemAccent": "Que diga lo mismo.",
+      "identityLabel": "Identidad visual",
+      "identityBody": "Tipografía, color, composición y recursos gráficos que trabajan juntos.",
+      "voiceLabel": "Universo verbal",
+      "voiceQuote": "No es solo qué dices. Es cómo suenas.",
+      "voiceBody": "Naming, tono de voz, mensajes y storytelling con una personalidad reconocible.",
+      "ecosystemLabel": "Ecosistema de marca",
+      "ecosystemTitle": "Una idea.\nMuchos puntos de contacto.",
+      "ecosystemBody": "De la estrategia a la campaña. De la identidad a la experiencia.",
+      "workshopKicker": "El punto de partida",
+      "workshopTitle": "La mejor respuesta empieza con una buena conversación.",
+      "workshopBody": "En un workshop conectamos a tu equipo con el nuestro. Alineamos el reto, cuestionamos lo obvio y definimos una dirección que todos puedan llevar a la práctica.",
+      "workshopSteps": [
+        "Escuchar el negocio",
+        "Encontrar el enfoque",
+        "Dar forma a la idea"
+      ],
+      "closing": "Que tu marca sea tan clara por fuera como lo es por dentro.",
+      "closingCta": "Conversemos sobre tu marca",
+      "next": "Lleva esa identidad a la conversación",
+      "nextName": "Social Media Strategies"
+    },
+    "social": {
+      "name": "Social Media Strategies",
+      "intro": "Estrategia social, contenido y comunidad para que tu marca forme parte de conversaciones que sí importan.",
+      "kicker": "05 / Cultura, contenido y conexión",
+      "title": "No llenamos un feed.",
+      "accent": "Abrimos conversaciones.",
+      "cta": "Encontremos tu conversación",
+      "postLabel": "Una voz propia",
+      "postWords": [
+        "Menos ruido.",
+        "Más conexión."
+      ],
+      "reply": "Eso que dices…",
+      "replyAccent": "también lo pienso.",
+      "postFoot": "Contenido que encuentra a su gente.",
+      "labKicker": "La idea cambia de formato, no de intención",
+      "labTitle": "¿Qué quieres provocar?",
+      "labBody": "Cada pieza tiene un papel. La estrategia conecta lo que una persona siente, lo que comparte y lo que decide hacer.",
+      "modes": [
+        {
+          "label": "Inspirar",
+          "tag": "Para descubrir",
+          "headline": "Una idea que te hace mirar otra vez.",
+          "body": "Historias, cultura y formatos que despiertan interés sin pedir permiso.",
+          "caption": "Una perspectiva propia vale más que otra publicación igual.",
+          "format": "Historias · Video corto · Series"
+        },
+        {
+          "label": "Conversar",
+          "tag": "Para conectar",
+          "headline": "La mejor parte empieza en los comentarios.",
+          "body": "Escucha activa, comunidad y contenido que da espacio a las personas.",
+          "caption": "No publicamos para hablar solos. Escuchamos para responder mejor.",
+          "format": "Comunidad · Escucha · Conversación"
+        },
+        {
+          "label": "Activar",
+          "tag": "Para dar el siguiente paso",
+          "headline": "Del “me interesa” al “lo quiero”.",
+          "body": "Creatividad y mensajes que acompañan una decisión, conectados con medios y objetivos de negocio.",
+          "caption": "La acción empieza con una conexión que tiene sentido.",
+          "format": "Campañas · DCO · Analítica"
+        }
+      ],
+      "rhythmKicker": "Siempre en movimiento",
+      "rhythmTitle": "Un calendario no es una estrategia.",
+      "rhythm": [
+        [
+          "Escuchar",
+          "Qué está pasando, qué necesita tu audiencia y qué puede aportar tu marca."
+        ],
+        [
+          "Crear",
+          "Ideas que nacen de una dirección editorial, con formatos pensados para cada canal."
+        ],
+        [
+          "Conversar",
+          "Una comunidad se cuida. Leemos, respondemos y aprendemos de las personas."
+        ],
+        [
+          "Aprender",
+          "Usamos los resultados para tomar mejores decisiones en el siguiente ciclo."
+        ]
+      ],
+      "measureTitle": "Más allá del like.",
+      "measureWord": "vínculos.",
+      "measureBody": "No todas las interacciones significan lo mismo. Leemos la conversación y el comportamiento para entender qué contenido conecta y qué necesita cambiar.",
+      "metrics": [
+        "Interés y atención",
+        "Calidad de la conversación",
+        "Acciones con intención"
+      ],
+      "closingQuestion": "¿De qué debería hablar tu marca?",
+      "closingAnswer": "Empecemos por escuchar.",
+      "closingCta": "Hablemos de tu comunidad",
+      "next": "Conecta contenido, herramientas y datos",
+      "nextName": "Makitha"
+    },
+    "experience": {
+      "name": "Experience & Tech",
+      "intro": "Diseñamos experiencias digitales y construimos la tecnología que las hace simples, útiles y conectadas con tu negocio.",
+      "kicker": "03 / Diseñado para las personas",
+      "title": "Que se sienta fácil.",
+      "accent": "Que funcione mejor.",
+      "cta": "Diseñemos el siguiente paso",
+      "orbitWords": [
+        "Personas",
+        "Diseño",
+        "Tecnología"
+      ],
+      "orbitCenter": "El usuario,\nsiempre al centro.",
+      "journeyKicker": "De la intención a la acción",
+      "journeyTitle": "Cada clic tiene una razón.",
+      "journeyBody": "Una buena experiencia conecta momentos. Recorre este ejemplo: de encontrar lo que buscas a saber exactamente qué sigue.",
+      "steps": [
+        {
+          "label": "Descubrir",
+          "title": "Entender sin tener que adivinar.",
+          "body": "Jerarquía clara, una propuesta relevante y una navegación que ayuda a encontrar.",
+          "screenKicker": "01 / El primer encuentro",
+          "screenTitle": "Justo lo que\nestabas buscando.",
+          "screenAction": "Explorar la propuesta",
+          "screenNote": "Una entrada clara al recorrido."
+        },
+        {
+          "label": "Elegir",
+          "title": "Decidir con la información correcta.",
+          "body": "Comparamos lo importante, respondemos las dudas y quitamos obstáculos del camino.",
+          "screenKicker": "02 / Una decisión informada",
+          "screenTitle": "Menos dudas.\nMejores decisiones.",
+          "screenAction": "Encontrar mi opción",
+          "screenNote": "Información útil en el momento indicado."
+        },
+        {
+          "label": "Convertir",
+          "title": "Dar el paso con confianza.",
+          "body": "Un proceso sencillo, respuestas claras y una acción conectada con el objetivo de negocio.",
+          "screenKicker": "03 / Una acción con sentido",
+          "screenTitle": "El siguiente paso,\nsin complicaciones.",
+          "screenAction": "Ver el recorrido completo",
+          "screenNote": "Continuidad, claridad y confianza."
+        }
+      ],
+      "nextStep": "Ver siguiente momento",
+      "restart": "Volver al inicio",
+      "buildKicker": "Lo que diseñamos y construimos",
+      "buildTitle": "La experiencia es una.\nLas disciplinas, muchas.",
+      "build": [
+        [
+          "UX & Research",
+          "Entendemos a las personas, mapeamos recorridos y detectamos oportunidades antes de construir.",
+          "Research / Arquitectura / Prototipos"
+        ],
+        [
+          "UI & Design Systems",
+          "Interfaces con intención y sistemas que mantienen la experiencia consistente al crecer.",
+          "Interfaz / Componentes / Accesibilidad"
+        ],
+        [
+          "Web & E-commerce",
+          "Sitios, tiendas y productos digitales que conectan la marca con una tarea real.",
+          "Web / Commerce / Desarrollo"
+        ],
+        [
+          "Experiencias conectadas",
+          "Pensamos la continuidad entre la pantalla, el punto de contacto y la operación.",
+          "Integraciones / Datos / Experiencias"
+        ]
+      ],
+      "connectTitle": "Una buena interfaz no trabaja sola.",
+      "connectBody": "Conectamos diseño y desarrollo con los contenidos, las herramientas y los datos que necesita tu operación. La tecnología acompaña la experiencia.",
+      "connectLabels": [
+        "Tu negocio",
+        "La experiencia",
+        "Tu ecosistema"
+      ],
+      "closing": "Hagamos más fácil lo que hoy se siente complicado.",
+      "closingCta": "Cuéntanos tu reto digital",
+      "next": "Conecta la experiencia con resultados",
+      "nextName": "Performance & Connections"
+    },
+    "makitha": {
+      "name": "Makitha",
+      "intro": "La unidad de tecnología de Feat. y tu Tech Growth Partner para Marketing y Ventas. Conectamos estrategia, desarrollo, herramientas, data e IA para construir crecimiento escalable y medible.",
+      "kicker": "04 / Tecnología para crecer",
+      "title": "Hacemos la tecnología",
+      "accent": "simple.",
+      "cta": "Hablemos de tu reto",
+      "explore": "Explorar soluciones",
+      "engineTitle": "Un motor conectado.",
+      "engineNote": "Tecnología y estrategia impulsando metas.",
+      "engineNodes": [
+        "Web & Apps",
+        "Marketing",
+        "Ventas",
+        "Data & IA"
+      ],
+      "engineCenter": "Crecer.",
+      "engineFoot": "Intelligence for scalable growth.",
+      "solutionsKicker": "Lo que hacemos",
+      "solutionsTitle": "Elige el reto.\nConectamos la solución.",
+      "solutionsIntro": "Del primer punto de contacto a la operación comercial. Estas son las seis áreas con las que Makitha conecta tecnología y crecimiento.",
+      "solutions": [
+        {
+          "title": "Páginas Web y Landing Pages",
+          "short": "Web & Landing Pages",
+          "headline": "Una presencia digital que convierte.",
+          "body": "Sitios y páginas de campaña pensados para atraer, explicar tu propuesta y convertir el interés en una acción.",
+          "outputs": [
+            "Sitios web",
+            "Landing pages",
+            "Conversión"
+          ],
+          "word": "Web → Acción"
+        },
+        {
+          "title": "Apps SaaS & Web",
+          "short": "Apps SaaS & Web",
+          "headline": "Software a la medida de tu operación.",
+          "body": "Construimos aplicaciones y productos digitales alrededor de lo que tu equipo necesita hacer, con flujos claros y herramientas que pueden crecer con el negocio.",
+          "outputs": [
+            "Productos digitales",
+            "Aplicaciones web",
+            "Flujos de operación"
+          ],
+          "word": "Tu operación, conectada."
+        },
+        {
+          "title": "Estrategias de Growth",
+          "short": "Estrategias de Growth",
+          "headline": "Un camino medible hacia el crecimiento.",
+          "body": "Conectamos objetivos comerciales, experimentación y tecnología para desarrollar demanda, mejorar la conversión y escalar lo que funciona.",
+          "outputs": [
+            "Demanda",
+            "Experimentación",
+            "Crecimiento medible"
+          ],
+          "word": "Medir → Aprender → Escalar"
+        },
+        {
+          "title": "Integración de Herramientas",
+          "short": "Integraciones",
+          "headline": "Tus herramientas, trabajando juntas.",
+          "body": "Conectamos el stack de marketing y ventas para que la información avance entre sistemas y tu equipo pueda dar continuidad a cada oportunidad.",
+          "outputs": [
+            "CRM",
+            "Marketing y ventas",
+            "Automatizaciones"
+          ],
+          "word": "Un mismo ecosistema."
+        },
+        {
+          "title": "Data & Dashboards",
+          "short": "Data & Dashboards",
+          "headline": "Datos que ayudan a decidir.",
+          "body": "Ordenamos y conectamos la información del negocio en dashboards que permiten entender qué está pasando y dónde está la siguiente oportunidad.",
+          "outputs": [
+            "Datos conectados",
+            "Dashboards",
+            "Decisiones informadas"
+          ],
+          "word": "Información → Decisión"
+        },
+        {
+          "title": "IA Aplicada al Negocio",
+          "short": "IA aplicada",
+          "headline": "Inteligencia que hace trabajo útil.",
+          "body": "Aplicamos IA y automatización a tareas y procesos reales para ahorrar tiempo, conectar información y destrabar el crecimiento.",
+          "outputs": [
+            "IA aplicada",
+            "Automatización",
+            "Eficiencia operativa"
+          ],
+          "word": "Entrada → Inteligencia → Acción"
+        }
+      ],
+      "processKicker": "Cómo trabajamos",
+      "processTitle": "De tu reto\na una solución que funciona.",
+      "process": [
+        [
+          "Entendemos tu reto",
+          "Escuchamos el objetivo de negocio y lo que hoy frena a tu equipo."
+        ],
+        [
+          "Diseñamos la solución",
+          "Definimos un plan concreto con las herramientas que necesitas."
+        ],
+        [
+          "Ejecutamos",
+          "Construimos y compartimos avances durante el desarrollo."
+        ],
+        [
+          "Medimos y crecemos",
+          "Aprendemos de los resultados y escalamos lo que funciona."
+        ]
+      ],
+      "bridgeTitle": "Una unidad de tecnología.\nEl mismo equipo Feat.",
+      "bridgeBody": "Makitha conecta tecnología y estrategia con los equipos de marketing y comercial. Como parte de Feat., suma desarrollo, integraciones, datos e IA al trabajo de marca, medios y experiencia.",
+      "websiteCta": "Conoce el sitio de Makitha",
+      "closing": "Convirtamos tu reto\nen crecimiento.",
+      "closingCta": "Iniciar una conversación",
+      "next": "Conecta la tecnología con la experiencia",
+      "nextName": "Experience & Tech"
+    }
+  },
+  "en": {
+    "brand": {
+      "name": "Brand & Consulting",
+      "intro": "Strategy, identity and storytelling for brands with a clear direction and a personality of their own.",
+      "kicker": "02 / Think before you make",
+      "title": "A brand is not explained.",
+      "accent": "It is recognized.",
+      "lead": "Strategy you can see. Identity you can feel.",
+      "cta": "Give your brand a direction",
+      "specimen": "Character lives in the details.",
+      "stamp": "Always with intention.",
+      "sheet": "An identity taking shape",
+      "note": "One clear idea. Many ways to express it.",
+      "questionsTitle": "First, the right questions.",
+      "questionsIntro": "Design starts long before the first sketch. We sit down with you to understand what makes your business different, and why anyone should care.",
+      "questions": [
+        [
+          "What space do you want to own?",
+          "We find your brand territory: the context, the people and the opportunity that deserves a position of its own."
+        ],
+        [
+          "What do you have to say?",
+          "We define a central idea and a consistent voice. From the name to the message, every word has a job to do."
+        ],
+        [
+          "How does it become recognizable?",
+          "We turn strategy into a visual and verbal system you can recognize on a screen, a package or in a conversation."
+        ]
+      ],
+      "systemKicker": "A brand is a system",
+      "systemTitle": "Everything says something.",
+      "systemAccent": "Make it consistent.",
+      "identityLabel": "Visual identity",
+      "identityBody": "Typography, color, composition and graphic elements working together.",
+      "voiceLabel": "Verbal identity",
+      "voiceQuote": "It is not just what you say. It is how you sound.",
+      "voiceBody": "Naming, tone of voice, messaging and storytelling with a recognizable personality.",
+      "ecosystemLabel": "Brand ecosystem",
+      "ecosystemTitle": "One idea.\nMany touchpoints.",
+      "ecosystemBody": "From strategy to campaign. From identity to experience.",
+      "workshopKicker": "The starting point",
+      "workshopTitle": "The best answer starts with a good conversation.",
+      "workshopBody": "A workshop brings your team and ours together. We align around the challenge, question the obvious and find a direction everyone can put into practice.",
+      "workshopSteps": [
+        "Listen to the business",
+        "Find the focus",
+        "Shape the idea"
+      ],
+      "closing": "Make your brand as clear on the outside as it is on the inside.",
+      "closingCta": "Let’s talk about your brand",
+      "next": "Bring that identity into the conversation",
+      "nextName": "Social Media Strategies"
+    },
+    "social": {
+      "name": "Social Media Strategies",
+      "intro": "Social strategy, content and community that make your brand part of conversations that matter.",
+      "kicker": "05 / Culture, content and connection",
+      "title": "We do not fill a feed.",
+      "accent": "We start conversations.",
+      "cta": "Find your conversation",
+      "postLabel": "A voice of your own",
+      "postWords": [
+        "Less noise.",
+        "More connection."
+      ],
+      "reply": "What you just said…",
+      "replyAccent": "I feel that too.",
+      "postFoot": "Content that finds its people.",
+      "labKicker": "The format changes. The intention stays.",
+      "labTitle": "What do you want to spark?",
+      "labBody": "Every piece has a role. Strategy connects what someone feels, what they share and what they choose to do.",
+      "modes": [
+        {
+          "label": "Inspire",
+          "tag": "To discover",
+          "headline": "An idea that makes you look twice.",
+          "body": "Stories, culture and formats that spark interest without asking permission.",
+          "caption": "An original point of view beats another identical post.",
+          "format": "Stories · Short video · Series"
+        },
+        {
+          "label": "Connect",
+          "tag": "To belong",
+          "headline": "The best part starts in the comments.",
+          "body": "Active listening, community and content that leaves room for people.",
+          "caption": "We do not post to talk to ourselves. We listen to respond better.",
+          "format": "Community · Listening · Conversation"
+        },
+        {
+          "label": "Activate",
+          "tag": "To take the next step",
+          "headline": "From “interesting” to “I want it”.",
+          "body": "Creative and messages that support a decision, connected to media and business objectives.",
+          "caption": "Action starts with a connection that makes sense.",
+          "format": "Campaigns · DCO · Analytics"
+        }
+      ],
+      "rhythmKicker": "Always in motion",
+      "rhythmTitle": "A calendar is not a strategy.",
+      "rhythm": [
+        [
+          "Listen",
+          "What is happening, what your audience needs and what your brand can contribute."
+        ],
+        [
+          "Create",
+          "Ideas born from an editorial direction, with formats designed for each channel."
+        ],
+        [
+          "Connect",
+          "A community needs care. We read, respond and learn from people."
+        ],
+        [
+          "Learn",
+          "We use the results to make better decisions in the next cycle."
+        ]
+      ],
+      "measureTitle": "Beyond the like.",
+      "measureWord": "connections.",
+      "measureBody": "Not every interaction means the same thing. We read the conversation and behavior to understand what connects and what needs to change.",
+      "metrics": [
+        "Interest and attention",
+        "Quality of conversation",
+        "Intentional action"
+      ],
+      "closingQuestion": "What should your brand talk about?",
+      "closingAnswer": "Let’s start by listening.",
+      "closingCta": "Talk about your community",
+      "next": "Connect content, tools and data",
+      "nextName": "Makitha"
+    },
+    "experience": {
+      "name": "Experience & Tech",
+      "intro": "We design digital experiences and build the technology that makes them simple, useful and connected to your business.",
+      "kicker": "03 / Designed for people",
+      "title": "Make it feel easy.",
+      "accent": "Make it work better.",
+      "cta": "Design the next step",
+      "orbitWords": [
+        "People",
+        "Design",
+        "Technology"
+      ],
+      "orbitCenter": "The user,\nalways at the center.",
+      "journeyKicker": "From intention to action",
+      "journeyTitle": "Every click has a reason.",
+      "journeyBody": "A good experience connects moments. Explore this example: from finding what you need to knowing exactly what comes next.",
+      "steps": [
+        {
+          "label": "Discover",
+          "title": "Understand without guessing.",
+          "body": "Clear hierarchy, a relevant proposition and navigation that helps people find their way.",
+          "screenKicker": "01 / The first encounter",
+          "screenTitle": "Exactly what\nyou were looking for.",
+          "screenAction": "Explore the proposition",
+          "screenNote": "A clear entry into the journey."
+        },
+        {
+          "label": "Choose",
+          "title": "Decide with the right information.",
+          "body": "We compare what matters, answer questions and remove obstacles from the journey.",
+          "screenKicker": "02 / An informed decision",
+          "screenTitle": "Fewer doubts.\nBetter decisions.",
+          "screenAction": "Find my option",
+          "screenNote": "Useful information at the right moment."
+        },
+        {
+          "label": "Act",
+          "title": "Take the step with confidence.",
+          "body": "A simple process, clear answers and an action connected to the business goal.",
+          "screenKicker": "03 / Meaningful action",
+          "screenTitle": "The next step,\nwithout complications.",
+          "screenAction": "See the complete journey",
+          "screenNote": "Continuity, clarity and confidence."
+        }
+      ],
+      "nextStep": "See the next moment",
+      "restart": "Back to the start",
+      "buildKicker": "What we design and build",
+      "buildTitle": "One experience.\nMany disciplines.",
+      "build": [
+        [
+          "UX & Research",
+          "We understand people, map journeys and find opportunities before building.",
+          "Research / Architecture / Prototypes"
+        ],
+        [
+          "UI & Design Systems",
+          "Intentional interfaces and systems that keep the experience consistent as it grows.",
+          "Interface / Components / Accessibility"
+        ],
+        [
+          "Web & E-commerce",
+          "Sites, stores and digital products that connect the brand with a real task.",
+          "Web / Commerce / Development"
+        ],
+        [
+          "Connected experiences",
+          "We think about continuity between the screen, the touchpoint and the operation.",
+          "Integrations / Data / Experiences"
+        ]
+      ],
+      "connectTitle": "A good interface does not work alone.",
+      "connectBody": "We connect design and development with the content, tools and data your operation needs. Technology supports the experience.",
+      "connectLabels": [
+        "Your business",
+        "The experience",
+        "Your ecosystem"
+      ],
+      "closing": "Make the complicated feel simple.",
+      "closingCta": "Tell us your digital challenge",
+      "next": "Connect the experience with results",
+      "nextName": "Performance & Connections"
+    },
+    "makitha": {
+      "name": "Makitha",
+      "intro": "Feat.’s technology business unit and your Tech Growth Partner for Marketing and Sales. We connect strategy, development, tools, data and AI to build scalable, measurable growth.",
+      "kicker": "04 / Technology for growth",
+      "title": "We make technology",
+      "accent": "simple.",
+      "cta": "Tell us your challenge",
+      "explore": "Explore solutions",
+      "engineTitle": "One connected engine.",
+      "engineNote": "Technology and strategy driving goals.",
+      "engineNodes": [
+        "Web & Apps",
+        "Marketing",
+        "Sales",
+        "Data & AI"
+      ],
+      "engineCenter": "Grow.",
+      "engineFoot": "Intelligence for scalable growth.",
+      "solutionsKicker": "What we do",
+      "solutionsTitle": "Choose the challenge.\nWe connect the solution.",
+      "solutionsIntro": "From the first touchpoint to the commercial operation. Six areas that connect technology and growth at Makitha.",
+      "solutions": [
+        {
+          "title": "Web Pages & Landing Pages",
+          "short": "Web & Landing Pages",
+          "headline": "A digital presence that converts.",
+          "body": "Sites and campaign pages designed to attract people, explain your proposition and turn interest into action.",
+          "outputs": [
+            "Websites",
+            "Landing pages",
+            "Conversion"
+          ],
+          "word": "Web → Action"
+        },
+        {
+          "title": "SaaS & Web Apps",
+          "short": "SaaS & Web Apps",
+          "headline": "Software built around your operation.",
+          "body": "We build applications and digital products around what your team needs to do, with clear workflows and tools that can grow with the business.",
+          "outputs": [
+            "Digital products",
+            "Web applications",
+            "Operational workflows"
+          ],
+          "word": "Your operation, connected."
+        },
+        {
+          "title": "Growth Strategies",
+          "short": "Growth Strategies",
+          "headline": "A measurable path to growth.",
+          "body": "We connect commercial goals, experimentation and technology to develop demand, improve conversion and scale what works.",
+          "outputs": [
+            "Demand",
+            "Experimentation",
+            "Measurable growth"
+          ],
+          "word": "Measure → Learn → Scale"
+        },
+        {
+          "title": "Tool Integration",
+          "short": "Integrations",
+          "headline": "Your tools, working together.",
+          "body": "We connect the marketing and sales stack so information flows between systems and your team can follow through on each opportunity.",
+          "outputs": [
+            "CRM",
+            "Marketing and sales",
+            "Automations"
+          ],
+          "word": "One connected ecosystem."
+        },
+        {
+          "title": "Data & Dashboards",
+          "short": "Data & Dashboards",
+          "headline": "Data that helps you decide.",
+          "body": "We organize and connect business information in dashboards that help you understand what is happening and where the next opportunity lies.",
+          "outputs": [
+            "Connected data",
+            "Dashboards",
+            "Informed decisions"
+          ],
+          "word": "Information → Decision"
+        },
+        {
+          "title": "AI Applied to Business",
+          "short": "Applied AI",
+          "headline": "Intelligence that does useful work.",
+          "body": "We apply AI and automation to real tasks and processes to save time, connect information and unlock growth.",
+          "outputs": [
+            "Applied AI",
+            "Automation",
+            "Operational efficiency"
+          ],
+          "word": "Input → Intelligence → Action"
+        }
+      ],
+      "processKicker": "How we work",
+      "processTitle": "From your challenge\nto a working solution.",
+      "process": [
+        [
+          "Understand your challenge",
+          "Listen to the business goal and what is holding your team back."
+        ],
+        [
+          "Design the solution",
+          "Define a concrete plan with the tools you need."
+        ],
+        [
+          "Execute",
+          "Build and share progress throughout development."
+        ],
+        [
+          "Measure and grow",
+          "Learn from results and scale what works."
+        ]
+      ],
+      "bridgeTitle": "A technology business unit.\nThe same Feat. team.",
+      "bridgeBody": "Makitha connects technology and strategy with marketing and sales teams. As part of Feat., it brings development, integrations, data and AI to brand, media and experience.",
+      "websiteCta": "Explore the Makitha website",
+      "closing": "Turn your challenge\ninto growth.",
+      "closingCta": "Start a conversation",
+      "next": "Connect technology with experience",
+      "nextName": "Experience & Tech"
+    }
+  }
+}
