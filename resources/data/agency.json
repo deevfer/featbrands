@@ -1,0 +1,244 @@
+{
+  "es": {
+    "cases": {
+      "name": "Casos",
+      "intro": "Una mirada a cómo conectamos estrategia, creatividad, medios y tecnología alrededor de un objetivo de negocio.",
+      "kicker": "El trabajo / Las conexiones / El resultado",
+      "title": "Ideas que",
+      "accent": "se vuelven acción.",
+      "heroNote": "Cada reto encuentra su combinación de especialidades.",
+      "aboutLink": "Así trabajamos en Feat.",
+      "archiveTitle": "Un reto. Varias disciplinas.",
+      "archiveIntro": "Explora los ejemplos por enfoque y abre cada uno para conocer el reto, el trabajo y el resultado.",
+      "filters": [
+        [
+          "all",
+          "Todos"
+        ],
+        [
+          "performance",
+          "Media & Data"
+        ],
+        [
+          "social",
+          "Social & Content"
+        ]
+      ],
+      "demoNote": "Ejemplos ilustrativos con datos demostrativos.",
+      "countSingular": "caso",
+      "countPlural": "casos",
+      "openLabel": "Explorar caso",
+      "closeLabel": "Cerrar detalle",
+      "challengeLabel": "El reto",
+      "approachLabel": "El trabajo",
+      "resultLabel": "El resultado",
+      "serviceLabel": "Explora la especialidad",
+      "empty": "No hay casos para este enfoque.",
+      "studies": [
+        {
+          "category": "performance",
+          "categoryLabel": "Media & Data",
+          "title": "Conectar inversión y creatividad.",
+          "artWords": [
+            "LA IDEA.",
+            "EL MEDIO.",
+            "EL MOMENTO."
+          ],
+          "challenge": "Alinear los medios y los mensajes con el objetivo comercial de una campaña de temporada.",
+          "approach": "Reestructurar la inversión de medios y trabajar creatividad dinámica para dar continuidad a la campaña en tres mercados.",
+          "service": "performance"
+        },
+        {
+          "category": "social",
+          "categoryLabel": "Social & Content",
+          "title": "Darle alcance a una conversación.",
+          "artWords": [
+            "CONVERSAR.",
+            "CONECTAR."
+          ],
+          "challenge": "Ampliar el alcance de una marca de consumo masivo a partir de una conexión relevante con las personas.",
+          "approach": "Combinar una estrategia de conexión social con contenido desarrollado para dar consistencia a la conversación.",
+          "service": "social"
+        },
+        {
+          "category": "performance",
+          "categoryLabel": "Media & Data",
+          "title": "Encontrar dónde mejorar el embudo.",
+          "artWords": [
+            "DATA",
+            "↗"
+          ],
+          "challenge": "Identificar oportunidades para mejorar el costo de adquisición en una operación de tecnología y e-commerce.",
+          "approach": "Empezar con una auditoría de ejecución y aplicar data science a la optimización del embudo.",
+          "service": "performance"
+        }
+      ],
+      "closingKicker": "La siguiente conversación",
+      "closing": "¿Qué reto quieres\nponer sobre la mesa?",
+      "closingBody": "Encontremos las especialidades que necesita tu proyecto y una dirección compartida para hacerlo avanzar.",
+      "closingCta": "Hablemos de tu proyecto"
+    },
+    "about": {
+      "name": "Nosotros",
+      "intro": "Somos Feat. Un equipo que combina estrategia, creatividad, medios y tecnología para acelerar el desarrollo de las marcas.",
+      "kicker": "Nosotros / Collab Driven Growth",
+      "title": "El crecimiento",
+      "accent": "se hace en equipo.",
+      "heroNote": "Distintas especialidades. Un mismo objetivo.",
+      "scrollLabel": "Conoce nuestra forma de trabajar",
+      "manifestoKicker": "Lo que nos mueve",
+      "manifesto": "La colaboración es nuestra forma de trabajar.",
+      "manifestoBody": "Cada reto reúne a las especialidades que necesita. Compartimos el contexto, construimos una dirección y trabajamos como un solo equipo responsable del resultado.",
+      "principles": [
+        [
+          "Compartir el reto",
+          "Empezamos por entender el negocio. El objetivo es el punto de encuentro de todas las disciplinas."
+        ],
+        [
+          "Cruzar las miradas",
+          "La estrategia conversa con la creatividad. Los medios, con la tecnología. Las ideas mejoran cuando se conectan."
+        ],
+        [
+          "Hacernos cargo",
+          "Damos continuidad al trabajo, aprendemos de lo que ocurre y mantenemos el objetivo a la vista."
+        ]
+      ],
+      "servicesKicker": "Cómo se conecta Feat.",
+      "servicesTitle": "Cinco especialidades.\nEl equipo que tu reto necesita.",
+      "servicesBody": "Combinamos las disciplinas alrededor de una misma dirección, desde la definición de la marca hasta la experiencia y el crecimiento.",
+      "serviceCta": "Conocer la especialidad",
+      "clientsKicker": "Relaciones que nos acompañan",
+      "clientsBody": "Las marcas se construyen con conversaciones, confianza y trabajo compartido.",
+      "awardsKicker": "Reconocimientos",
+      "awardsTitle": "Ideas con\nrespaldo en el trabajo.",
+      "marketsKicker": "Cerca de cada mercado",
+      "marketsTitle": "Guatemala como\npunto de encuentro.",
+      "marketsBody": "Con base en Guatemala y presencia local en los mercados, conectamos el contexto de cada lugar con una mirada regional.",
+      "closing": "Trae tu reto.\nSumemos miradas.",
+      "closingCta": "Conversemos",
+      "workLink": "Explora cómo se traduce en trabajo",
+      "workName": "Ver casos"
+    }
+  },
+  "en": {
+    "cases": {
+      "name": "Work",
+      "intro": "A look at how we connect strategy, creative, media and technology around a business objective.",
+      "kicker": "The work / The connections / The outcome",
+      "title": "Ideas put",
+      "accent": "into action.",
+      "heroNote": "Every challenge finds its combination of specialties.",
+      "aboutLink": "How we work at Feat.",
+      "archiveTitle": "One challenge. Many disciplines.",
+      "archiveIntro": "Explore the examples by focus and open each one to see the challenge, the work and the outcome.",
+      "filters": [
+        [
+          "all",
+          "All"
+        ],
+        [
+          "performance",
+          "Media & Data"
+        ],
+        [
+          "social",
+          "Social & Content"
+        ]
+      ],
+      "demoNote": "Illustrative examples with demonstration data.",
+      "countSingular": "case",
+      "countPlural": "cases",
+      "openLabel": "Explore case",
+      "closeLabel": "Close details",
+      "challengeLabel": "The challenge",
+      "approachLabel": "The work",
+      "resultLabel": "The outcome",
+      "serviceLabel": "Explore the specialty",
+      "empty": "No cases match this focus.",
+      "studies": [
+        {
+          "category": "performance",
+          "categoryLabel": "Media & Data",
+          "title": "Connect investment and creative.",
+          "artWords": [
+            "THE IDEA.",
+            "THE MEDIA.",
+            "THE MOMENT."
+          ],
+          "challenge": "Align media and messaging with the commercial goal of a seasonal campaign.",
+          "approach": "Restructure media investment and work with dynamic creative to carry the campaign across three markets.",
+          "service": "performance"
+        },
+        {
+          "category": "social",
+          "categoryLabel": "Social & Content",
+          "title": "Give a conversation more reach.",
+          "artWords": [
+            "CONVERSE.",
+            "CONNECT."
+          ],
+          "challenge": "Expand the reach of a consumer brand through a relevant connection with people.",
+          "approach": "Combine a social connection strategy with content developed to keep the conversation consistent.",
+          "service": "social"
+        },
+        {
+          "category": "performance",
+          "categoryLabel": "Media & Data",
+          "title": "Find the opportunity in the funnel.",
+          "artWords": [
+            "DATA",
+            "↗"
+          ],
+          "challenge": "Identify opportunities to improve acquisition cost for a technology and e-commerce business.",
+          "approach": "Start with an execution audit and apply data science to funnel optimization.",
+          "service": "performance"
+        }
+      ],
+      "closingKicker": "The next conversation",
+      "closing": "What challenge will\nyou bring to the table?",
+      "closingBody": "Find the specialties your project needs and a shared direction to move it forward.",
+      "closingCta": "Let’s talk about your project"
+    },
+    "about": {
+      "name": "About",
+      "intro": "We are Feat. A team combining strategy, creative, media and technology to accelerate brand development.",
+      "kicker": "About us / Collab Driven Growth",
+      "title": "Growth happens",
+      "accent": "together.",
+      "heroNote": "Different specialties. One shared goal.",
+      "scrollLabel": "Explore how we work",
+      "manifestoKicker": "What drives us",
+      "manifesto": "Collaboration is how we work.",
+      "manifestoBody": "Each challenge brings together the specialties it needs. We share the context, build a direction and work as one team accountable for the outcome.",
+      "principles": [
+        [
+          "Share the challenge",
+          "We start by understanding the business. The objective is where all disciplines meet."
+        ],
+        [
+          "Connect perspectives",
+          "Strategy talks to creative. Media talks to technology. Ideas improve when they connect."
+        ],
+        [
+          "Take ownership",
+          "We keep the work moving, learn from what happens and keep the objective in view."
+        ]
+      ],
+      "servicesKicker": "How Feat. connects",
+      "servicesTitle": "Five specialties.\nThe team your challenge needs.",
+      "servicesBody": "We combine disciplines around a shared direction, from defining the brand to experience and growth.",
+      "serviceCta": "Meet the specialty",
+      "clientsKicker": "Relationships along the way",
+      "clientsBody": "Brands are built through conversation, trust and shared work.",
+      "awardsKicker": "Recognition",
+      "awardsTitle": "Ideas backed\nby the work.",
+      "marketsKicker": "Close to each market",
+      "marketsTitle": "Guatemala as\nour meeting point.",
+      "marketsBody": "Headquartered in Guatemala, with local presence across our markets, we connect each place’s context with a regional perspective.",
+      "closing": "Bring your challenge.\nLet’s connect perspectives.",
+      "closingCta": "Let’s talk",
+      "workLink": "See how it translates into work",
+      "workName": "Explore work"
+    }
+  }
+}
