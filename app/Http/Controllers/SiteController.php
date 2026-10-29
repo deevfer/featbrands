@@ -682,6 +682,16 @@ class SiteController extends Controller
             );
         }
 
+        if ($page === 'experience') {
+            [$copy, $pageSeo] = $this->experienceCms(
+                $copy,
+                $locale,
+                $query,
+                $contactUrl,
+                $serviceUrls['performance']
+            );
+        }
+
         // TÍTULOS Y DESCRIPCIONES GENERALES
         // ------------------------------------
 
@@ -698,7 +708,7 @@ class SiteController extends Controller
             default => $copy['intro'],
         };
 
-        if (in_array($page, ['home', 'performance', 'brand'], true) && $pageSeo) {
+        if (in_array($page, ['home', 'performance', 'brand', 'experience'], true) && $pageSeo) {
             $pageTitle = $pageSeo['title'];
             $pageDescription = $pageSeo['description'];
         }
@@ -1608,6 +1618,348 @@ class SiteController extends Controller
 
                 'en' => route(
                     'brand',
+                    ['lang' => 'en']
+                ),
+            ],
+        ];
+
+        return [$copy, $pageSeo];
+    }
+    // ------------------------------------
+    // CMS - EXPERIENCE & TECH
+    // ------------------------------------
+
+    private function experienceCms(
+        array $copy,
+        string $locale,
+        array $query,
+        string $contactUrl,
+        string $performanceUrl
+    ): array {
+        $records = PageSection::query()
+            ->where('page', 'experience')
+            ->get()
+            ->keyBy('section');
+
+        $read = static function (string $section) use (
+            $records,
+            $locale
+        ): array {
+            $content = $records
+                ->get($section)
+                ?->getAttribute('content_' . $locale);
+
+            return is_array($content) ? $content : [];
+        };
+
+        // ------------------------------------
+        // 1 A 5. CAMPOS DE TEXTO
+        // ------------------------------------
+
+        $fieldsBySection = [
+            'hero' => [
+                'name',
+                'title',
+                'accent',
+                'intro',
+                'cta',
+                'kicker',
+                'orbitCenter',
+            ],
+
+            'journey' => [
+                'journeyKicker',
+                'journeyTitle',
+                'journeyBody',
+                'nextStep',
+                'restart',
+            ],
+
+            'build' => [
+                'buildKicker',
+                'buildTitle',
+            ],
+
+            'connect' => [
+                'connectTitle',
+                'connectBody',
+            ],
+
+            'closing' => [
+                'closing',
+                'closingCta',
+                'next',
+                'nextName',
+            ],
+        ];
+
+        foreach ($fieldsBySection as $section => $fields) {
+            $saved = $read($section);
+
+            foreach ($fields as $field) {
+                if (
+                    array_key_exists($field, $saved)
+                    && is_string($saved[$field])
+                ) {
+                    $copy[$field] = $saved[$field];
+                }
+            }
+        }
+
+        // ------------------------------------
+        // 1. PORTADA Y ELEMENTOS ORBITALES
+        // ------------------------------------
+
+        $hero = $read('hero');
+
+        $copy['ctaHref'] = $this->cmsUrl(
+            $hero['ctaHref'] ?? null,
+            $contactUrl,
+            $query
+        );
+
+        $copy['coverFootRight'] =
+            $hero['coverFootRight']
+            ?? 'UX / UI / E-commerce / Tech';
+
+        // Mantener exactamente tres etiquetas para
+        // preservar los índices y estilos originales.
+        $savedOrbitWords = $hero['orbitWords'] ?? [];
+
+        if (is_array($savedOrbitWords)) {
+            foreach ($copy['orbitWords'] as $index => $original) {
+                $item = $savedOrbitWords[$index] ?? null;
+
+                if (
+                    is_array($item)
+                    && is_string($item['word'] ?? null)
+                ) {
+                    $copy['orbitWords'][$index] = $item['word'];
+                }
+            }
+        }
+
+        // ------------------------------------
+        // 2. RECORRIDO INTERACTIVO
+        // ------------------------------------
+
+        $journey = $read('journey');
+
+        $copy['browserLabel'] =
+            $journey['browserLabel']
+            ?? 'feat. / experience design';
+
+        $copy['progressLabel'] =
+            $journey['progressLabel']
+            ?? '01 → 02 → 03';
+
+        $savedSteps = $journey['steps'] ?? [];
+
+        $stepFields = [
+            'label',
+            'title',
+            'body',
+            'screenKicker',
+            'screenTitle',
+            'screenAction',
+            'screenNote',
+        ];
+
+        // Se conservan las tres etapas originales.
+        // Nunca se agregan o eliminan paneles,
+        // pestañas ni índices del JavaScript.
+        if (is_array($savedSteps)) {
+            foreach ($copy['steps'] as $index => $original) {
+                $saved = $savedSteps[$index] ?? null;
+
+                if (!is_array($saved)) {
+                    continue;
+                }
+
+                foreach ($stepFields as $field) {
+                    if (
+                        array_key_exists($field, $saved)
+                        && is_string($saved[$field])
+                    ) {
+                        $copy['steps'][$index][$field] =
+                            $saved[$field];
+                    }
+                }
+            }
+        }
+
+        // ------------------------------------
+        // 3. DISCIPLINAS Y SERVICIOS
+        // ------------------------------------
+
+        $buildSection = $read('build');
+
+        $savedBuild = $buildSection['build'] ?? [];
+
+        // El Blade espera tríos de valores:
+        // [título, descripción, etiquetas].
+        if (is_array($savedBuild)) {
+            foreach ($copy['build'] as $index => $original) {
+                $saved = $savedBuild[$index] ?? null;
+
+                if (!is_array($saved)) {
+                    continue;
+                }
+
+                foreach ([
+                    'title' => 0,
+                    'description' => 1,
+                    'tags' => 2,
+                ] as $field => $position) {
+                    if (
+                        array_key_exists($field, $saved)
+                        && is_string($saved[$field])
+                    ) {
+                        $copy['build'][$index][$position] =
+                            $saved[$field];
+                    }
+                }
+            }
+        }
+
+        // ------------------------------------
+        // 4. DIAGRAMA DE CONEXIÓN
+        // ------------------------------------
+
+        $connectSection = $read('connect');
+
+        $savedLabels =
+            $connectSection['connectLabels'] ?? [];
+
+        // Se conservan los tres nodos originales
+        // y sus respectivos símbolos y líneas.
+        if (is_array($savedLabels)) {
+            foreach ($copy['connectLabels'] as $index => $original) {
+                $item = $savedLabels[$index] ?? null;
+
+                if (
+                    is_array($item)
+                    && is_string($item['label'] ?? null)
+                ) {
+                    $copy['connectLabels'][$index] =
+                        $item['label'];
+                }
+            }
+        }
+
+        // ------------------------------------
+        // 5. ENLACES DEL CIERRE
+        // ------------------------------------
+
+        $closing = $read('closing');
+
+        $copy['closingHref'] = $this->cmsUrl(
+            $closing['closingHref'] ?? null,
+            $contactUrl,
+            $query
+        );
+
+        $copy['nextHref'] = $this->cmsUrl(
+            $closing['nextHref'] ?? null,
+            $performanceUrl,
+            $query
+        );
+
+        // ------------------------------------
+        // 6. SEO Y LINKEDIN
+        // ------------------------------------
+
+        $seo = $read('seo');
+
+        $defaultTitle = ($copy['name'] ?? 'Experience & Tech')
+            . ' — Feat.';
+
+        $metaTitle = trim(
+            (string) ($seo['meta_title'] ?? '')
+        );
+
+        if ($metaTitle === '') {
+            $metaTitle = $defaultTitle;
+        }
+
+        $metaDescription = trim(
+            (string) ($seo['meta_description'] ?? '')
+        );
+
+        if ($metaDescription === '') {
+            $metaDescription = $copy['intro'] ?? '';
+        }
+
+        $canonical = trim(
+            (string) ($seo['canonical_url'] ?? '')
+        );
+
+        $canonicalScheme = strtolower(
+            (string) parse_url(
+                $canonical,
+                PHP_URL_SCHEME
+            )
+        );
+
+        if (
+            !filter_var($canonical, FILTER_VALIDATE_URL)
+            || !in_array(
+                $canonicalScheme,
+                ['http', 'https'],
+                true
+            )
+        ) {
+            $canonical = route(
+                'experience',
+                ['lang' => $locale]
+            );
+        }
+
+        $pageSeo = [
+            'title' => $metaTitle,
+
+            'description' => $metaDescription,
+
+            'canonical' => $canonical,
+
+            'og_title' => filled($seo['og_title'] ?? null)
+                ? $seo['og_title']
+                : $metaTitle,
+
+            'og_description' => filled(
+                $seo['og_description'] ?? null
+            )
+                ? $seo['og_description']
+                : $metaDescription,
+
+            'og_image' => $this->absoluteImageUrl(
+                $seo['og_image'] ?? null
+            ),
+
+            'og_image_alt' => $seo['og_image_alt'] ?? '',
+
+            'robots' => (
+                ($seo['robots_index'] ?? true)
+                    ? 'index'
+                    : 'noindex'
+            ) . ', ' . (
+                ($seo['robots_follow'] ?? true)
+                    ? 'follow'
+                    : 'nofollow'
+            ),
+
+            'og_locale' => $locale === 'es'
+                ? 'es_LA'
+                : 'en_US',
+
+            'alternates' => [
+                'es' => route(
+                    'experience',
+                    ['lang' => 'es']
+                ),
+
+                'en' => route(
+                    'experience',
                     ['lang' => 'en']
                 ),
             ],

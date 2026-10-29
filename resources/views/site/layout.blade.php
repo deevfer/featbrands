@@ -8,7 +8,7 @@
     <title>{{ $pageTitle }}</title>
 
     {{-- INICIO: SEO dinámico de Home --}}
-    @if (in_array($page, ['home', 'performance', 'brand'], true) && !empty($pageSeo))
+    @if (in_array($page, ['home', 'performance', 'brand', 'experience'], true) && !empty($pageSeo))
         <meta name="robots" content="{{ $pageSeo['robots'] }}">
 
         <link rel="canonical" href="{{ $pageSeo['canonical'] }}">
