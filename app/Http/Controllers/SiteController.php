@@ -662,6 +662,16 @@ class SiteController extends Controller
         }
 
         // ------------------------------------
+        if ($page === 'performance') {
+            [$t, $pageSeo] = $this->performanceCms(
+                $t,
+                $locale,
+                $query,
+                $contactUrl,
+                $serviceUrls
+            );
+        }
+
         // TÍTULOS Y DESCRIPCIONES GENERALES
         // ------------------------------------
 
@@ -678,7 +688,7 @@ class SiteController extends Controller
             default => $copy['intro'],
         };
 
-        if ($page === 'home' && $pageSeo) {
+        if (in_array($page, ['home', 'performance'], true) && $pageSeo) {
             $pageTitle = $pageSeo['title'];
             $pageDescription = $pageSeo['description'];
         }
@@ -1063,5 +1073,275 @@ class SiteController extends Controller
         }
 
         return $result;
+    }
+    // ------------------------------------
+    // CMS - PERFORMANCE & CONNECTIONS
+    // ------------------------------------
+
+    private function performanceCms(
+        array $t,
+        string $locale,
+        array $query,
+        string $contactUrl,
+        array $serviceUrls
+    ): array {
+        $records = PageSection::query()
+            ->where('page', 'performance')
+            ->get()
+            ->keyBy('section');
+
+        $read = static function (string $section) use (
+            $records,
+            $locale
+        ): array {
+            $content = $records
+                ->get($section)
+                ?->getAttribute('content_' . $locale);
+
+            return is_array($content) ? $content : [];
+        };
+
+        // ------------------------------------
+        // TEXTOS DE LAS SECCIONES
+        // ------------------------------------
+
+        $fieldGroups = [
+            'hero' => [
+                'crumbServices',
+                'crumbCurrent',
+                'kicker',
+                'h1',
+                'answerTag',
+                'answer',
+            ],
+            'problem' => [
+                'problemH',
+                'problem',
+            ],
+            'capabilities' => [
+                'capsH',
+            ],
+            'process' => [
+                'processH',
+            ],
+            'cases' => [
+                'casesH',
+            ],
+            'faq' => [
+                'faqH',
+            ],
+            'cta' => [
+                'ctaTitle',
+                'ctaBody',
+                'ctaBtn',
+            ],
+        ];
+
+        foreach ($fieldGroups as $section => $fields) {
+            $saved = $read($section);
+
+            foreach ($fields as $field) {
+                if (array_key_exists($field, $saved)) {
+                    $t['perf'][$field] = $saved[$field];
+                }
+            }
+        }
+
+        // ------------------------------------
+        // LISTADOS DINÁMICOS
+        // ------------------------------------
+
+        $lists = [
+            'capabilities' => ['saved' => 'caps', 'view' => 'caps'],
+            'process' => ['saved' => 'process', 'view' => 'process'],
+            'cases' => ['saved' => 'cards', 'view' => 'cases'],
+            'faq' => ['saved' => 'faq', 'view' => 'faq'],
+        ];
+
+        foreach ($lists as $section => $keys) {
+            $saved = $read($section);
+
+            $items = $saved[$keys['saved']] ?? null;
+
+            if (!is_array($items)) {
+                continue;
+            }
+
+            $t['perf'][$keys['view']] = array_values(
+                array_filter(
+                    $items,
+                    static fn ($item): bool => is_array($item)
+                )
+            );
+        }
+
+        // La etiqueta de los casos solo cambia en Performance.
+        $caseSection = $read('cases');
+
+        if (array_key_exists('demoTag', $caseSection)) {
+            $t['demoTag'] = $caseSection['demoTag'];
+        }
+
+        // ------------------------------------
+        // BOTÓN DEL LLAMADO A LA ACCIÓN
+        // ------------------------------------
+
+        $ctaSection = $read('cta');
+
+        $t['perf']['ctaHref'] = $this->cmsUrl(
+            $ctaSection['ctaHref'] ?? null,
+            $contactUrl,
+            $query
+        );
+
+        // ------------------------------------
+        // SERVICIOS RELACIONADOS
+        // ------------------------------------
+
+        $relatedSection = $read('related');
+
+        $savedCards = $relatedSection['cards'] ?? [];
+
+        $originalCards = $t['perf']['related'] ?? [];
+
+        $relatedCards = [];
+
+        foreach ($originalCards as $index => $original) {
+            $saved = is_array($savedCards[$index] ?? null)
+                ? $savedCards[$index]
+                : [];
+
+            // Solo se actualizan textos y enlaces.
+            // Los colores originales no se modifican.
+            $card = array_replace(
+                $original,
+                array_intersect_key(
+                    $saved,
+                    array_flip([
+                        'tag',
+                        'title',
+                        'desc',
+                        'cta',
+                    ])
+                )
+            );
+
+            $card['bg'] = $original['bg'];
+
+            $defaultRoute = $index === 0
+                ? 'experience'
+                : 'social';
+
+            $card['href'] = $this->cmsUrl(
+                $saved['href'] ?? null,
+                $serviceUrls[$defaultRoute],
+                $query
+            );
+
+            $relatedCards[] = $card;
+        }
+
+        $t['perf']['related'] = $relatedCards;
+
+        // ------------------------------------
+        // SEO DE PERFORMANCE
+        // ------------------------------------
+
+        $seo = $read('seo');
+
+        $defaultTitle = 'Performance & Connections — Feat.';
+
+        $metaTitle = trim(
+            (string) ($seo['meta_title'] ?? '')
+        );
+
+        if ($metaTitle === '') {
+            $metaTitle = $defaultTitle;
+        }
+
+        $metaDescription = trim(
+            (string) ($seo['meta_description'] ?? '')
+        );
+
+        if ($metaDescription === '') {
+            $metaDescription = $t['perf']['answer'];
+        }
+
+        $canonical = trim(
+            (string) ($seo['canonical_url'] ?? '')
+        );
+
+        $canonicalScheme = strtolower(
+            (string) parse_url(
+                $canonical,
+                PHP_URL_SCHEME
+            )
+        );
+
+        if (
+            !filter_var($canonical, FILTER_VALIDATE_URL)
+            || !in_array(
+                $canonicalScheme,
+                ['http', 'https'],
+                true
+            )
+        ) {
+            $canonical = route(
+                'performance',
+                ['lang' => $locale]
+            );
+        }
+
+        $pageSeo = [
+            'title' => $metaTitle,
+
+            'description' => $metaDescription,
+
+            'canonical' => $canonical,
+
+            'og_title' => filled($seo['og_title'] ?? null)
+                ? $seo['og_title']
+                : $metaTitle,
+
+            'og_description' => filled(
+                $seo['og_description'] ?? null
+            )
+                ? $seo['og_description']
+                : $metaDescription,
+
+            'og_image' => $this->absoluteImageUrl(
+                $seo['og_image'] ?? null
+            ),
+
+            'og_image_alt' => $seo['og_image_alt'] ?? '',
+
+            'robots' => (
+                ($seo['robots_index'] ?? true)
+                    ? 'index'
+                    : 'noindex'
+            ) . ', ' . (
+                ($seo['robots_follow'] ?? true)
+                    ? 'follow'
+                    : 'nofollow'
+            ),
+
+            'og_locale' => $locale === 'es'
+                ? 'es_LA'
+                : 'en_US',
+
+            'alternates' => [
+                'es' => route(
+                    'performance',
+                    ['lang' => 'es']
+                ),
+
+                'en' => route(
+                    'performance',
+                    ['lang' => 'en']
+                ),
+            ],
+        ];
+
+        return [$t, $pageSeo];
     }
 }
