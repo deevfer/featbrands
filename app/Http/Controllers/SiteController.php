@@ -692,6 +692,16 @@ class SiteController extends Controller
             );
         }
 
+        if ($page === 'makitha') {
+            [$copy, $pageSeo] = $this->makithaCms(
+                $copy,
+                $locale,
+                $query,
+                $contactUrl,
+                $serviceUrls['experience']
+            );
+        }
+
         // TÍTULOS Y DESCRIPCIONES GENERALES
         // ------------------------------------
 
@@ -708,7 +718,7 @@ class SiteController extends Controller
             default => $copy['intro'],
         };
 
-        if (in_array($page, ['home', 'performance', 'brand', 'experience'], true) && $pageSeo) {
+        if (in_array($page, ['home', 'performance', 'brand', 'experience', 'makitha'], true) && $pageSeo) {
             $pageTitle = $pageSeo['title'];
             $pageDescription = $pageSeo['description'];
         }
@@ -1960,6 +1970,382 @@ class SiteController extends Controller
 
                 'en' => route(
                     'experience',
+                    ['lang' => 'en']
+                ),
+            ],
+        ];
+
+        return [$copy, $pageSeo];
+    }
+    // ------------------------------------
+    // CMS - MAKITHA
+    // ------------------------------------
+
+    private function makithaCms(
+        array $copy,
+        string $locale,
+        array $query,
+        string $contactUrl,
+        string $experienceUrl
+    ): array {
+        $records = PageSection::query()
+            ->where('page', 'makitha')
+            ->get()
+            ->keyBy('section');
+
+        $read = static function (string $section) use (
+            $records,
+            $locale
+        ): array {
+            $content = $records
+                ->get($section)
+                ?->getAttribute('content_' . $locale);
+
+            return is_array($content) ? $content : [];
+        };
+
+        // ------------------------------------
+        // 1 A 5. TEXTOS EDITABLES
+        // ------------------------------------
+
+        $fieldsBySection = [
+            'hero' => [
+                'name',
+                'kicker',
+                'title',
+                'accent',
+                'intro',
+                'cta',
+                'explore',
+                'mastheadRight',
+                'heroEyebrow',
+                'engineTagline',
+                'engineTitle',
+                'engineCenter',
+                'engineNote',
+                'engineFoot',
+            ],
+
+            'solutions' => [
+                'solutionsKicker',
+                'solutionsTitle',
+                'solutionsIntro',
+            ],
+
+            'process' => [
+                'processKicker',
+                'processTitle',
+            ],
+
+            'bridge' => [
+                'bridgeTitle',
+                'bridgeBody',
+                'websiteCta',
+            ],
+
+            'closing' => [
+                'closingEyebrow',
+                'closing',
+                'closingCta',
+                'next',
+                'nextName',
+            ],
+        ];
+
+        foreach ($fieldsBySection as $section => $fields) {
+            $saved = $read($section);
+
+            foreach ($fields as $field) {
+                if (
+                    array_key_exists($field, $saved)
+                    && is_string($saved[$field])
+                ) {
+                    $copy[$field] = $saved[$field];
+                }
+            }
+        }
+
+        // ------------------------------------
+        // 1. PORTADA Y MOTOR DE CRECIMIENTO
+        // ------------------------------------
+
+        $hero = $read('hero');
+
+        // El formulario guarda un título completo y
+        // también title/accent para el Blade original.
+        // Así conservamos el elemento <em> y su estilo.
+
+        if (
+            !array_key_exists('title', $hero)
+            && is_string($hero['fullTitle'] ?? null)
+        ) {
+            $fullTitle = trim($hero['fullTitle']);
+
+            if (preg_match(
+                '/^(.+)\s+(\S+)$/us',
+                $fullTitle,
+                $parts
+            )) {
+                $copy['title'] = $parts[1];
+                $copy['accent'] = $parts[2];
+            }
+        }
+
+        $copy['mastheadRight'] =
+            $copy['mastheadRight']
+            ?? 'MAKITHA / FEAT.';
+
+        $copy['heroEyebrow'] =
+            $copy['heroEyebrow']
+            ?? 'Makitha / Tech Growth Partner';
+
+        $copy['engineTagline'] =
+            $copy['engineTagline']
+            ?? 'tech + strategy';
+
+        $copy['ctaHref'] = $this->cmsUrl(
+            $hero['ctaHref'] ?? null,
+            $contactUrl,
+            $query
+        );
+
+        // Mantener exactamente cuatro nodos:
+        // posiciones e ilustraciones originales.
+        $savedNodes = $hero['engineNodes'] ?? [];
+
+        if (is_array($savedNodes)) {
+            foreach ($copy['engineNodes'] as $index => $original) {
+                $item = $savedNodes[$index] ?? null;
+
+                if (
+                    is_array($item)
+                    && is_string($item['text'] ?? null)
+                ) {
+                    $copy['engineNodes'][$index] =
+                        $item['text'];
+                }
+            }
+        }
+
+        // ------------------------------------
+        // 2. LAS SEIS SOLUCIONES
+        // ------------------------------------
+
+        $solutionsSection = $read('solutions');
+        $savedSolutions = $solutionsSection['solutions'] ?? [];
+
+        $solutionFields = [
+            'title',
+            'short',
+            'headline',
+            'body',
+            'word',
+        ];
+
+        // Se mantienen los seis paneles originales.
+        // Cada posición corresponde a una ilustración
+        // diferente y a un índice del JavaScript.
+        if (is_array($savedSolutions)) {
+            foreach ($copy['solutions'] as $index => $original) {
+                $saved = $savedSolutions[$index] ?? null;
+
+                if (!is_array($saved)) {
+                    continue;
+                }
+
+                foreach ($solutionFields as $field) {
+                    if (
+                        array_key_exists($field, $saved)
+                        && is_string($saved[$field])
+                    ) {
+                        $copy['solutions'][$index][$field] =
+                            $saved[$field];
+                    }
+                }
+
+                // Filament guarda outputs como:
+                // [['text' => '...'], ...]
+                // El Blade espera una lista de textos.
+                $savedOutputs = $saved['outputs'] ?? [];
+
+                if (!is_array($savedOutputs)) {
+                    continue;
+                }
+
+                foreach (
+                    $original['outputs'] as $outputIndex => $originalOutput
+                ) {
+                    $output = $savedOutputs[$outputIndex] ?? null;
+
+                    if (
+                        is_array($output)
+                        && is_string($output['text'] ?? null)
+                    ) {
+                        $copy['solutions'][$index]['outputs'][$outputIndex] =
+                            $output['text'];
+                    }
+                }
+            }
+        }
+
+        // ------------------------------------
+        // 3. LAS CUATRO ETAPAS DEL PROCESO
+        // ------------------------------------
+
+        $processSection = $read('process');
+        $savedProcess = $processSection['process'] ?? [];
+
+        // El Blade espera:
+        // [título, descripción]
+        if (is_array($savedProcess)) {
+            foreach ($copy['process'] as $index => $original) {
+                $saved = $savedProcess[$index] ?? null;
+
+                if (!is_array($saved)) {
+                    continue;
+                }
+
+                if (is_string($saved['title'] ?? null)) {
+                    $copy['process'][$index][0] =
+                        $saved['title'];
+                }
+
+                if (is_string($saved['description'] ?? null)) {
+                    $copy['process'][$index][1] =
+                        $saved['description'];
+                }
+            }
+        }
+
+        // ------------------------------------
+        // 4. MAKITHA + FEAT.
+        // ------------------------------------
+
+        $bridge = $read('bridge');
+
+        $copy['websiteHref'] = $this->cmsUrl(
+            $bridge['websiteHref'] ?? null,
+            'https://www.makitha.com/?lang=' . $locale,
+            $query
+        );
+
+        // ------------------------------------
+        // 5. CIERRE
+        // ------------------------------------
+
+        $closing = $read('closing');
+
+        $copy['closingEyebrow'] =
+            $copy['closingEyebrow']
+            ?? 'Intelligence for scalable growth.';
+
+        $copy['closingHref'] = $this->cmsUrl(
+            $closing['closingHref'] ?? null,
+            $contactUrl,
+            $query
+        );
+
+        $copy['nextHref'] = $this->cmsUrl(
+            $closing['nextHref'] ?? null,
+            $experienceUrl,
+            $query
+        );
+
+        // ------------------------------------
+        // 6. SEO Y LINKEDIN
+        // ------------------------------------
+
+        $seo = $read('seo');
+
+        $defaultTitle = ($copy['name'] ?? 'Makitha')
+            . ' — Feat.';
+
+        $metaTitle = trim(
+            (string) ($seo['meta_title'] ?? '')
+        );
+
+        if ($metaTitle === '') {
+            $metaTitle = $defaultTitle;
+        }
+
+        $metaDescription = trim(
+            (string) ($seo['meta_description'] ?? '')
+        );
+
+        if ($metaDescription === '') {
+            $metaDescription = $copy['intro'] ?? '';
+        }
+
+        $canonical = trim(
+            (string) ($seo['canonical_url'] ?? '')
+        );
+
+        $canonicalScheme = strtolower(
+            (string) parse_url(
+                $canonical,
+                PHP_URL_SCHEME
+            )
+        );
+
+        if (
+            !filter_var($canonical, FILTER_VALIDATE_URL)
+            || !in_array(
+                $canonicalScheme,
+                ['http', 'https'],
+                true
+            )
+        ) {
+            $canonical = route(
+                'makitha',
+                ['lang' => $locale]
+            );
+        }
+
+        $pageSeo = [
+            'title' => $metaTitle,
+
+            'description' => $metaDescription,
+
+            'canonical' => $canonical,
+
+            'og_title' => filled($seo['og_title'] ?? null)
+                ? $seo['og_title']
+                : $metaTitle,
+
+            'og_description' => filled(
+                $seo['og_description'] ?? null
+            )
+                ? $seo['og_description']
+                : $metaDescription,
+
+            'og_image' => $this->absoluteImageUrl(
+                $seo['og_image'] ?? null
+            ),
+
+            'og_image_alt' => $seo['og_image_alt'] ?? '',
+
+            'robots' => (
+                ($seo['robots_index'] ?? true)
+                    ? 'index'
+                    : 'noindex'
+            ) . ', ' . (
+                ($seo['robots_follow'] ?? true)
+                    ? 'follow'
+                    : 'nofollow'
+            ),
+
+            'og_locale' => $locale === 'es'
+                ? 'es_LA'
+                : 'en_US',
+
+            'alternates' => [
+                'es' => route(
+                    'makitha',
+                    ['lang' => 'es']
+                ),
+
+                'en' => route(
+                    'makitha',
                     ['lang' => 'en']
                 ),
             ],
