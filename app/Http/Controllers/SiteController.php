@@ -672,6 +672,16 @@ class SiteController extends Controller
             );
         }
 
+        if ($page === 'brand') {
+            [$copy, $pageSeo] = $this->brandCms(
+                $copy,
+                $locale,
+                $query,
+                $contactUrl,
+                $serviceUrls['social']
+            );
+        }
+
         // TÍTULOS Y DESCRIPCIONES GENERALES
         // ------------------------------------
 
@@ -688,7 +698,7 @@ class SiteController extends Controller
             default => $copy['intro'],
         };
 
-        if (in_array($page, ['home', 'performance'], true) && $pageSeo) {
+        if (in_array($page, ['home', 'performance', 'brand'], true) && $pageSeo) {
             $pageTitle = $pageSeo['title'];
             $pageDescription = $pageSeo['description'];
         }
@@ -1343,5 +1353,266 @@ class SiteController extends Controller
         ];
 
         return [$t, $pageSeo];
+    }
+    // ------------------------------------
+    // CMS - BRAND & CONSULTING
+    // ------------------------------------
+
+    private function brandCms(
+        array $copy,
+        string $locale,
+        array $query,
+        string $contactUrl,
+        string $socialUrl
+    ): array {
+        $records = PageSection::query()
+            ->where('page', 'brand')
+            ->get()
+            ->keyBy('section');
+
+        $read = static function (string $section) use (
+            $records,
+            $locale
+        ): array {
+            $content = $records
+                ->get($section)
+                ?->getAttribute('content_' . $locale);
+
+            return is_array($content) ? $content : [];
+        };
+
+        // ------------------------------------
+        // 1 A 6. CONTENIDOS EDITABLES
+        // ------------------------------------
+
+        $fieldsBySection = [
+            'hero' => [
+                'name',
+                'title',
+                'accent',
+                'intro',
+                'kicker',
+                'lead',
+            ],
+
+            'specimen' => [
+                'sheet',
+                'specimen',
+                'stamp',
+                'note',
+            ],
+
+            'questions' => [
+                'questionsEyebrow',
+                'questionsTitle',
+                'questionsIntro',
+            ],
+
+            'system' => [
+                'systemKicker',
+                'systemTitle',
+                'systemAccent',
+                'identityLabel',
+                'identityBody',
+                'voiceLabel',
+                'voiceQuote',
+                'voiceBody',
+                'ecosystemLabel',
+                'ecosystemTitle',
+                'ecosystemBody',
+            ],
+
+            'workshop' => [
+                'workshopKicker',
+                'workshopTitle',
+                'workshopBody',
+            ],
+
+            'closing' => [
+                'closing',
+                'closingCta',
+                'next',
+                'nextName',
+            ],
+        ];
+
+        foreach ($fieldsBySection as $section => $fields) {
+            $saved = $read($section);
+
+            foreach ($fields as $field) {
+                if (
+                    array_key_exists($field, $saved)
+                    && is_string($saved[$field])
+                ) {
+                    $copy[$field] = $saved[$field];
+                }
+            }
+        }
+
+        // ------------------------------------
+        // 3. PREGUNTAS DESPLEGABLES
+        // ------------------------------------
+
+        $questionsSection = $read('questions');
+
+        if (is_array($questionsSection['questions'] ?? null)) {
+            $questions = [];
+
+            foreach ($questionsSection['questions'] as $item) {
+                if (!is_array($item)) {
+                    continue;
+                }
+
+                $questions[] = [
+                    (string) ($item['question'] ?? ''),
+                    (string) ($item['answer'] ?? ''),
+                ];
+            }
+
+            // El Blade original espera:
+            // [pregunta, respuesta]
+            $copy['questions'] = $questions;
+        }
+
+        // ------------------------------------
+        // 5. PASOS DEL WORKSHOP
+        // ------------------------------------
+
+        $workshopSection = $read('workshop');
+
+        if (is_array($workshopSection['workshopSteps'] ?? null)) {
+            $steps = [];
+
+            foreach ($workshopSection['workshopSteps'] as $item) {
+                if (!is_array($item)) {
+                    continue;
+                }
+
+                // El Blade original espera textos simples.
+                $steps[] = (string) ($item['text'] ?? '');
+            }
+
+            $copy['workshopSteps'] = $steps;
+        }
+
+        // ------------------------------------
+        // 6. ENLACES EDITABLES DEL CIERRE
+        // ------------------------------------
+
+        $closingSection = $read('closing');
+
+        $copy['closingHref'] = $this->cmsUrl(
+            $closingSection['closingHref'] ?? null,
+            $contactUrl,
+            $query
+        );
+
+        $copy['nextHref'] = $this->cmsUrl(
+            $closingSection['nextHref'] ?? null,
+            $socialUrl,
+            $query
+        );
+
+        // ------------------------------------
+        // 7. SEO Y LINKEDIN
+        // ------------------------------------
+
+        $seo = $read('seo');
+
+        $defaultTitle = ($copy['name'] ?? 'Brand & Consulting')
+            . ' — Feat.';
+
+        $metaTitle = trim(
+            (string) ($seo['meta_title'] ?? '')
+        );
+
+        if ($metaTitle === '') {
+            $metaTitle = $defaultTitle;
+        }
+
+        $metaDescription = trim(
+            (string) ($seo['meta_description'] ?? '')
+        );
+
+        if ($metaDescription === '') {
+            $metaDescription = $copy['intro'] ?? '';
+        }
+
+        $canonical = trim(
+            (string) ($seo['canonical_url'] ?? '')
+        );
+
+        $canonicalScheme = strtolower(
+            (string) parse_url(
+                $canonical,
+                PHP_URL_SCHEME
+            )
+        );
+
+        if (
+            !filter_var($canonical, FILTER_VALIDATE_URL)
+            || !in_array(
+                $canonicalScheme,
+                ['http', 'https'],
+                true
+            )
+        ) {
+            $canonical = route(
+                'brand',
+                ['lang' => $locale]
+            );
+        }
+
+        $pageSeo = [
+            'title' => $metaTitle,
+
+            'description' => $metaDescription,
+
+            'canonical' => $canonical,
+
+            'og_title' => filled($seo['og_title'] ?? null)
+                ? $seo['og_title']
+                : $metaTitle,
+
+            'og_description' => filled(
+                $seo['og_description'] ?? null
+            )
+                ? $seo['og_description']
+                : $metaDescription,
+
+            'og_image' => $this->absoluteImageUrl(
+                $seo['og_image'] ?? null
+            ),
+
+            'og_image_alt' => $seo['og_image_alt'] ?? '',
+
+            'robots' => (
+                ($seo['robots_index'] ?? true)
+                    ? 'index'
+                    : 'noindex'
+            ) . ', ' . (
+                ($seo['robots_follow'] ?? true)
+                    ? 'follow'
+                    : 'nofollow'
+            ),
+
+            'og_locale' => $locale === 'es'
+                ? 'es_LA'
+                : 'en_US',
+
+            'alternates' => [
+                'es' => route(
+                    'brand',
+                    ['lang' => 'es']
+                ),
+
+                'en' => route(
+                    'brand',
+                    ['lang' => 'en']
+                ),
+            ],
+        ];
+
+        return [$copy, $pageSeo];
     }
 }
