@@ -26,7 +26,7 @@
     </section>
 
     <section id="brand-questions" class="brand-questions service-width">
-        <div><p class="service-eyebrow">Strategy first.</p><h2>{{ $copy['questionsTitle'] }}</h2><p class="service-body">{{ $copy['questionsIntro'] }}</p></div>
+        <div><p class="service-eyebrow">{{ $copy['questionsEyebrow'] ?? 'Strategy first.' }}</p><h2>{{ $copy['questionsTitle'] }}</h2><p class="service-body">{{ $copy['questionsIntro'] }}</p></div>
         <div class="brand-question-list">
             @foreach ($copy['questions'] as $question)
                 <details name="brand-questions" @if ($loop->first) open @endif>
@@ -53,6 +53,6 @@
         <div><h2>{{ $copy['workshopTitle'] }}</h2><p class="service-body">{{ $copy['workshopBody'] }}</p><ol class="brand-workshop-steps">@foreach ($copy['workshopSteps'] as $step)<li><span>0{{ $loop->iteration }}</span>{{ $step }}</li>@endforeach</ol></div>
     </section>
 
-    <section class="brand-signoff"><div class="service-width"><p>{{ $copy['closing'] }}</p><a href="{{ $contactUrl }}">{{ $copy['closingCta'] }}<span aria-hidden="true">↗</span></a><div class="brand-next"><span>{{ $copy['next'] }}</span><a href="{{ $serviceUrls['social'] }}">{{ $copy['nextName'] }} →</a></div></div></section>
+    <section class="brand-signoff"><div class="service-width"><p>{{ $copy['closing'] }}</p><a href="{{ $copy['closingHref'] ?? $contactUrl }}">{{ $copy['closingCta'] }}<span aria-hidden="true">↗</span></a><div class="brand-next"><span>{{ $copy['next'] }}</span><a href="{{ $copy['nextHref'] ?? $serviceUrls['social'] }}">{{ $copy['nextName'] }} →</a></div></div></section>
 </main>
 @endsection

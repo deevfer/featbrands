@@ -7,17 +7,17 @@
             <div class="mk-tech-masthead">
                 <a class="service-back" href="{{ $homeUrl.'#servicios' }}">← {{ $t['nav'][0] }}</a>
                 <span>{{ $copy['kicker'] }}</span>
-                <span>MAKITHA / FEAT.</span>
+                <span>{{ $copy['mastheadRight'] ?? 'MAKITHA / FEAT.' }}</span>
             </div>
             <div class="mk-tech-cover">
                 <div>
-                    <p class="service-eyebrow">Makitha / Tech Growth Partner</p>
+                    <p class="service-eyebrow">{{ $copy['heroEyebrow'] ?? 'Makitha / Tech Growth Partner' }}</p>
                     <h1>{{ $copy['title'] }}<em>{{ $copy['accent'] }}</em></h1>
                     <p class="service-body">{{ $copy['intro'] }}</p>
-                    <div class="mk-tech-actions"><a class="service-button" href="{{ $contactUrl }}">{{ $copy['cta'] }} ↗</a><a class="mk-tech-explore" href="#makitha-solutions">{{ $copy['explore'] }} ↓</a></div>
+                    <div class="mk-tech-actions"><a class="service-button" href="{{ $copy['ctaHref'] ?? $contactUrl }}">{{ $copy['cta'] }} ↗</a><a class="mk-tech-explore" href="#makitha-solutions">{{ $copy['explore'] }} ↓</a></div>
                 </div>
                 <div class="mk-growth-engine" aria-label="{{ $copy['engineTitle'] }}">
-                    <div class="engine-heading"><img src="{{ asset('assets/makitha/wordmark-white.png') }}" alt="Makitha"><span>tech + strategy</span></div>
+                    <div class="engine-heading"><img src="{{ asset('assets/makitha/wordmark-white.png') }}" alt="Makitha"><span>{{ $copy['engineTagline'] ?? 'tech + strategy' }}</span></div>
                     <div class="engine-diagram">
                         <div class="engine-connections" aria-hidden="true"></div>
                         <span class="engine-core">{{ $copy['engineCenter'] }}<b aria-hidden="true">↗</b></span>
@@ -76,8 +76,8 @@
         <ol class="mk-cycle-steps">@foreach ($copy['process'] as $step)<li><span class="mk-cycle-number">0{{ $loop->iteration }}</span><h3>{{ $step[0] }}</h3><p>{{ $step[1] }}</p></li>@endforeach</ol>
     </section>
 
-    <section class="mk-feat-bridge"><div class="service-width"><div class="mk-brand-pair"><img src="{{ asset('assets/feat-white.svg') }}" alt="Feat."><span aria-hidden="true">+</span><img src="{{ asset('assets/makitha/wordmark-white.png') }}" alt="Makitha"></div><div><h2 class="preserve-lines">{{ $copy['bridgeTitle'] }}</h2><p class="service-body">{{ $copy['bridgeBody'] }}</p><a href="https://www.makitha.com/?lang={{ $locale }}" class="mk-website-link">{{ $copy['websiteCta'] }} <span aria-hidden="true">↗</span></a></div></div></section>
+    <section class="mk-feat-bridge"><div class="service-width"><div class="mk-brand-pair"><img src="{{ asset('assets/feat-white.svg') }}" alt="Feat."><span aria-hidden="true">+</span><img src="{{ asset('assets/makitha/wordmark-white.png') }}" alt="Makitha"></div><div><h2 class="preserve-lines">{{ $copy['bridgeTitle'] }}</h2><p class="service-body">{{ $copy['bridgeBody'] }}</p><a href="{{ $copy['websiteHref'] ?? ('https://www.makitha.com/?lang=' . $locale) }}" class="mk-website-link">{{ $copy['websiteCta'] }} <span aria-hidden="true">↗</span></a></div></div></section>
 
-    <section class="mk-tech-closing"><div class="service-width"><p class="service-eyebrow">Intelligence for scalable growth.</p><h2 class="preserve-lines">{{ $copy['closing'] }}</h2><a href="{{ $contactUrl }}">{{ $copy['closingCta'] }} <span aria-hidden="true">↗</span></a><div class="mk-tech-next"><span>{{ $copy['next'] }}</span><a href="{{ $serviceUrls['experience'] }}">{{ $copy['nextName'] }} →</a></div></div></section>
+    <section class="mk-tech-closing"><div class="service-width"><p class="service-eyebrow">{{ $copy['closingEyebrow'] ?? 'Intelligence for scalable growth.' }}</p><h2 class="preserve-lines">{{ $copy['closing'] }}</h2><a href="{{ $copy['closingHref'] ?? $contactUrl }}">{{ $copy['closingCta'] }} <span aria-hidden="true">↗</span></a><div class="mk-tech-next"><span>{{ $copy['next'] }}</span><a href="{{ $copy['nextHref'] ?? $serviceUrls['experience'] }}">{{ $copy['nextName'] }} →</a></div></div></section>
 </main>
 @endsection
