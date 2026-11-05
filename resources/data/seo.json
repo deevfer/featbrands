@@ -1,0 +1,86 @@
+{
+  "es": {
+    "home": {
+      "title": "Feat. — Estrategia, creatividad, marketing y tecnología",
+      "description": "Conectamos estrategia, creatividad, medios y tecnología para impulsar marcas y negocios. Conoce las especialidades, casos y perspectivas de Feat."
+    },
+    "performance": {
+      "title": "Performance & Connections — Growth marketing | Feat.",
+      "description": "Conecta medios, datos y estrategia con Performance & Connections de Feat. Conoce nuestro enfoque de growth marketing orientado a resultados de negocio."
+    },
+    "brand": {
+      "title": "Brand & Consulting — Estrategia de marca | Feat.",
+      "description": "Construye una dirección clara para tu marca con Brand & Consulting de Feat. Estrategia, posicionamiento e identidad conectados con los retos del negocio."
+    },
+    "social": {
+      "title": "Social Media Strategies — Estrategia social | Feat.",
+      "description": "Conecta tu marca con las personas a través de Social Media Strategies de Feat. Estrategia, contenido y comunidades con una dirección creativa clara."
+    },
+    "experience": {
+      "title": "Experience & Tech — Experiencias de marca | Feat.",
+      "description": "Explora cómo Experience & Tech de Feat. conecta creatividad y tecnología para diseñar experiencias de marca que acercan a las personas y los negocios."
+    },
+    "makitha": {
+      "title": "Makitha — Desarrollo y soluciones tecnológicas | Feat.",
+      "description": "Conoce Makitha, la unidad de tecnología de Feat. Desarrollo web, plataformas e integraciones para convertir necesidades de negocio en soluciones digitales."
+    },
+    "cases": {
+      "title": "Casos de estrategia, creatividad y tecnología | Feat.",
+      "description": "Explora los casos de Feat. y descubre cómo combinamos estrategia, creatividad, medios y tecnología para responder a los retos de marcas y negocios."
+    },
+    "about": {
+      "title": "Nosotros — Conoce a Feat. | Collab Driven Growth",
+      "description": "Conoce a Feat., nuestras especialidades y nuestra forma de colaborar. Sumamos distintas miradas para conectar marcas, personas y oportunidades de crecimiento."
+    },
+    "contact": {
+      "title": "Contacto — Hablemos de tu próximo proyecto | Feat.",
+      "description": "Cuéntanos qué necesita tu marca y conversemos sobre tu próximo proyecto. Contacta a Feat. para conectar estrategia, creatividad, medios y tecnología."
+    },
+    "blog": {
+      "title": "Blog de estrategia, marketing y tecnología | Feat.",
+      "description": "Ideas y perspectivas de Feat. sobre marcas, creatividad, publicidad, marketing y tecnología. Explora artículos, aprendizajes y nuevas formas de mirar el negocio."
+    }
+  },
+  "en": {
+    "home": {
+      "title": "Feat. — Strategy, creativity, marketing and technology",
+      "description": "We connect strategy, creativity, media and technology to help brands and businesses grow. Explore Feat.'s specializations, work and perspectives."
+    },
+    "performance": {
+      "title": "Performance & Connections — Growth marketing | Feat.",
+      "description": "Connect media, data and strategy with Performance & Connections at Feat. Discover our approach to growth marketing focused on business outcomes."
+    },
+    "brand": {
+      "title": "Brand & Consulting — Brand strategy | Feat.",
+      "description": "Give your brand a clear direction with Brand & Consulting at Feat. Explore strategy, positioning and identity connected to your business challenges."
+    },
+    "social": {
+      "title": "Social Media Strategies — Social strategy | Feat.",
+      "description": "Connect your brand with people through Social Media Strategies at Feat. Explore strategy, content and communities guided by a clear creative direction."
+    },
+    "experience": {
+      "title": "Experience & Tech — Brand experiences | Feat.",
+      "description": "Explore how Experience & Tech at Feat. brings creativity and technology together to design brand experiences that connect people and businesses."
+    },
+    "makitha": {
+      "title": "Makitha — Development and technology solutions | Feat.",
+      "description": "Meet Makitha, Feat.'s technology business unit. Explore web development, platforms and integrations that turn business needs into digital solutions."
+    },
+    "cases": {
+      "title": "Strategy, creativity and technology case studies | Feat.",
+      "description": "Explore Feat.'s work and discover how strategy, creativity, media and technology come together to address challenges for brands and businesses."
+    },
+    "about": {
+      "title": "About us — Meet Feat. | Collab Driven Growth",
+      "description": "Meet Feat., our specializations and our collaborative approach. We bring different perspectives together to connect brands, people and opportunities for growth."
+    },
+    "contact": {
+      "title": "Contact — Let's talk about your next project | Feat.",
+      "description": "Tell us what your brand needs and let's discuss your next project. Contact Feat. to connect strategy, creativity, media and technology with your goals."
+    },
+    "blog": {
+      "title": "Strategy, marketing and technology blog | Feat.",
+      "description": "Explore Feat.'s ideas and perspectives on brands, creativity, advertising, marketing and technology. Read articles, lessons and fresh ways to look at business."
+    }
+  }
+}

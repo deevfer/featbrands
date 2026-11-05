@@ -1,0 +1,1 @@
+<section class="blog-closing"><div class="service-width"><div><p class="service-eyebrow">{{ $copy['ctaKicker'] }}</p><h2 class="preserve-lines">{{ $copy['cta'] }}</h2></div><a href="{{ $contactUrl }}"><span>{{ $copy['ctaButton'] }}</span><span aria-hidden="true">↗</span></a></div></section>

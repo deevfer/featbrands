@@ -1,0 +1,17 @@
+@extends('site.layout')
+
+@section('content')
+<main id="main-content" class="specialization blog-page">
+    <section class="blog-opening"><div class="service-width"><div class="blog-masthead"><span class="service-eyebrow">{{ $copy['kicker'] }}</span><span>Feat. / Journal</span></div><div class="blog-cover"><h1>{{ $copy['title'] }}<em>{{ $copy['accent'] }}</em></h1><div><span class="blog-cover-star" aria-hidden="true">✳</span><p>{{ $copy['intro'] }}</p></div></div><div class="blog-opening-bottom"><span>{{ $copy['note'] }}</span><a href="#archivo">{{ $copy['archive'] }} ↓</a></div></div></section>
+    <section id="archivo" class="blog-archive service-width">
+        <div class="blog-tools"><form role="search" class="blog-search" data-blog-search data-search-base="{{ url(($locale === 'en' ? '/en' : '').'/blog/search') }}" action="{{ $blogUrl }}" method="GET"><label for="blog-search" class="blog-screen-reader">{{ $copy['search'] }}</label><input id="blog-search" type="search" name="q" value="{{ $searchTerm }}" placeholder="{{ $copy['searchPlaceholder'] }}" maxlength="200"><button type="submit" aria-label="{{ $copy['searchButton'] }}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg></button></form><p class="blog-count">{{ $posts->total() }} {{ $posts->total() === 1 ? $copy['article'] : $copy['articles'] }}</p></div>
+        <nav class="blog-categories" aria-label="{{ $copy['filter'] }}"><a href="{{ $blogUrl }}#archivo" @if (!$selectedCategory && !$selectedTag && !$searchTerm) aria-current="page" @endif>{{ $copy['all'] }}</a>@foreach ($blogCategories as $category)<a href="{{ url(($locale === 'en' ? '/en' : '').'/blog/categories/'.$category->slug).'?market='.$market }}#archivo" @if ($selectedCategory?->id === $category->id) aria-current="page" @endif>{{ $category->name }} <span>{{ $category->posts_count }}</span></a>@endforeach</nav>
+        @if ($searchTerm || $selectedCategory || $selectedTag)<div class="blog-filter-heading"><h2>{{ $searchTerm ? $copy['results'].' “'.$searchTerm.'”' : ($selectedCategory?->name ?? $copy['tag'].': '.$selectedTag) }}</h2>@if ($selectedCategory?->description)<p>{{ $selectedCategory->description }}</p>@endif</div>@endif
+        @if ($posts->isEmpty())<div class="blog-empty"><span aria-hidden="true">↗</span><h2>{{ $copy['empty'] }}</h2><p>{{ $copy['emptyBody'] }}</p><a class="service-button" href="{{ $blogUrl }}">{{ $copy['clear'] }} →</a></div>@else
+            <div class="blog-collection">@foreach ($posts as $article)@include('site.blog.card', ['featured' => $loop->first && $posts->currentPage() === 1 && !$selectedCategory && !$searchTerm && !$selectedTag])@endforeach</div>
+        @endif
+        @if ($posts->lastPage() > 1)<nav class="blog-pagination" aria-label="{{ $copy['page'] }}"><a @if ($posts->onFirstPage()) aria-disabled="true" @else href="{{ url($listBasePath.($posts->currentPage() > 2 ? '/page/'.($posts->currentPage()-1) : '')).'?market='.$market }}#archivo" @endif>← {{ $copy['previous'] }}</a><span>{{ $copy['page'] }} {{ $posts->currentPage() }} {{ $copy['of'] }} {{ $posts->lastPage() }}</span><a @if (!$posts->hasMorePages()) aria-disabled="true" @else href="{{ url($listBasePath.'/page/'.($posts->currentPage()+1)).'?market='.$market }}#archivo" @endif>{{ $copy['next'] }} →</a></nav>@endif
+    </section>
+    @include('site.blog.closing')
+</main>
+@endsection

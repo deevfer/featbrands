@@ -2,7 +2,8 @@
     let pendingRequest = null;
     let pendingUrl = null;
     let renderedUrl = new URL(window.location.href);
-    const localeOf = (url) => url.searchParams.get('lang') === 'en' ? 'en' : 'es';
+    const localeOf = (url) => ['es', 'en'].includes(url.searchParams.get('lang'))
+        ? url.searchParams.get('lang') : url.pathname.startsWith('/en/') ? 'en' : 'es';
     const status = document.querySelector('[data-language-status]');
     const setBusy = (busy) => {
         const switcher = document.querySelector('[data-language-switcher]');
@@ -71,7 +72,7 @@
         pendingUrl = new URL(target);
         status.hidden = true;
 
-        if (localeOf(target) === document.documentElement.lang && target.searchParams.get('market') === renderedUrl.searchParams.get('market')) {
+        if (target.pathname === renderedUrl.pathname && localeOf(target) === document.documentElement.lang && target.searchParams.get('market') === renderedUrl.searchParams.get('market')) {
             if (history === 'push' && target.href !== window.location.href) {
                 window.history.pushState(null, '', target);
             }
@@ -104,6 +105,8 @@
             document.documentElement.lang = translated.documentElement.lang;
             document.title = translated.title;
             document.querySelector('meta[name="description"]').content = translated.querySelector('meta[name="description"]').content;
+            document.querySelectorAll('[data-site-meta]').forEach((element) => element.remove());
+            translated.querySelectorAll('[data-site-meta]').forEach((element) => document.head.append(document.importNode(element, true)));
             for (const [key, value] of Object.entries(translated.body.dataset)) document.body.dataset[key] = value;
             const skip = translated.querySelector('.skip-link');
             if (skip) document.querySelector('.skip-link').textContent = skip.textContent;
@@ -138,23 +141,25 @@
         const link = event.target.closest('a[data-language]');
         if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target === '_blank') return;
         const destination = new URL(link.href);
-        if (destination.origin !== window.location.origin || destination.pathname !== window.location.pathname) return;
+        const blog = document.body.dataset.page === 'blog';
+        if (destination.origin !== window.location.origin || (!blog && destination.pathname !== window.location.pathname)) return;
         event.preventDefault();
-        const target = new URL(window.location.href);
-        target.searchParams.set('lang', link.dataset.language);
+        const target = blog ? new URL(destination) : new URL(window.location.href);
+        if (blog) target.hash = window.location.hash;
+        else target.searchParams.set('lang', link.dataset.language);
         switchLanguage(target, { focusLanguage: link.dataset.language });
     });
 
     window.addEventListener('popstate', () => {
         const target = new URL(window.location.href);
-        if (target.pathname === renderedUrl.pathname) switchLanguage(target, { history: 'none' });
+        if (target.pathname === renderedUrl.pathname || document.body.dataset.page === 'blog') switchLanguage(target, { history: 'none' });
     });
 
     document.addEventListener('site:market-changed', () => {
         renderedUrl = new URL(window.location.href);
         if (pendingUrl) {
-            const target = new URL(window.location.href);
-            target.searchParams.set('lang', localeOf(pendingUrl));
+            const target = new URL(pendingUrl);
+            target.searchParams.set('market', new URL(window.location.href).searchParams.get('market') || 'gt');
             switchLanguage(target);
         }
     });

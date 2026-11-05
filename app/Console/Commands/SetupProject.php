@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\User;
+use App\Services\SiteSeo;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
@@ -37,6 +38,12 @@ class SetupProject extends Command
         if ($this->call('migrate', ['--force' => true]) !== self::SUCCESS) {
             return self::FAILURE;
         }
+
+        if ($this->call('blog:import', ['--no-interaction' => true]) !== self::SUCCESS) {
+            return self::FAILURE;
+        }
+
+        app(SiteSeo::class)->initialize();
 
         $missingLinks = array_filter(
             config('filesystems.links', []),
