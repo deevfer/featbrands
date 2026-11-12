@@ -102,11 +102,11 @@
       <div style="position:relative;border-radius:22px;overflow:hidden;background:#000000;color:#FFFFFF;padding:clamp(44px,6.5vw,80px);display:flex;flex-direction:column;align-items:flex-start;gap:24px">
         <h2 style="font-family:'Bellinzo',serif;font-weight:400;font-size:clamp(34px,4.8vw,62px);line-height:1;max-width:18ch;letter-spacing:-.02em">{{ $p['ctaTitle'] }}</h2>
         <p style="font-size:18px;max-width:48ch;line-height:1.55;color:#BDBDBD">{{ $p['ctaBody'] }}</p>
-        <a href="{{ $contactUrl }}" style="background:#FB6C26;color:#000000;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;padding:17px 36px;border-radius:100px" class="prototype-hover-2">{{ $p['ctaBtn'] }}</a>
+        <a href="{{ $p['ctaHref'] ?? $contactUrl }}" style="background:#FB6C26;color:#000000;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:16px;padding:17px 36px;border-radius:100px" class="prototype-hover-2">{{ $p['ctaBtn'] }}</a>
       </div>
       <div data-grid="two" style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px">
         @foreach ($p['related'] as $r)
-          <div data-link="{{ $serviceUrls[$r['title'] === 'Experience & Tech' ? 'experience' : 'social'] }}" role="link" tabindex="0" style="border-radius:22px;padding:30px 34px;background:{{ $r['bg'] }};color:#000000;cursor:pointer;display:flex;flex-direction:column;gap:10px" class="prototype-hover-11">
+          <div data-link="{{ $r['href'] ?? $serviceUrls[$r['title'] === 'Experience & Tech' ? 'experience' : 'social'] }}" role="link" tabindex="0" style="border-radius:22px;padding:30px 34px;background:{{ $r['bg'] }};color:#000000;cursor:pointer;display:flex;flex-direction:column;gap:10px" class="prototype-hover-11">
             <span style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,0,0,.6)">{{ $r['tag'] }}</span>
             <span style="font-family:'Bellinzo',serif;font-size:26px;letter-spacing:-.01em">{{ $r['title'] }}</span>
             <span style="font-size:14px;color:rgba(0,0,0,.7);line-height:1.5">{{ $r['desc'] }}</span>

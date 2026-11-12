@@ -9,8 +9,8 @@
 @if (isset($seo['alternates']['es']))<link data-site-meta rel="alternate" hreflang="x-default" href="{{ $seo['alternates']['es'] }}">@endif
 <meta data-site-meta property="og:site_name" content="Feat.">
 <meta data-site-meta property="og:type" content="{{ $seo['type'] }}">
-<meta data-site-meta property="og:title" content="{{ $seo['title'] }}">
-<meta data-site-meta property="og:description" content="{{ $seo['description'] }}">
+<meta data-site-meta property="og:title" content="{{ $seo['og_title'] }}">
+<meta data-site-meta property="og:description" content="{{ $seo['og_description'] }}">
 <meta data-site-meta property="og:url" content="{{ $seo['canonical'] }}">
 <meta data-site-meta property="og:locale" content="{{ $seo['locale'] === 'en' ? 'en_US' : 'es_GT' }}">
 <meta data-site-meta property="og:image" content="{{ $seo['image'] }}">

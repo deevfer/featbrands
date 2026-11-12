@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\BlogCategory;
 use App\Models\BlogPost;
+use App\Models\PageSection;
 use App\Models\SeoPage;
 use App\Models\SeoSetting;
 use Illuminate\Http\Request;
@@ -79,8 +80,12 @@ class SiteSeo
         $title = $custom?->title ?: ($defaults['title'] ?? $data['pageTitle']);
         $description = $custom?->description ?: ($defaults['description'] ?? $data['pageDescription']);
         $image = $custom?->image ?: $settings['default_image'];
+        $cms = $this->cmsSeo($page, $locale);
+        $title = filled($cms['meta_title'] ?? null) ? trim($cms['meta_title']) : $title;
+        $description = filled($cms['meta_description'] ?? null) ? $cms['meta_description'] : $description;
+        $image = ($data['pageSeo']['og_image'] ?? null) ?: $image;
         $alternates = [];
-        $indexable = true;
+        $indexable = ($cms['robots_index'] ?? true) !== false;
         $path = $post instanceof BlogPost ? $post->path : $this->mainPath($page, $locale);
 
         if ($post instanceof BlogPost) {
@@ -143,7 +148,9 @@ class SiteSeo
         }
 
         $description = $this->plain((string) $description, 170);
-        $canonical = $this->absolute($path);
+        $cmsCanonical = trim((string) ($cms['canonical_url'] ?? ''));
+        $canonical = preg_match('~^https?://~i', $cmsCanonical) && filter_var($cmsCanonical, FILTER_VALIDATE_URL) ? $cmsCanonical : $this->absolute($path);
+        $follow = ($cms['robots_follow'] ?? true) !== false ? 'follow' : 'nofollow';
         $imageUrl = preg_match('~^https?://~i', (string) $image) ? $image : $this->absolute('/'.ltrim((string) $image, '/'));
         $organization = ['@type' => 'Organization', '@id' => $this->origin().'/#organization', 'name' => 'Feat.', 'url' => $this->origin().'/', 'logo' => $this->absolute('/assets/feat-black.svg')];
         $graph = [$organization];
@@ -166,7 +173,17 @@ class SiteSeo
             $graph[] = ['@type' => 'BreadcrumbList', 'itemListElement' => $crumbs];
         }
 
-        return ['title' => $title, 'description' => $description, 'canonical' => $canonical, 'alternates' => $alternates, 'image' => $imageUrl, 'image_alt' => $post?->cover_alt ?: 'Feat. — Collab Driven Growth', 'locale' => $post?->locale ?? $locale, 'type' => $post ? 'article' : 'website', 'robots' => $this->publicIndexingEnabled() && $indexable ? 'index, follow, max-image-preview:large' : 'noindex, follow', 'schema' => ['@context' => 'https://schema.org', '@graph' => $graph], 'verification' => $settings, 'published' => $post?->published_at?->toIso8601String(), 'modified' => $post ? ($post->original_updated_at ?? $post->updated_at)->toIso8601String() : null];
+        return ['title' => $title, 'description' => $description, 'og_title' => filled($cms['og_title'] ?? null) ? trim($cms['og_title']) : $title, 'og_description' => filled($cms['og_description'] ?? null) ? $this->plain($cms['og_description'], 200) : $description, 'canonical' => $canonical, 'alternates' => $alternates, 'image' => $imageUrl, 'image_alt' => $post?->cover_alt ?: (filled($cms['og_image_alt'] ?? null) ? $cms['og_image_alt'] : 'Feat. — Collab Driven Growth'), 'locale' => $post?->locale ?? $locale, 'type' => $post ? 'article' : 'website', 'robots' => $this->publicIndexingEnabled() && $indexable ? "index, {$follow}, max-image-preview:large" : "noindex, {$follow}", 'schema' => ['@context' => 'https://schema.org', '@graph' => $graph], 'verification' => $settings, 'published' => $post?->published_at?->toIso8601String(), 'modified' => $post ? ($post->original_updated_at ?? $post->updated_at)->toIso8601String() : null];
+    }
+
+    /** SEO fields saved from the page CMS (Filament "Manage*" pages); they take priority over the SEO panel. @return array<string, mixed> */
+    public function cmsSeo(string $page, string $locale): array
+    {
+        if (! in_array($page, ['home', 'performance', 'brand', 'experience', 'makitha'], true) || ! Schema::hasTable('page_sections')) {
+            return [];
+        }
+
+        return PageSection::where('page', $page)->where('section', 'seo')->first()?->getAttribute('content_'.$locale) ?? [];
     }
 
     public function plain(string $value, int $limit = 170): string

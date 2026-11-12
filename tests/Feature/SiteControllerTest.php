@@ -2,10 +2,13 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class SiteControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function test_home_renders_the_prototype_and_links_to_the_separate_performance_page(): void
     {
         $this->get('/')
