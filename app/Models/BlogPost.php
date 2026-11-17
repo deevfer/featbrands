@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-#[Fillable(['source_id', 'path', 'slug', 'locale', 'title', 'excerpt', 'content', 'author', 'published_at', 'original_updated_at', 'reading_minutes', 'cover_image', 'cover_alt', 'seo_title', 'seo_description', 'tags', 'translations', 'source_url', 'source_text_sha256', 'content_text_sha256', 'is_published'])]
+#[Fillable(['source_id', 'path', 'slug', 'locale', 'title', 'excerpt', 'content', 'author', 'published_at', 'original_updated_at', 'reading_minutes', 'cover_image', 'cover_alt', 'seo_title', 'seo_description', 'faqs', 'tags', 'translations', 'source_url', 'source_text_sha256', 'content_text_sha256', 'is_published'])]
 class BlogPost extends Model
 {
     /** @use HasFactory<BlogPostFactory> */
@@ -19,7 +19,7 @@ class BlogPost extends Model
     {
         static::saving(function (BlogPost $post): void {
             $post->path = ($post->locale === 'en' ? '/en' : '').'/post/'.$post->slug;
-            if ($post->exists && $post->isDirty(['title', 'content', 'excerpt', 'author', 'seo_title', 'seo_description', 'cover_image']) && ! $post->isDirty('original_updated_at')) {
+            if ($post->exists && $post->isDirty(['title', 'content', 'excerpt', 'author', 'seo_title', 'seo_description', 'faqs', 'cover_image']) && ! $post->isDirty('original_updated_at')) {
                 $post->original_updated_at = now();
             }
         });
@@ -27,7 +27,7 @@ class BlogPost extends Model
 
     protected function casts(): array
     {
-        return ['published_at' => 'datetime', 'original_updated_at' => 'datetime', 'tags' => 'array', 'translations' => 'array', 'is_published' => 'boolean'];
+        return ['published_at' => 'datetime', 'original_updated_at' => 'datetime', 'faqs' => 'array', 'tags' => 'array', 'translations' => 'array', 'is_published' => 'boolean'];
     }
 
     public function coverImageUrl(): ?string

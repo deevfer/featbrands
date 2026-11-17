@@ -881,6 +881,7 @@ class SiteController extends Controller
             ],
             ...$extra,
         ];
+        $data['faqs'] = app(SiteSeo::class)->normalizeFaqs($data['faqs'] ?? []);
         $data['seo'] = app(SiteSeo::class)->metadata($request, $data);
         $request->attributes->set('seo_robots', $data['seo']['robots']);
 

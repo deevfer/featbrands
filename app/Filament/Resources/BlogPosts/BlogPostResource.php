@@ -10,6 +10,7 @@ use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -60,6 +61,10 @@ class BlogPostResource extends Resource
             RichEditor::make('content')->label('Contenido completo')->required()->fileAttachmentsDisk('public')->fileAttachmentsDirectory('blog')->columnSpanFull(),
             TextInput::make('seo_title')->label('Título SEO')->maxLength(1000)->columnSpanFull(),
             Textarea::make('seo_description')->label('Descripción SEO')->rows(3)->columnSpanFull(),
+            Repeater::make('faqs')->label('Preguntas relacionadas')->schema([
+                TextInput::make('question')->label('Pregunta')->required()->maxLength(500),
+                Textarea::make('answer')->label('Respuesta')->required()->rows(3)->maxLength(2000),
+            ])->defaultItems(0)->reorderable()->collapsible()->itemLabel(fn (array $state): ?string => $state['question'] ?? null)->helperText('Se muestran al final con el título «Preguntas relacionadas» y generan el schema FAQPage con el mismo texto.')->columnSpanFull(),
         ])->columns(2);
     }
 

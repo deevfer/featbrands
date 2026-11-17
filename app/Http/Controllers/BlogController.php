@@ -64,7 +64,7 @@ class BlogController extends Controller
         $canonical = url($post->path);
 
         return $site->render($request, 'blog', [
-            'viewName' => 'site.blog.post', 'post' => $post,
+            'viewName' => 'site.blog.post', 'post' => $post, 'faqs' => $post->faqs,
             'articleHtml' => $prepared['html'], 'articleHeadings' => $prepared['headings'],
             'related' => $related->orderByDesc('published_at')->limit(3)->get(),
             'pageTitle' => ($post->seo_title ?: $post->title).' — Feat.',

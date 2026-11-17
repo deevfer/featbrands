@@ -66,6 +66,36 @@ class SiteSeo
         }
     }
 
+    /** @return array<int, array{question: string, answer: string}> */
+    public function pageFaqs(string $page, string $locale): array
+    {
+        if (! Schema::hasTable('seo_pages')) {
+            return [];
+        }
+
+        return $this->normalizeFaqs(SeoPage::where('route_name', $page)->where('locale', $locale)->value('faqs'));
+    }
+
+    /**
+     * Single source for the visible "Preguntas relacionadas" block and the FAQPage schema.
+     *
+     * @param  array<int, mixed>|string|null  $faqs
+     * @return array<int, array{question: string, answer: string}>
+     */
+    public function normalizeFaqs(array|string|null $faqs): array
+    {
+        if (is_string($faqs)) {
+            $faqs = json_decode($faqs, true);
+        }
+
+        return collect(is_array($faqs) ? $faqs : [])
+            ->filter(fn (mixed $faq): bool => is_array($faq))
+            ->map(fn (array $faq): array => ['question' => trim((string) ($faq['question'] ?? '')), 'answer' => trim((string) ($faq['answer'] ?? ''))])
+            ->filter(fn (array $faq): bool => $faq['question'] !== '' && $faq['answer'] !== '')
+            ->values()
+            ->all();
+    }
+
     /** @param array<string, mixed> $data
      * @return array<string, mixed>
      */
@@ -163,6 +193,10 @@ class SiteSeo
         }
         if ($post instanceof BlogPost) {
             $graph[] = ['@type' => 'BlogPosting', 'headline' => $post->title, 'description' => $description, 'url' => $canonical, 'mainEntityOfPage' => ['@id' => $canonical.'#webpage'], 'inLanguage' => $post->locale, 'author' => ['@type' => 'Person', 'name' => $post->author], 'publisher' => ['@id' => $organization['@id']], 'datePublished' => $post->published_at->toIso8601String(), 'dateModified' => ($post->original_updated_at ?? $post->updated_at)->toIso8601String(), 'image' => $imageUrl];
+        }
+        $faqs = $this->normalizeFaqs($data['faqs'] ?? []);
+        if ($faqs !== []) {
+            $graph[] = ['@type' => 'FAQPage', '@id' => $canonical.'#faq', 'url' => $canonical, 'inLanguage' => $post?->locale ?? $locale, 'mainEntity' => array_map(fn (array $faq): array => ['@type' => 'Question', 'name' => $faq['question'], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $faq['answer']]], $faqs)];
         }
         if ($page !== 'home') {
             $crumbs = [['@type' => 'ListItem', 'position' => 1, 'name' => $locale === 'en' ? 'Home' : 'Inicio', 'item' => $this->absolute($this->mainPath('home', $locale))]];
