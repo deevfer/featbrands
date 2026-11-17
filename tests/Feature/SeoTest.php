@@ -121,10 +121,10 @@ class SeoTest extends TestCase
     {
         $seo = app(SiteSeo::class);
         $seo->initialize();
-        $this->assertDatabaseCount('seo_pages', 20);
+        $this->assertDatabaseCount('seo_pages', 23);
         SeoPage::where('route_name', 'home')->where('locale', 'es')->update(['title' => 'Nuestro título actualizado']);
         $seo->initialize();
-        $this->assertDatabaseCount('seo_pages', 20);
+        $this->assertDatabaseCount('seo_pages', 23);
         $this->get('/')->assertSee('<title>Nuestro título actualizado</title>', false);
     }
 

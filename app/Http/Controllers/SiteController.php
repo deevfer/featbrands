@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PageSection;
+use App\Services\GeoContent;
 use App\Services\SiteSeo;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -54,6 +55,21 @@ class SiteController extends Controller
     public function contact(Request $request): View
     {
         return $this->render($request, 'contact');
+    }
+
+    /**
+     * Spanish-only static pages (SiteSeo::GEO_PAGES) sharing the site.geo template.
+     */
+    public function geo(Request $request): View
+    {
+        $page = $request->route()->getName();
+        $request->attributes->set('site_locale', 'es');
+
+        return $this->render($request, $page, [
+            'viewName' => 'site.geo',
+            'faqs' => app(SiteSeo::class)->pageFaqs($page, 'es'),
+            'languageUrls' => ['es' => route($page), 'en' => route('home', ['lang' => 'en'])],
+        ]);
     }
 
     public function render(Request $request, string $page, array $extra = []): View
@@ -116,6 +132,10 @@ class SiteController extends Controller
             'blog' => File::json(
                 resource_path('data/blog/ui.json')
             )[$locale],
+
+            'mejor-agencia-publicidad-guatemala',
+            'mejorar-comunicacion-marca-guatemala',
+            'publicidad-digital-guatemala-city' => app(GeoContent::class)->page($page),
 
             default => File::json(
                 resource_path('data/specializations.json')

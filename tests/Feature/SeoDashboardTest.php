@@ -33,7 +33,7 @@ class SeoDashboardTest extends TestCase
         $this->get('/admin/seo-dashboard')->assertOk()->assertSeeText('Tu punto de partida')->assertHeader('X-Robots-Tag', 'noindex, nofollow');
         $this->get('/admin/seo-settings')->assertOk()->assertSeeText('HostGator');
         $this->get('/admin/seo-pages')->assertOk();
-        $this->assertDatabaseCount('seo_pages', 20);
+        $this->assertDatabaseCount('seo_pages', 23);
     }
 
     public function test_analysis_saves_real_page_results_and_a_score_with_history(): void

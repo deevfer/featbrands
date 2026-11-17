@@ -8,6 +8,7 @@ use App\Services\SiteSeo;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
@@ -47,6 +48,10 @@ class SeoPageResource extends Resource
             TextInput::make('title')->label('Título SEO')->required()->maxLength(180)->helperText('Sugerencia editorial: 15–70 caracteres, con el tema principal y la marca.')->columnSpanFull(),
             Textarea::make('description')->label('Descripción SEO')->required()->maxLength(320)->rows(3)->helperText('Resume lo que ofrece esta página. Se muestran hasta 170 caracteres en el HTML.')->columnSpanFull(),
             TextInput::make('image')->label('Imagen para compartir')->maxLength(1000)->regex('~^(?:/(?!/)[^?#]*|https://[^\s]+)$~u')->helperText('Opcional. Ruta pública o URL HTTPS; vacía utiliza la imagen general.')->columnSpanFull(),
+            Repeater::make('faqs')->label('Preguntas relacionadas')->schema([
+                TextInput::make('question')->label('Pregunta')->required()->maxLength(500),
+                Textarea::make('answer')->label('Respuesta')->required()->rows(3)->maxLength(2000),
+            ])->defaultItems(0)->reorderable()->collapsible()->itemLabel(fn (array $state): ?string => $state['question'] ?? null)->helperText('Se muestran al final con el título «Preguntas relacionadas» y generan el schema FAQPage con el mismo texto.')->visible(fn (?SeoPage $record): bool => in_array($record?->route_name, SiteSeo::GEO_PAGES, true))->columnSpanFull(),
         ])->columns(2);
     }
 

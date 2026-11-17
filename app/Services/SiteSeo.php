@@ -16,6 +16,9 @@ class SiteSeo
 {
     public const PAGES = ['home', 'performance', 'brand', 'social', 'experience', 'makitha', 'cases', 'about', 'contact', 'blog'];
 
+    /** Static pages that only exist in Spanish: no hreflang, canonical to themselves. */
+    public const GEO_PAGES = ['mejor-agencia-publicidad-guatemala', 'mejorar-comunicacion-marca-guatemala', 'publicidad-digital-guatemala-city'];
+
     /** @return array<string, mixed> */
     public function settings(): array
     {
@@ -171,7 +174,7 @@ class SiteSeo
             if ($path === '/blog' || $path === '/en/blog') {
                 $alternates = ['es' => $this->absolute('/blog'), 'en' => $this->absolute('/en/blog')];
             }
-        } else {
+        } elseif (! in_array($page, self::GEO_PAGES, true)) {
             foreach (['es', 'en'] as $language) {
                 $alternates[$language] = $this->absolute($this->mainPath($page, $language));
             }
@@ -237,7 +240,7 @@ class SiteSeo
                 if ($locale && $language !== $locale) {
                     continue;
                 }
-                foreach (self::PAGES as $page) {
+                foreach ($language === 'es' ? [...self::PAGES, ...self::GEO_PAGES] : self::PAGES as $page) {
                     $entries[] = ['path' => $this->mainPath($page, $language), 'lastmod' => null];
                 }
             }
