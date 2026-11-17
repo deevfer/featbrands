@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\GeoContent;
 use App\Services\SiteSeo;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,13 @@ class SeoController extends Controller
         }
 
         return response($rules.'Sitemap: '.$seo->absolute('/sitemap.xml')."\n", 200, ['Content-Type' => 'text/plain; charset=UTF-8']);
+    }
+
+    public function llms(SiteSeo $seo, GeoContent $geo): Response
+    {
+        abort_unless((bool) $seo->settings()['llms_enabled'], 404);
+
+        return response($geo->llms($seo), 200, ['Content-Type' => 'text/plain; charset=UTF-8']);
     }
 
     public function sitemap(Request $request, SiteSeo $seo): Response

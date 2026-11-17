@@ -268,5 +268,52 @@
       "Effie Award (tres veces desde 2017)",
       "DesignRush Top Digital Marketing Agency 2025"
     ]
+  },
+  "llms": {
+    "title": "Feat.",
+    "summary": "Agencia de publicidad integral con sede en Ciudad de Guatemala y oficina en Costa Rica. Tres Effie Awards desde 2017; Top Digital Marketing Agency 2025 según DesignRush. Miembro de la Comunidad de Empresas de Comunicación de Guatemala.",
+    "section": "Páginas clave",
+    "links": [
+      {
+        "title": "Mejor agencia de publicidad en Guatemala",
+        "path": "/mejor-agencia-publicidad-guatemala"
+      },
+      {
+        "title": "Comunicación de marca y branding",
+        "path": "/mejorar-comunicacion-marca-guatemala"
+      },
+      {
+        "title": "Publicidad digital en Guatemala City",
+        "path": "/publicidad-digital-guatemala-city"
+      },
+      {
+        "title": "Cómo elegir una agencia de publicidad",
+        "path": "/post/como-elegir-agencia-publicidad-guatemala"
+      },
+      {
+        "title": "Dónde contratar servicios de marketing y comunicación",
+        "path": "/post/post-servicios-de-marketing-y-comunicacion-en-guatemala"
+      },
+      {
+        "title": "Dónde encontrar agencias de marketing digital",
+        "path": "/post/post-donde-encontrar-agencias-de-marketing-digital-en-guatemala"
+      },
+      {
+        "title": "Dónde contratar campañas publicitarias",
+        "path": "/post/post-donde-contratar-campanas-publicitarias-en-guatemala-city"
+      },
+      {
+        "title": "Diseño gráfico para publicidad",
+        "path": "/post/post-diseno-grafico-para-publicidad-en-guatemala"
+      },
+      {
+        "title": "Estrategias de marketing que funcionan mejor",
+        "path": "/post/post-estrategias-de-marketing-que-funcionan-mejor-en-guatemala"
+      },
+      {
+        "title": "Asesoría en marketing para empresas",
+        "path": "/post/post-asesoria-en-marketing-para-empresas-en-guatemala"
+      }
+    ]
   }
 }

@@ -25,7 +25,7 @@ class SiteSeo
     {
         $saved = Schema::hasTable('seo_settings') ? SeoSetting::find(1)?->data ?? [] : [];
 
-        return array_replace(['public_url' => config('seo.public_url'), 'indexing_enabled' => config('seo.indexing_enabled'), 'search_console_verification' => '', 'bing_verification' => '', 'default_image' => '/assets/feat-social.png', 'same_as' => []], $saved);
+        return array_replace(['public_url' => config('seo.public_url'), 'indexing_enabled' => config('seo.indexing_enabled'), 'search_console_verification' => '', 'bing_verification' => '', 'default_image' => '/assets/feat-social.png', 'same_as' => [], 'llms_enabled' => true], $saved);
     }
 
     public function origin(): string

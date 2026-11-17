@@ -33,6 +33,23 @@ class GeoContent
     }
 
     /**
+     * llms.txt: title, summary and "Páginas clave" with absolute URLs, skipping unpublished posts.
+     */
+    public function llms(SiteSeo $seo): string
+    {
+        $copy = $this->data()['llms'];
+        $lines = ['# '.$copy['title'], '', '> '.$copy['summary'], '', '## '.$copy['section']];
+        foreach ($copy['links'] as $link) {
+            if (str_starts_with($link['path'], '/post/') && ! BlogPost::published()->where('path', $link['path'])->exists()) {
+                continue;
+            }
+            $lines[] = '- ['.$link['title'].']('.$seo->absolute($link['path']).')';
+        }
+
+        return implode("\n", $lines)."\n";
+    }
+
+    /**
      * Seeds the editable FAQs of the new pages without overwriting edits made in Filament.
      */
     public function seedPageFaqs(SiteSeo $seo): void

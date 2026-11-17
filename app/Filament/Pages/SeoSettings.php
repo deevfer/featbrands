@@ -42,6 +42,7 @@ class SeoSettings extends Page
             Section::make('Dominio e indexación')->description('Estas opciones se aplican al SEO público. Los entornos locales conservan noindex hasta usar APP_ENV=production.')->schema([
                 TextInput::make('public_url')->label('Dominio público canónico')->required()->url()->maxLength(255)->regex('~^https://(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}/?$~i')->helperText('Solo el origen HTTPS, sin subcarpetas. En HostGator configura también APP_URL con este mismo dominio.'),
                 Toggle::make('indexing_enabled')->label('Permitir indexación en producción')->default(true),
+                Toggle::make('llms_enabled')->label('Publicar /llms.txt')->default(true)->helperText('Resumen del sitio y páginas clave para asistentes de IA. Desactivado responde 404.'),
                 TextInput::make('default_image')->label('Imagen para compartir por defecto')->required()->maxLength(1000)->regex('~^(?:/(?!/)[^?#]*|https://[^\s]+)$~u')->helperText('Ruta pública o URL HTTPS. Ejemplo: /assets/feat-social.png'),
             ]),
             Section::make('Verificación de herramientas')->description('Pega únicamente el valor content del código que entrega cada herramienta. Guardarlo no confirma que la cuenta esté verificada.')->schema([
@@ -56,7 +57,7 @@ class SeoSettings extends Page
 
     public function save(): void
     {
-        $state = Arr::only($this->form->getState(), ['public_url', 'indexing_enabled', 'default_image', 'search_console_verification', 'bing_verification', 'same_as']);
+        $state = Arr::only($this->form->getState(), ['public_url', 'indexing_enabled', 'default_image', 'search_console_verification', 'bing_verification', 'same_as', 'llms_enabled']);
         $settings = SeoSetting::firstOrNew(['id' => 1]);
         $previous = $settings->data ?? [];
         $state['public_url'] = rtrim($state['public_url'], '/');

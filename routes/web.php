@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/robots.txt', [SeoController::class, 'robots'])->name('seo.robots');
 Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('seo.sitemap');
+Route::get('/llms.txt', [SeoController::class, 'llms'])->name('seo.llms');
 Route::get('/site-pages-sitemap.xml', [SeoController::class, 'sitemap'])->defaults('section', 'pages')->name('seo.pages');
 Route::get('/pages-sitemap.xml', [SeoController::class, 'sitemap'])->defaults('section', 'pages');
 foreach (['' => 'es', 'en_' => 'en'] as $prefix => $language) {
