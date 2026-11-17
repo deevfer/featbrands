@@ -8,6 +8,7 @@ use App\Models\PageSection;
 use App\Models\SeoPage;
 use App\Models\SeoSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
@@ -24,7 +25,7 @@ class SiteSeo
     {
         $saved = Schema::hasTable('seo_settings') ? SeoSetting::find(1)?->data ?? [] : [];
 
-        return array_replace(['public_url' => config('seo.public_url'), 'indexing_enabled' => config('seo.indexing_enabled'), 'search_console_verification' => '', 'bing_verification' => '', 'default_image' => '/assets/feat-social.png'], $saved);
+        return array_replace(['public_url' => config('seo.public_url'), 'indexing_enabled' => config('seo.indexing_enabled'), 'search_console_verification' => '', 'bing_verification' => '', 'default_image' => '/assets/feat-social.png', 'same_as' => []], $saved);
     }
 
     public function origin(): string
@@ -185,7 +186,7 @@ class SiteSeo
         $canonical = preg_match('~^https?://~i', $cmsCanonical) && filter_var($cmsCanonical, FILTER_VALIDATE_URL) ? $cmsCanonical : $this->absolute($path);
         $follow = ($cms['robots_follow'] ?? true) !== false ? 'follow' : 'nofollow';
         $imageUrl = preg_match('~^https?://~i', (string) $image) ? $image : $this->absolute('/'.ltrim((string) $image, '/'));
-        $organization = ['@type' => 'Organization', '@id' => $this->origin().'/#organization', 'name' => 'Feat.', 'url' => $this->origin().'/', 'logo' => $this->absolute('/assets/feat-black.svg')];
+        $organization = $this->organization($settings);
         $graph = [$organization];
         $graph[] = ['@type' => $page === 'blog' && ! $post ? 'CollectionPage' : 'WebPage', '@id' => $canonical.'#webpage', 'url' => $canonical, 'name' => $title, 'description' => $description, 'inLanguage' => $post?->locale ?? $locale, 'publisher' => ['@id' => $organization['@id']]];
         if ($page === 'home') {
@@ -211,6 +212,21 @@ class SiteSeo
         }
 
         return ['title' => $title, 'description' => $description, 'og_title' => filled($cms['og_title'] ?? null) ? trim($cms['og_title']) : $title, 'og_description' => filled($cms['og_description'] ?? null) ? $this->plain($cms['og_description'], 200) : $description, 'canonical' => $canonical, 'alternates' => $alternates, 'image' => $imageUrl, 'image_alt' => $post?->cover_alt ?: (filled($cms['og_image_alt'] ?? null) ? $cms['og_image_alt'] : 'Feat. — Collab Driven Growth'), 'locale' => $post?->locale ?? $locale, 'type' => $post ? 'article' : 'website', 'robots' => $this->publicIndexingEnabled() && $indexable ? "index, {$follow}, max-image-preview:large" : "noindex, {$follow}", 'schema' => ['@context' => 'https://schema.org', '@graph' => $graph], 'verification' => $settings, 'published' => $post?->published_at?->toIso8601String(), 'modified' => $post ? ($post->original_updated_at ?? $post->updated_at)->toIso8601String() : null];
+    }
+
+    /**
+     * The site's single Organization node, extended with the document's fields. sameAs only
+     * comes from the SEO settings panel and is omitted while empty.
+     *
+     * @param  array<string, mixed>  $settings
+     * @return array<string, mixed>
+     */
+    public function organization(array $settings): array
+    {
+        $profile = Arr::except(File::json(resource_path('data/geo.json'))['organization'], ['@type', 'name', 'url']);
+        $sameAs = array_values(array_filter((array) ($settings['same_as'] ?? []), fn (mixed $url): bool => is_string($url) && preg_match('~^https://[^\s]+$~i', $url) === 1));
+
+        return ['@type' => 'Organization', '@id' => $this->origin().'/#organization', 'name' => 'Feat.', 'url' => $this->origin().'/', 'logo' => $this->absolute('/assets/feat-black.svg'), ...$profile, ...($sameAs ? ['sameAs' => $sameAs] : [])];
     }
 
     /** SEO fields saved from the page CMS (Filament "Manage*" pages); they take priority over the SEO panel. @return array<string, mixed> */

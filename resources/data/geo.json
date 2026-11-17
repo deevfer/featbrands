@@ -244,5 +244,29 @@
         }
       ]
     }
+  },
+  "organization": {
+    "@type": "Organization",
+    "name": "Feat.",
+    "url": "https://www.featbrands.com",
+    "description": "Agencia de publicidad integral con sede en Ciudad de Guatemala y oficina en Costa Rica.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Ciudad de Guatemala",
+      "addressCountry": "GT"
+    },
+    "areaServed": [
+      "Guatemala",
+      "Costa Rica",
+      "Centroamérica"
+    ],
+    "memberOf": {
+      "@type": "Organization",
+      "name": "Comunidad de Empresas de Comunicación de Guatemala"
+    },
+    "award": [
+      "Effie Award (tres veces desde 2017)",
+      "DesignRush Top Digital Marketing Agency 2025"
+    ]
   }
 }
