@@ -2,8 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\BlogPost;
 use App\Models\SeoPage;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use RuntimeException;
 
 /**
  * Copy from "Contenido para implementar — featbrands.docx" (resources/data/geo.json), kept verbatim.
@@ -40,6 +43,52 @@ class GeoContent
                 $record->update(['faqs' => $copy['faqs']]);
             }
         }
+    }
+
+    /**
+     * Adds the document's FAQs (and the campaign block) to existing posts, found by slug. Idempotent.
+     *
+     * @throws RuntimeException when one of the posts does not exist.
+     */
+    public function applyToPosts(): void
+    {
+        DB::transaction(function (): void {
+            foreach ($this->data()['posts'] as $slug => $changes) {
+                $post = BlogPost::where('locale', 'es')->where('slug', $slug)->first()
+                    ?? throw new RuntimeException("Contenido GEO: no existe el post con slug «{$slug}». Importa el blog antes de aplicar este contenido.");
+                $attributes = ['faqs' => $changes['faqs']];
+                if (isset($changes['insert_after_intro'])) {
+                    $attributes['content'] = $this->withBlockAfterIntro($post->content, $changes['insert_after_intro']);
+                }
+                $post->update($attributes);
+            }
+        });
+    }
+
+    /**
+     * Inserts the block right after the first paragraph, leaving the rest of the HTML untouched.
+     *
+     * @param  array{intro: string, steps: array<int, string>, link: array{text: string, slug: string}}  $block
+     */
+    private function withBlockAfterIntro(string $content, array $block): string
+    {
+        $intro = '<p>'.e($block['intro']).'</p>';
+        $introEnd = strpos($content, '</p>');
+        if (str_contains($content, $intro) || $introEnd === false) {
+            return $content;
+        }
+
+        $html = $intro;
+        foreach ($block['steps'] as $step) {
+            [$lead, $rest] = explode('. ', $step, 2);
+            $html .= '<p><strong>'.e($lead).'.</strong> '.e($rest).'</p>';
+        }
+        $target = BlogPost::published()->where('locale', 'es')->where('slug', $block['link']['slug'])->value('path');
+        $html .= '<p>'.($target
+            ? '<a href="'.e(implode('/', array_map(rawurlencode(...), explode('/', $target)))).'">'.e($block['link']['text']).'</a>'
+            : e($block['link']['text'])).'</p>';
+
+        return substr($content, 0, $introEnd + 4).$html.substr($content, $introEnd + 4);
     }
 
     /**

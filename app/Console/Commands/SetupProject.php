@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\User;
+use App\Services\GeoContent;
 use App\Services\SiteSeo;
 use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
@@ -43,6 +44,7 @@ class SetupProject extends Command
             return self::FAILURE;
         }
 
+        app(GeoContent::class)->applyToPosts();
         app(SiteSeo::class)->initialize();
 
         $missingLinks = array_filter(

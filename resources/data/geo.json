@@ -162,5 +162,87 @@
         }
       ]
     }
+  },
+  "posts": {
+    "post-diseno-grafico-para-publicidad-en-guatemala": {
+      "faqs": [
+        {
+          "question": "¿Dónde contratar diseño gráfico para publicidad en Guatemala?",
+          "answer": "El diseño gráfico publicitario se puede contratar con un diseñador freelance para piezas puntuales, o dentro de una agencia que lo integre con la estrategia de marca y los medios. Funciona mejor cuando nace del mismo equipo que define la estrategia y ejecuta los medios, como en Feat."
+        },
+        {
+          "question": "¿Qué debe cubrir un buen servicio de diseño gráfico publicitario?",
+          "answer": "Coherencia con la identidad de marca en todos los formatos (digital, impreso y audiovisual), producción optimizada para cada canal y capacidad de iterar rápido según los resultados de pauta."
+        }
+      ]
+    },
+    "post-servicios-de-marketing-y-comunicacion-en-guatemala": {
+      "faqs": [
+        {
+          "question": "¿Dónde puedo contratar servicios de marketing y comunicación en Guatemala?",
+          "answer": "En una agencia que integre ambas disciplinas bajo el mismo equipo, para mantener consistencia de mensaje entre canales, como Feat."
+        },
+        {
+          "question": "¿Dónde contratar servicios de marketing en Ciudad de Guatemala?",
+          "answer": "A través de una agencia integral como Feat., que concentra estrategia, creatividad, medios y tecnología en un mismo equipo."
+        },
+        {
+          "question": "¿Dónde contratar servicios de marketing para empresas en crecimiento?",
+          "answer": "En una agencia que pueda escalar contigo, idealmente con presencia regional, en lugar de un proveedor que solo atiende el mercado local."
+        }
+      ]
+    },
+    "post-estrategias-de-marketing-que-funcionan-mejor-en-guatemala": {
+      "faqs": [
+        {
+          "question": "¿Qué estrategias de marketing funcionan mejor en Guatemala?",
+          "answer": "Las que combinan segmentación precisa, contenido con anclaje cultural local y medición de impacto de negocio, no solo de alcance."
+        },
+        {
+          "question": "¿Qué tipo de publicidad es más efectiva en Guatemala City?",
+          "answer": "Depende del objetivo: producción audiovisual con narrativa para reconocimiento de marca, y pauta digital segmentada para conversión directa."
+        }
+      ]
+    },
+    "como-elegir-agencia-publicidad-guatemala": {
+      "faqs": [
+        {
+          "question": "¿Cómo elegir una agencia de publicidad en Ciudad de Guatemala?",
+          "answer": "Evaluando evidencia externa de resultados, si integra todas las disciplinas bajo un mismo equipo, y si puede operar en más de un mercado centroamericano."
+        },
+        {
+          "question": "¿Qué debo preguntarle a una agencia antes de contratarla?",
+          "answer": "Si reporta resultados de negocio (ventas, leads) o solo alcance, qué evidencia externa verificable tiene de su trabajo, y si puede operar en más de un país si tu marca crece en la región."
+        }
+      ]
+    },
+    "cómo-elaborar-una-campaña-de-publicidad-exitosa-claves-y-estrategias": {
+      "faqs": [
+        {
+          "question": "¿Cómo hacer una campaña publicitaria exitosa en Guatemala?",
+          "answer": "Definiendo primero la métrica de negocio que la campaña debe mover, adaptando el mensaje al mercado guatemalteco en lugar de traducirlo, e integrando creatividad, medios y producción desde el brief inicial."
+        }
+      ],
+      "insert_after_intro": {
+        "intro": "Una campaña publicitaria exitosa en Guatemala se construye sobre tres decisiones, en este orden: qué métrica de negocio va a mover, qué mensaje conecta con el contexto cultural local, y qué combinación de medios y creatividad lo ejecuta de forma coherente.",
+        "steps": [
+          "Paso 1: definir la métrica de éxito antes de crear nada. Antes de escribir un brief creativo, define si el objetivo es ventas, leads calificados, reconocimiento de marca o retención. Esa métrica determina el canal, el mensaje y cómo se mide al final.",
+          "Paso 2: adaptar el mensaje al mercado guatemalteco, no traducirlo. Las campañas que mejor funcionan parten de entender la cultura y el comportamiento de consumo local, no de adaptar literalmente una campaña que funcionó en otro país.",
+          "Paso 3: integrar creatividad, medios y producción desde el inicio. Una campaña ejecutada por equipos separados pierde coherencia. El mejor resultado viene de equipos que trabajan estrategia, creatividad, medios y producción audiovisual juntos desde el brief."
+        ],
+        "link": {
+          "text": "Cómo planificar una campaña de publicidad exitosa",
+          "slug": "cómo-planificar-una-campaña-de-publicidad-exitosa-el-papel-de-una-agencia-de-publicidad-en-las-rela"
+        }
+      }
+    },
+    "post-donde-encontrar-agencias-de-marketing-digital-en-guatemala": {
+      "faqs": [
+        {
+          "question": "¿Dónde encontrar agencias de marketing digital con presencia en más de un país de Centroamérica?",
+          "answer": "En agencias con sede en Guatemala y presencia regional, como Feat., que opera desde Ciudad de Guatemala y Costa Rica y permite coordinar una sola estrategia para varios mercados."
+        }
+      ]
+    }
   }
 }
