@@ -249,7 +249,7 @@ class ManageHomeHero extends Page
                                     Section::make('Oficinas')
                                         ->description(
                                             'Administra las oficinas de Guatemala, ' .
-                                            'Costa Rica y Miami. Los textos se ' .
+                                            'Costa Rica, El Salvador y Miami. Los textos se ' .
                                             'configuran en ambos idiomas.'
                                         )
                                         ->schema([
@@ -321,8 +321,13 @@ class ManageHomeHero extends Page
                                                         ->schema([
                                                             TextInput::make('phone')
                                                                 ->label('Teléfono')
-                                                                ->tel()
-                                                                ->required(),
+                                                                ->helperText('Opcional. Si se deja vacío, no se muestra.')
+                                                                ->tel(),
+
+                                                            TextInput::make('new_business')
+                                                                ->label('Correo New Business')
+                                                                ->helperText('Opcional. Si se deja vacío, no se muestra.')
+                                                                ->email(),
 
                                                             FileUpload::make('image')
                                                                 ->label('Imagen o ilustración')
@@ -1313,7 +1318,8 @@ class ManageHomeHero extends Page
                 'message_en' => $officeEn['message'],
                 'address_en' => $officeEn['address'],
 
-                'phone' => $officeEs['phone'],
+                'phone' => $officeEs['phone'] ?? '',
+                'new_business' => $officeEs['newBusiness'] ?? '',
                 'image' => null,
 
                 'image_alt_es' => '',

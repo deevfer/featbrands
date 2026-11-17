@@ -5,6 +5,7 @@
     "demoTag": "Dato demostrativo",
     "addrLabel": "Dirección",
     "phoneLabel": "Teléfono",
+    "newBusinessLabel": "New Business",
     "clientsNote": "Marcas con las que hemos trabajado.",
     "nav": [
       "Servicios",
@@ -147,8 +148,9 @@
         "code": "GT",
         "mk": "gt",
         "message": "El hub de nuestra operación: talento listo para dar soporte local dondequiera que esté tu marca.",
-        "address": "Ciudad de Guatemala, Guatemala · [dirección placeholder]",
-        "phone": "+502 0000 0000"
+        "address": "Featmia, S.A · 7 ave 5-45 zona 4, Edificio XPO1, segundo nivel, Oficina 105, Guatemala, Guatemala, 01004, GT",
+        "phone": "+502 2296-7668",
+        "newBusiness": "admin@featbrands.com"
       },
       {
         "city": "San José",
@@ -156,8 +158,15 @@
         "code": "CR",
         "mk": "cr",
         "message": "Presencia local en Costa Rica, conectada al mismo equipo regional.",
-        "address": "San José, Costa Rica · [dirección placeholder]",
-        "phone": "+506 0000 0000"
+        "address": "Distrito Desamparados, Río Segundo de Alajuela, Costa Rica"
+      },
+      {
+        "city": "San Salvador",
+        "tag": "El Salvador",
+        "code": "SV",
+        "mk": "sv",
+        "message": "Presencia local en El Salvador, conectada al mismo equipo regional.",
+        "address": "9 calle poniente, Col. Escalón, #4365, San Salvador"
       },
       {
         "city": "Miami",
@@ -165,8 +174,7 @@
         "code": "US",
         "mk": "us",
         "message": "Nuestra puerta a los mercados de US e internacionales, con el mismo estándar de ejecución.",
-        "address": "Miami, FL, US · [dirección placeholder]",
-        "phone": "+1 000 000 0000"
+        "address": "7901 4th St N, Ste 300, St. Petersburg, FL"
       }
     ],
     "footer": {
@@ -325,6 +333,7 @@
     "demoTag": "Demo data",
     "addrLabel": "Address",
     "phoneLabel": "Phone",
+    "newBusinessLabel": "New Business",
     "clientsNote": "Brands we’ve worked with.",
     "nav": [
       "Services",
@@ -467,8 +476,9 @@
         "code": "GT",
         "mk": "gt",
         "message": "The hub of our operation: talent ready to give local support wherever your brand is.",
-        "address": "Guatemala City, Guatemala · [address placeholder]",
-        "phone": "+502 0000 0000"
+        "address": "Featmia, S.A · 7 ave 5-45 zona 4, Edificio XPO1, segundo nivel, Oficina 105, Guatemala, Guatemala, 01004, GT",
+        "phone": "+502 2296-7668",
+        "newBusiness": "admin@featbrands.com"
       },
       {
         "city": "San José",
@@ -476,8 +486,15 @@
         "code": "CR",
         "mk": "cr",
         "message": "Local presence in Costa Rica, connected to the same regional team.",
-        "address": "San José, Costa Rica · [address placeholder]",
-        "phone": "+506 0000 0000"
+        "address": "Distrito Desamparados, Río Segundo de Alajuela, Costa Rica"
+      },
+      {
+        "city": "San Salvador",
+        "tag": "El Salvador",
+        "code": "SV",
+        "mk": "sv",
+        "message": "Local presence in El Salvador, connected to the same regional team.",
+        "address": "9 calle poniente, Col. Escalón, #4365, San Salvador"
       },
       {
         "city": "Miami",
@@ -485,8 +502,7 @@
         "code": "US",
         "mk": "us",
         "message": "Our gateway to US and international markets, with the same execution standard.",
-        "address": "Miami, FL, US · [address placeholder]",
-        "phone": "+1 000 000 0000"
+        "address": "7901 4th St N, Ste 300, St. Petersburg, FL"
       }
     ],
     "footer": {

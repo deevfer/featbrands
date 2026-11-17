@@ -1,4 +1,4 @@
-<header class="site-header" style="position:sticky;top:16px;z-index:50">
+<header class="site-header" style="position:sticky;top:16px;z-index:90">
     <div style="max-width:1320px;margin:0 auto;padding:0 36px">
     <div style="display:flex;align-items:center;gap:14px;background:rgba(0,0,0,.9);backdrop-filter:blur(18px);border-radius:100px;border:1px solid rgba(255,255,255,.1);box-shadow:0 14px 40px rgba(0,0,0,.3);padding:8px 10px 8px 18px" class="header-bar">
       <a href="{{ $homeUrl }}" style="background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;flex-shrink:0">

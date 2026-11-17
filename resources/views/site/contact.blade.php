@@ -43,7 +43,7 @@
                                             @endforeach
                                         </select>
                                         <span class="contact-country-label" data-country-label aria-hidden="true"><span class="contact-country-flag" data-country-flag></span><span data-country-prefix></span><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m3 4.5 3 3 3-3"/></svg></span>
-                                        <input data-contact-field type="hidden" id="contact-country_code" name="country_code" value="{{ old('country_code', ['gt' => '+502', 'cr' => '+506', 'us' => '+1'][$market]) }}">
+                                        <input data-contact-field type="hidden" id="contact-country_code" name="country_code" value="{{ old('country_code', ['gt' => '+502', 'cr' => '+506', 'sv' => '+503', 'us' => '+1'][$market]) }}">
                                     </div>
                                     <input data-contact-field id="contact-phone" type="tel" name="phone" autocomplete="tel-national" placeholder="{{ $copy['placeholders']['phone'] }}" value="{{ old('phone') }}" required pattern="[0-9][0-9 \(\)\-]{3,24}" maxlength="25" aria-describedby="contact-phone-hint contact-phone-error" @error('phone') aria-invalid="true" @enderror>
                                 </div>

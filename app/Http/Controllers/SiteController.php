@@ -62,7 +62,7 @@ class SiteController extends Controller
 
         $market = in_array(
             $request->query('market'),
-            ['gt', 'cr', 'us'],
+            ['gt', 'cr', 'sv', 'us'],
             true
         ) ? $request->query('market') : 'gt';
 
@@ -553,11 +553,16 @@ class SiteController extends Controller
                     ] ?? $office['address'],
 
                     'phone' => $stored['phone']
-                        ?? $office['phone'],
+                        ?? $office['phone']
+                        ?? null,
+
+                    'newBusiness' => $stored['new_business']
+                        ?? $office['newBusiness']
+                        ?? null,
 
                     'image_url' => $this->storedImageUrl(
                         $stored['image'] ?? null
-                    ) ?: asset('assets/ill-' . $code . '.svg'),
+                    ),
 
                     'image_alt' => $stored[
                         'image_alt_' . $locale
@@ -871,6 +876,7 @@ class SiteController extends Controller
             'markets' => [
                 ['code' => 'GT', 'name' => 'Guatemala'],
                 ['code' => 'CR', 'name' => 'Costa Rica'],
+                ['code' => 'SV', 'name' => 'El Salvador'],
                 ['code' => 'US', 'name' => 'Miami, US'],
             ],
             ...$extra,

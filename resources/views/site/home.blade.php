@@ -96,7 +96,7 @@
           <p style="font-size:15px;line-height:1.5;opacity:.85;margin-top:14px;max-width:34ch">{{ $t['services'][0]['desc'] }}</p>
           <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:12px">
             <a href="{{ $t['services'][0]['href'] }}" style="background:#FFFFFF;color:#2D48F2;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;padding:12px 22px;border-radius:100px" class="prototype-hover-4">{{ $t['services'][0]['cta'] }}</a>
-            <svg width="76" height="76" viewBox="0 0 24 24" fill="none"><circle cx="5" cy="19" r="2.8" fill="#FFFFFF"/><circle cx="19" cy="5" r="2.8" fill="#FFFFFF"/><path d="M7.6 16.4C10.5 15 13.5 9 16.4 7.6" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/></svg>
+            <svg width="84" height="84" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="4" y="40" width="13" height="20" rx="4" fill="#FFFFFF"/><rect x="21" y="28" width="13" height="32" rx="4" fill="#FFFFFF"/><rect x="38" y="16" width="13" height="44" rx="4" fill="#FFFFFF"/><path d="M53 0C54 6.5 56 8.5 62 9.5C56 10.5 54 12.5 53 19C52 12.5 50 10.5 44 9.5C50 8.5 52 6.5 53 0Z" fill="#FFFFFF"/></svg>
           </div>
         </div>
 
@@ -108,7 +108,7 @@
           <p style="font-size:14px;line-height:1.45;opacity:.8;margin-top:10px;max-width:38ch">{{ $t['services'][1]['desc'] }}</p>
           <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:12px">
             <a href="{{ $t['services'][1]['href'] }}" style="background:#000000;color:#FFFFFF;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;padding:12px 22px;border-radius:100px" class="prototype-hover-4">{{ $t['services'][1]['cta'] }}</a>
-            <span style="font-family:'Bellinzo',serif;font-weight:700;font-size:88px;line-height:.45">”</span>
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true"><g fill="#000000"><rect x="26" y="2" width="12" height="60" rx="6"/><rect x="26" y="2" width="12" height="60" rx="6" transform="rotate(45 32 32)"/><rect x="26" y="2" width="12" height="60" rx="6" transform="rotate(90 32 32)"/><rect x="26" y="2" width="12" height="60" rx="6" transform="rotate(135 32 32)"/></g><circle cx="32" cy="32" r="5" fill="#FB6C26"/></svg>
           </div>
         </div>
 
@@ -118,7 +118,7 @@
             <span style="font-size:12px;letter-spacing:.14em;opacity:.7;flex-shrink:0">03</span>
           </div>
           <p style="font-size:14px;line-height:1.45;opacity:.8;margin-top:10px">{{ $t['services'][2]['desc'] }}</p>
-          <svg style="margin-top:auto;align-self:flex-end" width="56" height="56" viewBox="0 0 24 24" fill="none"><path d="M5 3l14 8-6 2-2 6-6-16z" fill="#000000"/></svg>
+          <svg style="margin-top:auto;align-self:flex-end" width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="3" y="6" width="46" height="38" rx="9" stroke="#000000" stroke-width="4.5"/><circle cx="12.5" cy="15" r="2.5" fill="#000000"/><circle cx="20" cy="15" r="2.5" fill="#000000"/><circle cx="27.5" cy="15" r="2.5" fill="#000000"/><path d="M33 29L60 40L47.5 44.5L42 57Z" fill="#000000" stroke="#15F7A8" stroke-width="3.5" stroke-linejoin="round"/></svg>
           <a href="{{ $t['services'][2]['href'] }}" style="margin-top:14px;background:#000000;color:#FFFFFF;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;padding:12px 22px;border-radius:100px;align-self:flex-start" class="prototype-hover-4">{{ $t['services'][2]['cta'] }}</a>
         </div>
 
@@ -129,7 +129,7 @@
           </div>
           <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.75;margin-top:8px">{{ $t['services'][3]['kind'] }}</span>
           <p style="font-size:14px;line-height:1.45;opacity:.8;margin-top:10px">{{ $t['services'][3]['desc'] }}</p>
-          <svg style="margin-top:auto;align-self:flex-end" width="52" height="52" viewBox="0 0 24 24" fill="none"><path d="M8 6L2 12L8 18M16 6L22 12L16 18M14 3L10 21" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg style="margin-top:auto;align-self:flex-end" width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true"><rect x="2" y="8" width="60" height="48" rx="13" fill="#000000"/><path d="M15 23L25 32L15 41" stroke="#FDDB02" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M31 41H47" stroke="#FDDB02" stroke-width="5" stroke-linecap="round"/></svg>
           <a href="{{ $t['services'][3]['href'] }}" style="margin-top:14px;background:#000000;color:#FFFFFF;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;padding:12px 22px;border-radius:100px;align-self:flex-start" class="prototype-hover-4">{{ $t['services'][3]['cta'] }}</a>
         </div>
 
@@ -141,7 +141,7 @@
           <p style="font-size:14px;line-height:1.45;opacity:.8;margin-top:10px;max-width:38ch">{{ $t['services'][4]['desc'] }}</p>
           <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;gap:12px">
             <a href="{{ $t['services'][4]['href'] }}" style="background:#000000;color:#FFFFFF;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;padding:12px 22px;border-radius:100px" class="prototype-hover-4">{{ $t['services'][4]['cta'] }}</a>
-            <svg width="52" height="52" viewBox="0 0 24 24" fill="none"><path d="M4 5a2 2 0 012-2h12a2 2 0 012 2v9a2 2 0 01-2 2H9l-5 5V5z" fill="#000000"/></svg>
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M18 8H40A14 14 0 0 1 54 22V30A14 14 0 0 1 40 44H26L13 55V42.5A14 14 0 0 1 4 30V22A14 14 0 0 1 18 8Z" fill="#000000"/><path d="M29 35C20.5 29.5 18.5 24.5 21 21C23.5 17.8 27.5 18.5 29 21.5C30.5 18.5 34.5 17.8 37 21C39.5 24.5 37.5 29.5 29 35Z" fill="#D48BFD"/><circle cx="54" cy="10" r="7" fill="#000000" stroke="#D48BFD" stroke-width="3.5"/></svg>
           </div>
         </div>
       </div>
@@ -268,7 +268,9 @@
             <div data-office="{{ $o['mk'] }}" role="button" tabindex="0" aria-expanded="{{ $o['mk'] === $market ? 'true' : 'false' }}" class="office-card {{ $o['mk'] === $market ? 'is-active' : '' }}">
               <div style="display:flex;justify-content:space-between;align-items:center">
                 <div style="display:flex;align-items:center;gap:16px">
-                  <span role="img" aria-label="{{ $o['image_alt'] }}" style="width:52px;height:52px;flex-shrink:0;background:url('{{ $o['image_url'] }}') center/contain no-repeat"></span>
+                  @if (!empty($o['image_url']))
+                    <span role="img" aria-label="{{ $o['image_alt'] }}" style="width:52px;height:52px;flex-shrink:0;background:url('{{ $o['image_url'] }}') center/contain no-repeat"></span>
+                  @endif
                   <div style="display:flex;align-items:baseline;gap:12px">
                     <span style="font-family:'Bellinzo',serif;font-size:23px">{{ $o['city'] }}</span>
                     <span style="font-size:13px;color:#5C5C5C">{{ $o['tag'] }}</span>
@@ -277,15 +279,25 @@
                 <span style="font-size:13px;color:{{ $o['mk'] === $market ? '#FB6C26' : '#938B77' }}"><span data-office-sign>{{ $o['mk'] === $market ? '– ' : '+ ' }}</span>{{ $o['code'] }}</span>
               </div>
               <div class="office-details" data-office-details {{ $o['mk'] === $market ? '' : 'hidden' }}>
-                <p style="font-family:'Miller Text Italic',serif;font-style:italic;font-size:17px;line-height:1.45;color:#333333;margin-top:16px">{{ $o['message'] }}</p>
-                <div style="display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:16px">
-                  <div style="display:flex;flex-direction:column;gap:2px">
-                    <span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5C5C5C">{{ $t['addrLabel'] }}</span>
-                    <span style="font-size:14px;color:#474747">{{ $o['address'] }}</span>
-                  </div>
-                  <div style="display:flex;flex-direction:column;gap:2px">
-                    <span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5C5C5C">{{ $t['phoneLabel'] }}</span>
-                    <span style="font-size:14px;color:#474747">{{ $o['phone'] }}</span>
+                <div class="office-details-inner">
+                  <p style="font-family:'Miller Text Italic',serif;font-style:italic;font-size:17px;line-height:1.45;color:#333333;margin-top:16px">{{ $o['message'] }}</p>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:16px">
+                    <div style="display:flex;flex-direction:column;gap:2px">
+                      <span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5C5C5C">{{ $t['addrLabel'] }}</span>
+                      <span style="font-size:14px;color:#474747">{{ $o['address'] }}</span>
+                    </div>
+                    @if (!empty($o['phone']))
+                    <div style="display:flex;flex-direction:column;gap:2px">
+                      <span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5C5C5C">{{ $t['phoneLabel'] }}</span>
+                      <span style="font-size:14px;color:#474747">{{ $o['phone'] }}</span>
+                    </div>
+                    @endif
+                    @if (!empty($o['newBusiness']))
+                    <div style="display:flex;flex-direction:column;gap:2px">
+                      <span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#5C5C5C">{{ $t['newBusinessLabel'] }}</span>
+                      <a href="mailto:{{ $o['newBusiness'] }}" style="font-size:14px;color:#474747">{{ $o['newBusiness'] }}</a>
+                    </div>
+                    @endif
                   </div>
                 </div>
               </div>

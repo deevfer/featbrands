@@ -46,7 +46,7 @@ class StoreContactSubmissionRequest extends FormRequest
             'referral_source' => ['required', Rule::in(array_keys($this->copy()['referrals']))],
             'message' => ['required', 'string', 'min:20', 'max:5000'],
             'locale' => ['required', Rule::in(['es', 'en'])],
-            'market' => ['required', Rule::in(['gt', 'cr', 'us'])],
+            'market' => ['required', Rule::in(['gt', 'cr', 'sv', 'us'])],
             'website' => ['nullable', 'string', 'max:0'],
         ];
     }
