@@ -69,6 +69,32 @@
             });
         }
 
+        const menuToggle = document.querySelector('[data-menu-toggle]');
+        if (menuToggle) {
+            const bar = menuToggle.closest('.header-bar');
+            const setMenu = (open) => {
+                bar.parentElement.style.height = open ? `${bar.offsetHeight}px` : '';
+                bar.classList.toggle('is-menu-open', open);
+                menuToggle.setAttribute('aria-expanded', String(open));
+                menuToggle.setAttribute('aria-label', open ? menuToggle.dataset.closeLabel : menuToggle.dataset.openLabel);
+            };
+            setMenu(false);
+            listen(menuToggle, 'click', () => setMenu(!bar.classList.contains('is-menu-open')));
+            listen(document, 'click', (event) => {
+                if (!bar.contains(event.target)) setMenu(false);
+            });
+            listen(document, 'keydown', (event) => {
+                if (event.key === 'Escape' && bar.classList.contains('is-menu-open')) {
+                    setMenu(false);
+                    menuToggle.focus();
+                }
+            });
+            bar.querySelectorAll('.site-nav a').forEach((link) => listen(link, 'click', () => setMenu(false)));
+            listen(window.matchMedia('(max-width: 1100px)'), 'change', (event) => {
+                if (!event.matches) setMenu(false);
+            });
+        }
+
         const selectMarket = (market) => {
             body.dataset.market = market;
             document.querySelectorAll('[data-market-choice]').forEach((chip) => {

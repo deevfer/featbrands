@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PageSection;
 use App\Services\GeoContent;
+use App\Services\SiteContent;
 use App\Services\SiteSeo;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
@@ -89,6 +90,8 @@ class SiteController extends Controller
 
         // Datos originales: se mantienen como respaldo.
         $t = File::json(resource_path('data/site.json'))[$locale];
+        $content = app(SiteContent::class);
+        $t = array_replace($t, $content->get('global', $locale));
 
         $homeUrl = route('home', $query);
         $performanceUrl = route('performance', $query);
@@ -113,7 +116,7 @@ class SiteController extends Controller
         $agencyUrls = [
             'cases' => route('cases', $query),
             'about' => route('about', $query),
-            'awards' => route('about', $query) . '#reconocimientos',
+            'awards' => route('about', $query).'#reconocimientos',
         ];
 
         $blogUrl = route($locale === 'en' ? 'blog.en.index' : 'blog.index', ['market' => $market]);
@@ -121,17 +124,7 @@ class SiteController extends Controller
         $copy = match ($page) {
             'home', 'performance' => null,
 
-            'cases', 'about' => File::json(
-                resource_path('data/agency.json')
-            )[$locale][$page],
-
-            'contact' => File::json(
-                resource_path('data/contact.json')
-            )[$locale],
-
-            'blog' => File::json(
-                resource_path('data/blog/ui.json')
-            )[$locale],
+            'social', 'cases', 'about', 'contact', 'blog' => $content->get($page, $locale),
 
             'mejor-agencia-publicidad-guatemala',
             'mejorar-comunicacion-marca-guatemala',
@@ -142,555 +135,566 @@ class SiteController extends Controller
             )[$locale][$page],
         };
 
-        // Variables adicionales exclusivas de Home.
+        // Contenido del Home compartido con el resto del sitio.
         $homeCms = [];
         $pageSeo = null;
 
-        // Solo Home consulta el contenido del CMS.
-        // Las demás páginas conservan su funcionamiento.
-        if ($page === 'home') {
-            $sections = PageSection::query()
-                ->where('page', 'home')
-                ->get()
-                ->keyBy('section');
+        // Las secciones del Home (especialidades, reconocimientos,
+        // clientes y oficinas) también alimentan el menú, el footer
+        // y Nosotros; el SEO del Home solo se usa en el Home.
+        $sections = PageSection::query()
+            ->where('page', 'home')
+            ->get()
+            ->keyBy('section');
 
-            $read = fn (string $name, string $lang): array =>
-                $sections->get($name)?->getAttribute(
-                    'content_' . $lang
-                ) ?? [];
+        $read = fn (string $name, string $lang): array => $sections->get($name)?->getAttribute(
+            'content_'.$lang
+        ) ?? [];
 
-            $hero = $read('hero', $locale);
-            $proof = $read('proof', $locale);
-            $services = $read('services', $locale);
-            $cases = $read('cases', $locale);
-            $collab = $read('collaboration', $locale);
-            $marketsData = $read('markets', $locale);
-            $seo = $read('seo', $locale);
+        $hero = $read('hero', $locale);
+        $proof = $read('proof', $locale);
+        $services = $read('services', $locale);
+        $cases = $read('cases', $locale);
+        $collab = $read('collaboration', $locale);
+        $marketsData = $read('markets', $locale);
+        $seo = $read('seo', $locale);
 
-            // ------------------------------------
-            // SECCIÓN 1 - HERO
-            // ------------------------------------
+        // ------------------------------------
+        // SECCIÓN 1 - HERO
+        // ------------------------------------
 
-            foreach ([
-                'eyebrow',
-                'sub',
-                'ctaPrimary',
-                'ctaSecondary',
-            ] as $field) {
-                if (array_key_exists($field, $hero)) {
-                    $t['hero'][$field] = $hero[$field];
-                }
+        foreach ([
+            'eyebrow',
+            'sub',
+            'ctaPrimary',
+            'ctaSecondary',
+        ] as $field) {
+            if (array_key_exists($field, $hero)) {
+                $t['hero'][$field] = $hero[$field];
             }
+        }
 
-            // El CMS permite escribir el título completo.
-            // Conservamos el subrayado animado de la última palabra.
-            $heroTitle = trim((string) (
-                $hero['title']
-                ?? (
-                    $t['hero']['titlePre']
-                    . $t['hero']['titleAccent']
-                )
-            ));
+        // El CMS permite escribir el título completo.
+        // Conservamos el subrayado animado de la última palabra.
+        $heroTitle = trim((string) (
+            $hero['title']
+            ?? (
+                $t['hero']['titlePre']
+                .$t['hero']['titleAccent']
+            )
+        ));
 
-            if ($heroTitle !== '') {
-                if (preg_match(
-                    '/^(.*\s)(\S+)$/us',
-                    $heroTitle,
-                    $parts
-                )) {
-                    $t['hero']['titlePre'] = $parts[1];
-                    $t['hero']['titleAccent'] = $parts[2];
-                } else {
-                    $t['hero']['titlePre'] = '';
-                    $t['hero']['titleAccent'] = $heroTitle;
-                }
-            }
-
-            $homeCms['hero'] = [
-                'primary_url' => $this->cmsUrl(
-                    $hero['ctaPrimaryUrl'] ?? null,
-                    $contactUrl,
-                    $query
-                ),
-                'secondary_url' => $this->cmsUrl(
-                    $hero['ctaSecondaryUrl'] ?? null,
-                    $performanceUrl,
-                    $query
-                ),
-            ];
-
-            // ------------------------------------
-            // SECCIÓN 2 - RECONOCIMIENTOS
-            // ------------------------------------
-
-            $t['proofKicker'] =
-                $proof['eyebrow'] ?? $t['proofKicker'];
-
-            $t['proofTitle'] =
-                $proof['title'] ?? $t['proofTitle'];
-
-            $proofCards = $proof['cards'] ?? $t['proof'];
-
-            $t['proof'] = [];
-
-            foreach ($proofCards as $index => $card) {
-                if (!is_array($card)) {
-                    continue;
-                }
-
-                $imageUrl = $this->storedImageUrl(
-                    $card['image'] ?? null
-                );
-
-                $t['proof'][] = [
-                    'big' => $card['big'] ?? '',
-                    'label' => $card['label'] ?? '',
-
-                    'image_url' => $imageUrl
-                        ?: asset(
-                            'uploads/proof-bg-' . $index . '.webp'
-                        ),
-
-                    'image_alt' => $card['image_alt']
-                        ?? $card['label']
-                        ?? '',
-                ];
-            }
-
-            // ------------------------------------
-            // SECCIÓN 3 - ESPECIALIZACIONES
-            // ------------------------------------
-
-            $t['servicesKicker'] =
-                $services['eyebrow'] ?? $t['servicesKicker'];
-
-            $servicesTitle = trim((string) (
-                $services['title']
-                ?? (
-                    $t['servicesTitle1']
-                    . ' '
-                    . $t['servicesTitle2']
-                )
-            ));
-
-            // Conservar las dos líneas cuando el título
-            // contiene una coma, como el título original.
+        if ($heroTitle !== '') {
             if (preg_match(
-                '/^(.+[,;:])\s+(.+)$/us',
-                $servicesTitle,
+                '/^(.*\s)(\S+)$/us',
+                $heroTitle,
                 $parts
             )) {
-                $t['servicesTitle1'] = $parts[1];
-                $t['servicesTitle2'] = $parts[2];
+                $t['hero']['titlePre'] = $parts[1];
+                $t['hero']['titleAccent'] = $parts[2];
             } else {
-                $t['servicesTitle1'] = $servicesTitle;
-                $t['servicesTitle2'] = '';
+                $t['hero']['titlePre'] = '';
+                $t['hero']['titleAccent'] = $heroTitle;
+            }
+        }
+
+        $homeCms['hero'] = [
+            'primary_url' => $this->cmsUrl(
+                $hero['ctaPrimaryUrl'] ?? null,
+                $contactUrl,
+                $query
+            ),
+            'secondary_url' => $this->cmsUrl(
+                $hero['ctaSecondaryUrl'] ?? null,
+                $performanceUrl,
+                $query
+            ),
+        ];
+
+        // ------------------------------------
+        // SECCIÓN 2 - RECONOCIMIENTOS
+        // ------------------------------------
+
+        $t['proofKicker'] =
+            $proof['eyebrow'] ?? $t['proofKicker'];
+
+        $t['proofTitle'] =
+            $proof['title'] ?? $t['proofTitle'];
+
+        $proofCards = $proof['cards'] ?? $t['proof'];
+
+        $t['proof'] = [];
+
+        foreach ($proofCards as $index => $card) {
+            if (! is_array($card)) {
+                continue;
             }
 
-            $t['servicesIntro'] =
-                $services['intro'] ?? $t['servicesIntro'];
-
-            // Las cinco tarjetas del Hero también se
-            // reutilizan en la sección Especializaciones.
-            foreach (
-                ($services['cards'] ?? []) as $index => $card
-            ) {
-                if (
-                    !isset($t['services'][$index])
-                    || !is_array($card)
-                ) {
-                    continue;
-                }
-
-                $t['services'][$index] = array_replace(
-                    $t['services'][$index],
-                    $card
-                );
-            }
-
-            foreach ($t['services'] as $index => $service) {
-                $fallbackUrl = $serviceUrls[
-                    $serviceRoutes[$index]
-                ];
-
-                $t['services'][$index]['href'] =
-                    $this->cmsUrl(
-                        $service['href'] ?? null,
-                        $fallbackUrl,
-                        $query
-                    );
-
-                $t['services'][$index]['cta'] =
-                    $service['cta'] ?? $t['servicesBtn'];
-            }
-
-            $homeCms['services'] = [
-                'primary_text' =>
-                    $services['ctaPrimaryText']
-                    ?? $t['hero']['card2Btn'],
-
-                'primary_url' => $this->cmsUrl(
-                    $services['ctaPrimaryUrl'] ?? null,
-                    $contactUrl,
-                    $query
-                ),
-
-                'secondary_text' =>
-                    $services['ctaSecondaryText']
-                    ?? $t['cta'],
-
-                'secondary_url' => $this->cmsUrl(
-                    $services['ctaSecondaryUrl'] ?? null,
-                    $contactUrl,
-                    $query
-                ),
-            ];
-
-            // ------------------------------------
-            // SECCIÓN 4 - RESULTADOS Y CASOS
-            // ------------------------------------
-
-            $t['casesKicker'] =
-                $cases['eyebrow'] ?? $t['casesKicker'];
-
-            $t['casesTitle'] =
-                $cases['title'] ?? $t['casesTitle'];
-
-            $caseCards = $cases['cards'] ?? $t['cases'];
-
-            $t['cases'] = [];
-
-            foreach ($caseCards as $card) {
-                if (!is_array($card)) {
-                    continue;
-                }
-
-                $card['href'] = filled(
-                    $card['href'] ?? null
-                )
-                    ? $this->cmsUrl(
-                        $card['href'],
-                        '',
-                        $query
-                    )
-                    : '';
-
-                $t['cases'][] = $card;
-            }
-
-            $media = $cases['media'] ?? [];
-
-            $videoSource = $this->storedImageUrl(
-                $media['video_file'] ?? null
+            $imageUrl = $this->storedImageUrl(
+                $card['image'] ?? null
             );
 
-            $videoType = 'video/mp4';
+            $t['proof'][] = [
+                'big' => $card['big'] ?? '',
+                'label' => $card['label'] ?? '',
 
+                'image_url' => $imageUrl
+                    ?: asset(
+                        'uploads/proof-bg-'.$index.'.webp'
+                    ),
+
+                'image_alt' => $card['image_alt']
+                    ?? $card['label']
+                    ?? '',
+            ];
+        }
+
+        // ------------------------------------
+        // SECCIÓN 3 - ESPECIALIZACIONES
+        // ------------------------------------
+
+        $t['servicesKicker'] =
+            $services['eyebrow'] ?? $t['servicesKicker'];
+
+        $servicesTitle = trim((string) (
+            $services['title']
+            ?? (
+                $t['servicesTitle1']
+                .' '
+                .$t['servicesTitle2']
+            )
+        ));
+
+        // Conservar las dos líneas cuando el título
+        // contiene una coma, como el título original.
+        if (preg_match(
+            '/^(.+[,;:])\s+(.+)$/us',
+            $servicesTitle,
+            $parts
+        )) {
+            $t['servicesTitle1'] = $parts[1];
+            $t['servicesTitle2'] = $parts[2];
+        } else {
+            $t['servicesTitle1'] = $servicesTitle;
+            $t['servicesTitle2'] = '';
+        }
+
+        $t['servicesIntro'] =
+            $services['intro'] ?? $t['servicesIntro'];
+
+        // Las cinco tarjetas del Hero también se
+        // reutilizan en la sección Especializaciones.
+        foreach (
+            ($services['cards'] ?? []) as $index => $card
+        ) {
             if (
-                $videoSource
-                && strtolower(pathinfo(
-                    (string) $media['video_file'],
-                    PATHINFO_EXTENSION
-                )) === 'webm'
+                ! isset($t['services'][$index])
+                || ! is_array($card)
             ) {
-                $videoType = 'video/webm';
+                continue;
             }
 
-            $embedUrl = null;
+            $t['services'][$index] = array_replace(
+                $t['services'][$index],
+                $card
+            );
+        }
 
-            if (!$videoSource) {
-                $external = $this->externalVideo(
-                    $media['video_url'] ?? null
+        foreach ($t['services'] as $index => $service) {
+            $fallbackUrl = $serviceUrls[
+                $serviceRoutes[$index]
+            ];
+
+            $t['services'][$index]['href'] =
+                $this->cmsUrl(
+                    $service['href'] ?? null,
+                    $fallbackUrl,
+                    $query
                 );
 
-                $videoSource = $external['src'];
-                $embedUrl = $external['embed'];
-                $videoType = $external['type'];
+            $t['services'][$index]['cta'] =
+                $service['cta'] ?? $t['servicesBtn'];
+        }
+
+        $homeCms['services'] = [
+            'primary_text' => $services['ctaPrimaryText']
+                ?? $t['hero']['card2Btn'],
+
+            'primary_url' => $this->cmsUrl(
+                $services['ctaPrimaryUrl'] ?? null,
+                $contactUrl,
+                $query
+            ),
+
+            'secondary_text' => $services['ctaSecondaryText']
+                ?? $t['cta'],
+
+            'secondary_url' => $this->cmsUrl(
+                $services['ctaSecondaryUrl'] ?? null,
+                $contactUrl,
+                $query
+            ),
+        ];
+
+        // ------------------------------------
+        // SECCIÓN 4 - RESULTADOS Y CASOS
+        // ------------------------------------
+
+        $t['casesKicker'] =
+            $cases['eyebrow'] ?? $t['casesKicker'];
+
+        $t['casesTitle'] =
+            $cases['title'] ?? $t['casesTitle'];
+
+        $caseCards = $cases['cards'] ?? $t['cases'];
+
+        $t['cases'] = [];
+
+        foreach ($caseCards as $card) {
+            if (! is_array($card)) {
+                continue;
             }
 
-            $homeCms['cases'] = [
-                'explore_text' => $cases['exploreText']
-                    ?? (
-                        $locale === 'es'
-                            ? 'Explorar casos'
-                            : 'Explore work'
-                    ),
-
-                'explore_url' => $this->cmsUrl(
-                    $cases['exploreUrl'] ?? null,
-                    $agencyUrls['cases'],
+            $card['href'] = filled(
+                $card['href'] ?? null
+            )
+                ? $this->cmsUrl(
+                    $card['href'],
+                    '',
                     $query
+                )
+                : '';
+
+            $t['cases'][] = $card;
+        }
+
+        $media = $cases['media'] ?? [];
+
+        $videoSource = $this->storedImageUrl(
+            $media['video_file'] ?? null
+        );
+
+        $videoType = 'video/mp4';
+
+        if (
+            $videoSource
+            && strtolower(pathinfo(
+                (string) $media['video_file'],
+                PATHINFO_EXTENSION
+            )) === 'webm'
+        ) {
+            $videoType = 'video/webm';
+        }
+
+        $embedUrl = null;
+
+        if (! $videoSource) {
+            $external = $this->externalVideo(
+                $media['video_url'] ?? null
+            );
+
+            $videoSource = $external['src'];
+            $embedUrl = $external['embed'];
+            $videoType = $external['type'];
+        }
+
+        $homeCms['cases'] = [
+            'explore_text' => $cases['exploreText']
+                ?? (
+                    $locale === 'es'
+                        ? 'Explorar casos'
+                        : 'Explore work'
                 ),
 
-                'video_note' => $cases['videoNote']
-                    ?? $t['hero']['videoNote'],
+            'explore_url' => $this->cmsUrl(
+                $cases['exploreUrl'] ?? null,
+                $agencyUrls['cases'],
+                $query
+            ),
 
-                'video_label' => $cases['videoLabel']
-                    ?? (
-                        $locale === 'es'
-                            ? 'Reproducir video'
-                            : 'Play video'
-                    ),
+            'video_note' => $cases['videoNote']
+                ?? $t['hero']['videoNote'],
 
-                'poster_alt' => $cases['posterAlt'] ?? '',
-
-                'video_src' => $videoSource,
-                'video_type' => $videoType,
-                'embed_url' => $embedUrl,
-
-                'poster_url' => $this->storedImageUrl(
-                    $media['poster'] ?? null
+            'video_label' => $cases['videoLabel']
+                ?? (
+                    $locale === 'es'
+                        ? 'Reproducir video'
+                        : 'Play video'
                 ),
-            ];
 
-            // ------------------------------------
-            // SECCIÓN 5 - COLABORACIÓN
-            // ------------------------------------
+            'poster_alt' => $cases['posterAlt'] ?? '',
 
-            $t['collabKicker'] =
-                $collab['eyebrow'] ?? $t['collabKicker'];
+            'video_src' => $videoSource,
+            'video_type' => $videoType,
+            'embed_url' => $embedUrl,
 
-            $t['collabQuote'] =
-                $collab['quote'] ?? $t['collabQuote'];
+            'poster_url' => $this->storedImageUrl(
+                $media['poster'] ?? null
+            ),
+        ];
 
-            $t['collabBody'] =
-                $collab['body'] ?? $t['collabBody'];
+        // ------------------------------------
+        // SECCIÓN 5 - COLABORACIÓN
+        // ------------------------------------
 
-            $t['collabResult'] =
-                $collab['result']
-                ?? ($t['collabResult'] ?? '');
+        $t['collabKicker'] =
+            $collab['eyebrow'] ?? $t['collabKicker'];
 
-            $t['clientsTitle'] =
-                $collab['clientsTitle']
-                ?? $t['clientsTitle'];
+        $t['collabQuote'] =
+            $collab['quote'] ?? $t['collabQuote'];
 
-            $t['clientsNote'] =
-                $collab['clientsNote']
-                ?? $t['clientsNote'];
+        $t['collabBody'] =
+            $collab['body'] ?? $t['collabBody'];
 
-            $homeCms['collaboration'] = [
-                'cta_text' => $collab['ctaText']
-                    ?? (
-                        $locale === 'es'
-                            ? 'Conoce a Feat.'
-                            : 'Meet Feat.'
-                    ),
+        $t['collabResult'] =
+            $collab['result']
+            ?? ($t['collabResult'] ?? '');
 
-                'cta_url' => $this->cmsUrl(
-                    $collab['ctaUrl'] ?? null,
-                    $agencyUrls['about'],
-                    $query
+        $t['clientsTitle'] =
+            $collab['clientsTitle']
+            ?? $t['clientsTitle'];
+
+        $t['clientsNote'] =
+            $collab['clientsNote']
+            ?? $t['clientsNote'];
+
+        $homeCms['collaboration'] = [
+            'cta_text' => $collab['ctaText']
+                ?? (
+                    $locale === 'es'
+                        ? 'Conoce a Feat.'
+                        : 'Meet Feat.'
                 ),
-            ];
 
-            $homeCms['clients'] = [];
+            'cta_url' => $this->cmsUrl(
+                $collab['ctaUrl'] ?? null,
+                $agencyUrls['about'],
+                $query
+            ),
+        ];
 
-            foreach (
-                ($collab['clients'] ?? $t['clients'])
-                as $client
-            ) {
-                if (is_string($client)) {
-                    $homeCms['clients'][] = [
-                        'name' => $client,
-                        'logo_url' => null,
-                        'alt' => $client,
-                    ];
+        $homeCms['clients'] = [];
 
-                    continue;
-                }
-
-                if (!is_array($client)) {
-                    continue;
-                }
-
+        foreach (
+            ($collab['clients'] ?? $t['clients']) as $client
+        ) {
+            if (is_string($client)) {
                 $homeCms['clients'][] = [
-                    'name' => $client['name'] ?? '',
-
-                    'logo_url' => $this->storedImageUrl(
-                        $client['logo'] ?? null
-                    ),
-
-                    'alt' => $client[
-                        'alt_' . $locale
-                    ] ?? $client['name'] ?? '',
+                    'name' => $client,
+                    'logo_url' => null,
+                    'alt' => $client,
                 ];
+
+                continue;
             }
 
-            // ------------------------------------
-            // SECCIÓN 6 - MERCADOS
-            // ------------------------------------
-
-            $t['marketKicker'] =
-                $marketsData['eyebrow']
-                ?? $t['marketKicker'];
-
-            $t['marketTitle'] =
-                $marketsData['title']
-                ?? $t['marketTitle'];
-
-            $t['marketBody'] =
-                $marketsData['body']
-                ?? $t['marketBody'];
-
-            $savedOffices = $marketsData['offices']
-                ?? $read('markets', 'es')['offices']
-                ?? [];
-
-            $officesByMarket = [];
-
-            foreach ($savedOffices as $office) {
-                if (
-                    is_array($office)
-                    && isset($office['mk'])
-                ) {
-                    $officesByMarket[$office['mk']] = $office;
-                }
+            if (! is_array($client)) {
+                continue;
             }
 
-            foreach ($t['offices'] as $index => $office) {
-                $code = $office['mk'];
+            $homeCms['clients'][] = [
+                'name' => $client['name'] ?? '',
 
-                $stored = $officesByMarket[$code] ?? [];
-
-                $t['offices'][$index] = [
-                    'mk' => $code,
-                    'code' => $office['code'],
-
-                    'city' => $stored[
-                        'city_' . $locale
-                    ] ?? $office['city'],
-
-                    'tag' => $stored[
-                        'tag_' . $locale
-                    ] ?? $office['tag'],
-
-                    'message' => $stored[
-                        'message_' . $locale
-                    ] ?? $office['message'],
-
-                    'address' => $stored[
-                        'address_' . $locale
-                    ] ?? $office['address'],
-
-                    'phone' => $stored['phone']
-                        ?? $office['phone']
-                        ?? null,
-
-                    'newBusiness' => $stored['new_business']
-                        ?? $office['newBusiness']
-                        ?? null,
-
-                    'image_url' => $this->storedImageUrl(
-                        $stored['image'] ?? null
-                    ),
-
-                    'image_alt' => $stored[
-                        'image_alt_' . $locale
-                    ] ?? $office['city'],
-                ];
-            }
-
-            // ------------------------------------
-            // SECCIÓN 7 - SEO Y LINKEDIN
-            // ------------------------------------
-
-            $defaultTitle = 'Feat. — Collab Driven Growth';
-
-            $seoTitle = trim((string) (
-                $seo['meta_title'] ?? ''
-            ));
-
-            $seoDescription = trim((string) (
-                $seo['meta_description'] ?? ''
-            ));
-
-            $canonical = trim((string) (
-                $seo['canonical_url'] ?? ''
-            ));
-
-            if (
-                !filter_var($canonical, FILTER_VALIDATE_URL)
-                || !in_array(
-                    strtolower(
-                        (string) parse_url(
-                            $canonical,
-                            PHP_URL_SCHEME
-                        )
-                    ),
-                    ['http', 'https'],
-                    true
-                )
-            ) {
-                // Una URL canónica por idioma.
-                // Los parámetros de mercado no generan
-                // páginas canónicas duplicadas.
-                $canonical = route(
-                    'home',
-                    ['lang' => $locale]
-                );
-            }
-
-            $pageSeo = [
-                'title' => $seoTitle !== ''
-                    ? $seoTitle
-                    : $defaultTitle,
-
-                'description' => $seoDescription !== ''
-                    ? $seoDescription
-                    : $t['hero']['sub'],
-
-                'canonical' => $canonical,
-
-                'og_title' => filled(
-                    $seo['og_title'] ?? null
-                )
-                    ? $seo['og_title']
-                    : (
-                        $seoTitle !== ''
-                            ? $seoTitle
-                            : $defaultTitle
-                    ),
-
-                'og_description' => filled(
-                    $seo['og_description'] ?? null
-                )
-                    ? $seo['og_description']
-                    : (
-                        $seoDescription !== ''
-                            ? $seoDescription
-                            : $t['hero']['sub']
-                    ),
-
-                'og_image' => $this->absoluteImageUrl(
-                    $seo['og_image'] ?? null
+                'logo_url' => $this->storedImageUrl(
+                    $client['logo'] ?? null
                 ),
 
-                'og_image_alt' =>
-                    $seo['og_image_alt'] ?? '',
-
-                'robots' => (
-                    ($seo['robots_index'] ?? true)
-                        ? 'index'
-                        : 'noindex'
-                ) . ', ' . (
-                    ($seo['robots_follow'] ?? true)
-                        ? 'follow'
-                        : 'nofollow'
-                ),
-
-                'og_locale' => $locale === 'es'
-                    ? 'es_LA'
-                    : 'en_US',
-
-                'alternates' => [
-                    'es' => route('home', [
-                        'lang' => 'es',
-                    ]),
-                    'en' => route('home', [
-                        'lang' => 'en',
-                    ]),
-                ],
+                'alt' => $client[
+                    'alt_'.$locale
+                ] ?? $client['name'] ?? '',
             ];
+        }
+
+        // ------------------------------------
+        // SECCIÓN 6 - MERCADOS
+        // ------------------------------------
+
+        $t['marketKicker'] =
+            $marketsData['eyebrow']
+            ?? $t['marketKicker'];
+
+        $t['marketTitle'] =
+            $marketsData['title']
+            ?? $t['marketTitle'];
+
+        $t['marketBody'] =
+            $marketsData['body']
+            ?? $t['marketBody'];
+
+        $savedOffices = $marketsData['offices']
+            ?? $read('markets', 'es')['offices']
+            ?? [];
+
+        $officesByMarket = [];
+
+        foreach ($savedOffices as $office) {
+            if (
+                is_array($office)
+                && isset($office['mk'])
+            ) {
+                $officesByMarket[$office['mk']] = $office;
+            }
+        }
+
+        foreach ($t['offices'] as $index => $office) {
+            $code = $office['mk'];
+
+            $stored = $officesByMarket[$code] ?? [];
+
+            $t['offices'][$index] = [
+                'mk' => $code,
+                'code' => $office['code'],
+
+                'city' => $stored[
+                    'city_'.$locale
+                ] ?? $office['city'],
+
+                'tag' => $stored[
+                    'tag_'.$locale
+                ] ?? $office['tag'],
+
+                'message' => $stored[
+                    'message_'.$locale
+                ] ?? $office['message'],
+
+                'address' => $stored[
+                    'address_'.$locale
+                ] ?? $office['address'],
+
+                'phone' => $stored['phone']
+                    ?? $office['phone']
+                    ?? null,
+
+                'newBusiness' => $stored['new_business']
+                    ?? $office['newBusiness']
+                    ?? null,
+
+                'image_url' => $this->storedImageUrl(
+                    $stored['image'] ?? null
+                ),
+
+                'image_alt' => $stored[
+                    'image_alt_'.$locale
+                ] ?? $office['city'],
+            ];
+        }
+
+        // ------------------------------------
+        // SECCIÓN 7 - SEO Y LINKEDIN
+        // ------------------------------------
+
+        $defaultTitle = 'Feat. — Collab Driven Growth';
+
+        $seoTitle = trim((string) (
+            $seo['meta_title'] ?? ''
+        ));
+
+        $seoDescription = trim((string) (
+            $seo['meta_description'] ?? ''
+        ));
+
+        $canonical = trim((string) (
+            $seo['canonical_url'] ?? ''
+        ));
+
+        if (
+            ! filter_var($canonical, FILTER_VALIDATE_URL)
+            || ! in_array(
+                strtolower(
+                    (string) parse_url(
+                        $canonical,
+                        PHP_URL_SCHEME
+                    )
+                ),
+                ['http', 'https'],
+                true
+            )
+        ) {
+            // Una URL canónica por idioma.
+            // Los parámetros de mercado no generan
+            // páginas canónicas duplicadas.
+            $canonical = route(
+                'home',
+                ['lang' => $locale]
+            );
+        }
+
+        $pageSeo = [
+            'title' => $seoTitle !== ''
+                ? $seoTitle
+                : $defaultTitle,
+
+            'description' => $seoDescription !== ''
+                ? $seoDescription
+                : $t['hero']['sub'],
+
+            'canonical' => $canonical,
+
+            'og_title' => filled(
+                $seo['og_title'] ?? null
+            )
+                ? $seo['og_title']
+                : (
+                    $seoTitle !== ''
+                        ? $seoTitle
+                        : $defaultTitle
+                ),
+
+            'og_description' => filled(
+                $seo['og_description'] ?? null
+            )
+                ? $seo['og_description']
+                : (
+                    $seoDescription !== ''
+                        ? $seoDescription
+                        : $t['hero']['sub']
+                ),
+
+            'og_image' => $this->absoluteImageUrl(
+                $seo['og_image'] ?? null
+            ),
+
+            'og_image_alt' => $seo['og_image_alt'] ?? '',
+
+            'robots' => (
+                ($seo['robots_index'] ?? true)
+                    ? 'index'
+                    : 'noindex'
+            ).', '.(
+                ($seo['robots_follow'] ?? true)
+                    ? 'follow'
+                    : 'nofollow'
+            ),
+
+            'og_locale' => $locale === 'es'
+                ? 'es_LA'
+                : 'en_US',
+
+            'alternates' => [
+                'es' => route('home', [
+                    'lang' => 'es',
+                ]),
+                'en' => route('home', [
+                    'lang' => 'en',
+                ]),
+            ],
+        ];
+
+        if ($page !== 'home') {
+            $pageSeo = null;
+        }
+
+        // Enlaces editables de las páginas sin CMS propio.
+        $copyLinks = match ($page) {
+            'social' => ['ctaHref' => $contactUrl, 'closingHref' => $contactUrl, 'nextHref' => $serviceUrls['makitha']],
+            'cases' => ['aboutHref' => $agencyUrls['about'], 'closingHref' => $contactUrl],
+            'about' => ['closingHref' => $contactUrl, 'workHref' => $agencyUrls['cases']],
+            'blog' => ['ctaHref' => $contactUrl],
+            default => [],
+        };
+
+        foreach ($copyLinks as $field => $fallback) {
+            $copy[$field] = $this->cmsUrl($copy[$field] ?? null, $fallback, $query);
         }
 
         // ------------------------------------
@@ -739,9 +743,8 @@ class SiteController extends Controller
 
         $pageTitle = match ($page) {
             'home' => 'Feat. — Collab Driven Growth',
-            'performance' =>
-                'Performance & Connections — Feat.',
-            default => $copy['name'] . ' — Feat.',
+            'performance' => 'Performance & Connections — Feat.',
+            default => $copy['name'].' — Feat.',
         };
 
         $pageDescription = match ($page) {
@@ -804,6 +807,30 @@ class SiteController extends Controller
             ];
         }
 
+        $footerFallbacks = [
+            array_column($serviceLinks, 'href'),
+            [$agencyUrls['about'], $agencyUrls['cases'], $agencyUrls['awards'], $blogUrl],
+        ];
+
+        $footerColumns = [];
+
+        foreach ($t['footer']['cols'] as $column => $col) {
+            $links = [];
+
+            foreach ($col['items'] as $index => $label) {
+                $links[] = [
+                    'label' => $label,
+                    'href' => $this->cmsUrl(
+                        $col['hrefs'][$index] ?? null,
+                        $footerFallbacks[$column][$index] ?? $contactUrl,
+                        $query
+                    ),
+                ];
+            }
+
+            $footerColumns[] = ['head' => $col['head'], 'links' => $links];
+        }
+
         $navRest = [
             [
                 'label' => $t['nav'][1],
@@ -841,12 +868,9 @@ class SiteController extends Controller
             'serviceUrls' => $serviceUrls,
             'agencyUrls' => $agencyUrls,
 
-            'footerAgencyUrls' => [
-                $agencyUrls['about'],
-                $agencyUrls['cases'],
-                $agencyUrls['awards'],
-                $blogUrl,
-            ],
+            'footerColumns' => $footerColumns,
+            'clients' => $homeCms['clients'],
+            'brandAssets' => $content->media(),
 
             'locale' => $locale,
             'market' => $market,
@@ -863,7 +887,7 @@ class SiteController extends Controller
                     )['countries']
                 )
                     ->sortBy(
-                        'name.' . $locale,
+                        'name.'.$locale,
                         SORT_NATURAL | SORT_FLAG_CASE
                     )
                     ->values()
@@ -916,7 +940,7 @@ class SiteController extends Controller
     {
         if (
             blank($path)
-            || !Storage::disk('public')->exists($path)
+            || ! Storage::disk('public')->exists($path)
         ) {
             return null;
         }
@@ -1005,11 +1029,11 @@ class SiteController extends Controller
         );
 
         if ($queryString !== '') {
-            $url .= '?' . $queryString;
+            $url .= '?'.$queryString;
         }
 
-        if (!empty($parts['fragment'])) {
-            $url .= '#' . $parts['fragment'];
+        if (! empty($parts['fragment'])) {
+            $url .= '#'.$parts['fragment'];
         }
 
         return $url;
@@ -1029,7 +1053,7 @@ class SiteController extends Controller
 
         if (
             blank($value)
-            || !filter_var(
+            || ! filter_var(
                 $value,
                 FILTER_VALIDATE_URL
             )
@@ -1044,7 +1068,7 @@ class SiteController extends Controller
             )
         );
 
-        if (!in_array(
+        if (! in_array(
             $scheme,
             ['http', 'https'],
             true
@@ -1067,12 +1091,14 @@ class SiteController extends Controller
         // Enlace directo a MP4 o WebM.
         if (preg_match('/\.mp4$/i', $path)) {
             $result['src'] = $value;
+
             return $result;
         }
 
         if (preg_match('/\.webm$/i', $path)) {
             $result['src'] = $value;
             $result['type'] = 'video/webm';
+
             return $result;
         }
 
@@ -1120,7 +1146,7 @@ class SiteController extends Controller
         ) {
             $result['embed'] =
                 'https://www.youtube-nocookie.com/embed/'
-                . $youtubeId;
+                .$youtubeId;
 
             return $result;
         }
@@ -1138,7 +1164,7 @@ class SiteController extends Controller
             )) {
                 $result['embed'] =
                     'https://player.vimeo.com/video/'
-                    . $matches[1];
+                    .$matches[1];
             }
         }
 
@@ -1166,7 +1192,7 @@ class SiteController extends Controller
         ): array {
             $content = $records
                 ->get($section)
-                ?->getAttribute('content_' . $locale);
+                ?->getAttribute('content_'.$locale);
 
             return is_array($content) ? $content : [];
         };
@@ -1233,7 +1259,7 @@ class SiteController extends Controller
 
             $items = $saved[$keys['saved']] ?? null;
 
-            if (!is_array($items)) {
+            if (! is_array($items)) {
                 continue;
             }
 
@@ -1349,8 +1375,8 @@ class SiteController extends Controller
         );
 
         if (
-            !filter_var($canonical, FILTER_VALIDATE_URL)
-            || !in_array(
+            ! filter_var($canonical, FILTER_VALIDATE_URL)
+            || ! in_array(
                 $canonicalScheme,
                 ['http', 'https'],
                 true
@@ -1389,7 +1415,7 @@ class SiteController extends Controller
                 ($seo['robots_index'] ?? true)
                     ? 'index'
                     : 'noindex'
-            ) . ', ' . (
+            ).', '.(
                 ($seo['robots_follow'] ?? true)
                     ? 'follow'
                     : 'nofollow'
@@ -1436,7 +1462,7 @@ class SiteController extends Controller
         ): array {
             $content = $records
                 ->get($section)
-                ?->getAttribute('content_' . $locale);
+                ?->getAttribute('content_'.$locale);
 
             return is_array($content) ? $content : [];
         };
@@ -1519,7 +1545,7 @@ class SiteController extends Controller
             $questions = [];
 
             foreach ($questionsSection['questions'] as $item) {
-                if (!is_array($item)) {
+                if (! is_array($item)) {
                     continue;
                 }
 
@@ -1544,7 +1570,7 @@ class SiteController extends Controller
             $steps = [];
 
             foreach ($workshopSection['workshopSteps'] as $item) {
-                if (!is_array($item)) {
+                if (! is_array($item)) {
                     continue;
                 }
 
@@ -1580,7 +1606,7 @@ class SiteController extends Controller
         $seo = $read('seo');
 
         $defaultTitle = ($copy['name'] ?? 'Brand & Consulting')
-            . ' — Feat.';
+            .' — Feat.';
 
         $metaTitle = trim(
             (string) ($seo['meta_title'] ?? '')
@@ -1610,8 +1636,8 @@ class SiteController extends Controller
         );
 
         if (
-            !filter_var($canonical, FILTER_VALIDATE_URL)
-            || !in_array(
+            ! filter_var($canonical, FILTER_VALIDATE_URL)
+            || ! in_array(
                 $canonicalScheme,
                 ['http', 'https'],
                 true
@@ -1650,7 +1676,7 @@ class SiteController extends Controller
                 ($seo['robots_index'] ?? true)
                     ? 'index'
                     : 'noindex'
-            ) . ', ' . (
+            ).', '.(
                 ($seo['robots_follow'] ?? true)
                     ? 'follow'
                     : 'nofollow'
@@ -1697,7 +1723,7 @@ class SiteController extends Controller
         ): array {
             $content = $records
                 ->get($section)
-                ?->getAttribute('content_' . $locale);
+                ?->getAttribute('content_'.$locale);
 
             return is_array($content) ? $content : [];
         };
@@ -1822,7 +1848,7 @@ class SiteController extends Controller
             foreach ($copy['steps'] as $index => $original) {
                 $saved = $savedSteps[$index] ?? null;
 
-                if (!is_array($saved)) {
+                if (! is_array($saved)) {
                     continue;
                 }
 
@@ -1852,7 +1878,7 @@ class SiteController extends Controller
             foreach ($copy['build'] as $index => $original) {
                 $saved = $savedBuild[$index] ?? null;
 
-                if (!is_array($saved)) {
+                if (! is_array($saved)) {
                     continue;
                 }
 
@@ -1922,7 +1948,7 @@ class SiteController extends Controller
         $seo = $read('seo');
 
         $defaultTitle = ($copy['name'] ?? 'Experience & Tech')
-            . ' — Feat.';
+            .' — Feat.';
 
         $metaTitle = trim(
             (string) ($seo['meta_title'] ?? '')
@@ -1952,8 +1978,8 @@ class SiteController extends Controller
         );
 
         if (
-            !filter_var($canonical, FILTER_VALIDATE_URL)
-            || !in_array(
+            ! filter_var($canonical, FILTER_VALIDATE_URL)
+            || ! in_array(
                 $canonicalScheme,
                 ['http', 'https'],
                 true
@@ -1992,7 +2018,7 @@ class SiteController extends Controller
                 ($seo['robots_index'] ?? true)
                     ? 'index'
                     : 'noindex'
-            ) . ', ' . (
+            ).', '.(
                 ($seo['robots_follow'] ?? true)
                     ? 'follow'
                     : 'nofollow'
@@ -2039,7 +2065,7 @@ class SiteController extends Controller
         ): array {
             $content = $records
                 ->get($section)
-                ?->getAttribute('content_' . $locale);
+                ?->getAttribute('content_'.$locale);
 
             return is_array($content) ? $content : [];
         };
@@ -2116,7 +2142,7 @@ class SiteController extends Controller
         // Así conservamos el elemento <em> y su estilo.
 
         if (
-            !array_key_exists('title', $hero)
+            ! array_key_exists('title', $hero)
             && is_string($hero['fullTitle'] ?? null)
         ) {
             $fullTitle = trim($hero['fullTitle']);
@@ -2189,7 +2215,7 @@ class SiteController extends Controller
             foreach ($copy['solutions'] as $index => $original) {
                 $saved = $savedSolutions[$index] ?? null;
 
-                if (!is_array($saved)) {
+                if (! is_array($saved)) {
                     continue;
                 }
 
@@ -2208,7 +2234,7 @@ class SiteController extends Controller
                 // El Blade espera una lista de textos.
                 $savedOutputs = $saved['outputs'] ?? [];
 
-                if (!is_array($savedOutputs)) {
+                if (! is_array($savedOutputs)) {
                     continue;
                 }
 
@@ -2241,7 +2267,7 @@ class SiteController extends Controller
             foreach ($copy['process'] as $index => $original) {
                 $saved = $savedProcess[$index] ?? null;
 
-                if (!is_array($saved)) {
+                if (! is_array($saved)) {
                     continue;
                 }
 
@@ -2265,7 +2291,7 @@ class SiteController extends Controller
 
         $copy['websiteHref'] = $this->cmsUrl(
             $bridge['websiteHref'] ?? null,
-            'https://www.makitha.com/?lang=' . $locale,
+            'https://www.makitha.com/?lang='.$locale,
             $query
         );
 
@@ -2298,7 +2324,7 @@ class SiteController extends Controller
         $seo = $read('seo');
 
         $defaultTitle = ($copy['name'] ?? 'Makitha')
-            . ' — Feat.';
+            .' — Feat.';
 
         $metaTitle = trim(
             (string) ($seo['meta_title'] ?? '')
@@ -2328,8 +2354,8 @@ class SiteController extends Controller
         );
 
         if (
-            !filter_var($canonical, FILTER_VALIDATE_URL)
-            || !in_array(
+            ! filter_var($canonical, FILTER_VALIDATE_URL)
+            || ! in_array(
                 $canonicalScheme,
                 ['http', 'https'],
                 true
@@ -2368,7 +2394,7 @@ class SiteController extends Controller
                 ($seo['robots_index'] ?? true)
                     ? 'index'
                     : 'noindex'
-            ) . ', ' . (
+            ).', '.(
                 ($seo['robots_follow'] ?? true)
                     ? 'follow'
                     : 'nofollow'

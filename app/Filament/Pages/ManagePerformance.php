@@ -2,12 +2,14 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\HasLivePreview;
 use App\Models\PageSection;
+use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
@@ -18,16 +20,26 @@ use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use UnitEnum;
 
 class ManagePerformance extends Page
 {
+    use HasLivePreview;
+
     protected string $view = 'filament.pages.manage-performance';
 
     protected static ?string $navigationLabel = 'Performance & Connections';
 
     protected static ?string $title = 'Administrar Performance & Connections';
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChartBar;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Páginas del sitio';
+
+    protected static ?int $navigationSort = 2;
 
     public ?array $data = [];
 
@@ -68,9 +80,9 @@ class ManagePerformance extends Page
 
                 $saved = $records
                     ->get($section)
-                    ?->getAttribute('content_' . $lang) ?? [];
+                    ?->getAttribute('content_'.$lang) ?? [];
 
-                $state[$section . '_' . $lang] = array_replace(
+                $state[$section.'_'.$lang] = array_replace(
                     $defaults,
                     is_array($saved) ? $saved : []
                 );
@@ -195,7 +207,7 @@ class ManagePerformance extends Page
             ->schema([
                 Section::make('Ruta de navegación')
                     ->description(
-                        'Administra los textos de navegación ' .
+                        'Administra los textos de navegación '.
                         'que aparecen encima del encabezado.'
                     )
                     ->schema([
@@ -203,7 +215,7 @@ class ManagePerformance extends Page
                             ->label('Texto de especializaciones')
                             ->required()
                             ->helperText(
-                                'El enlace de esta opción ' .
+                                'El enlace de esta opción '.
                                 'continuará apuntando a Home.'
                             ),
 
@@ -215,7 +227,7 @@ class ManagePerformance extends Page
 
                 Section::make('Encabezado principal')
                     ->description(
-                        'Configura el título y la información ' .
+                        'Configura el título y la información '.
                         'de presentación de Performance & Connections.'
                     )
                     ->schema([
@@ -250,7 +262,7 @@ class ManagePerformance extends Page
             ->schema([
                 Section::make('Problema')
                     ->description(
-                        'Administra el contenido de la sección ' .
+                        'Administra el contenido de la sección '.
                         'que describe el problema o desafío.'
                     )
                     ->schema([
@@ -287,9 +299,9 @@ class ManagePerformance extends Page
 
                 Section::make('Listado de capacidades')
                     ->description(
-                        'Cada capacidad incluye un número, ' .
-                        'un título y una descripción. ' .
-                        'El sitio conserva el diseño original ' .
+                        'Cada capacidad incluye un número, '.
+                        'un título y una descripción. '.
+                        'El sitio conserva el diseño original '.
                         'de las filas.'
                     )
                     ->schema([
@@ -315,8 +327,7 @@ class ManagePerformance extends Page
                                     ->required(),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['title']
+                                fn (array $state): ?string => $state['title']
                                     ?? 'Nueva capacidad'
                             )
                             ->collapsed()
@@ -346,7 +357,7 @@ class ManagePerformance extends Page
 
                 Section::make('Etapas del proceso')
                     ->description(
-                        'Administra las etapas que se muestran ' .
+                        'Administra las etapas que se muestran '.
                         'en las tarjetas del proceso.'
                     )
                     ->schema([
@@ -368,8 +379,7 @@ class ManagePerformance extends Page
                                     ->required(),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['title']
+                                fn (array $state): ?string => $state['title']
                                     ?? 'Nueva etapa'
                             )
                             ->collapsed()
@@ -399,8 +409,8 @@ class ManagePerformance extends Page
                         TextInput::make("cases_{$lang}.demoTag")
                             ->label('Etiqueta de las tarjetas')
                             ->helperText(
-                                'Texto que aparece en la parte superior ' .
-                                'de cada caso. Se aplica únicamente ' .
+                                'Texto que aparece en la parte superior '.
+                                'de cada caso. Se aplica únicamente '.
                                 'a Performance & Connections.'
                             )
                             ->required(),
@@ -408,7 +418,7 @@ class ManagePerformance extends Page
 
                 Section::make('Casos destacados')
                     ->description(
-                        'Administra los clientes, resultados ' .
+                        'Administra los clientes, resultados '.
                         'y descripciones de las tarjetas.'
                     )
                     ->schema([
@@ -434,8 +444,7 @@ class ManagePerformance extends Page
                                     ->rows(3),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['client']
+                                fn (array $state): ?string => $state['client']
                                     ?? 'Nuevo caso'
                             )
                             ->collapsed()
@@ -465,8 +474,8 @@ class ManagePerformance extends Page
 
                 Section::make('Preguntas frecuentes')
                     ->description(
-                        'Administra las preguntas y respuestas ' .
-                        'del acordeón. Su funcionamiento se ' .
+                        'Administra las preguntas y respuestas '.
+                        'del acordeón. Su funcionamiento se '.
                         'mantendrá sin modificaciones.'
                     )
                     ->schema([
@@ -483,8 +492,7 @@ class ManagePerformance extends Page
                                     ->required(),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['q']
+                                fn (array $state): ?string => $state['q']
                                     ?? 'Nueva pregunta'
                             )
                             ->collapsed()
@@ -507,7 +515,7 @@ class ManagePerformance extends Page
             ->schema([
                 Section::make('Contenido principal')
                     ->description(
-                        'Configura el contenido del recuadro ' .
+                        'Configura el contenido del recuadro '.
                         'de llamado a la acción.'
                     )
                     ->schema([
@@ -524,7 +532,7 @@ class ManagePerformance extends Page
 
                 Section::make('Botón')
                     ->description(
-                        'Administra el texto y el enlace ' .
+                        'Administra el texto y el enlace '.
                         'del botón principal.'
                     )
                     ->schema([
@@ -536,8 +544,8 @@ class ManagePerformance extends Page
                             ->label('Enlace del botón')
                             ->required()
                             ->helperText(
-                                'Ejemplo: /contacto. ' .
-                                'Se conservarán el idioma y el mercado ' .
+                                'Ejemplo: /contacto. '.
+                                'Se conservarán el idioma y el mercado '.
                                 'al conectar el frontend.'
                             ),
                     ])
@@ -555,8 +563,8 @@ class ManagePerformance extends Page
             ->schema([
                 Section::make('Tarjetas de servicios relacionados')
                     ->description(
-                        'Administra las dos tarjetas finales. ' .
-                        'Sus colores, posiciones y estilos ' .
+                        'Administra las dos tarjetas finales. '.
+                        'Sus colores, posiciones y estilos '.
                         'originales permanecerán intactos.'
                     )
                     ->schema([
@@ -588,8 +596,7 @@ class ManagePerformance extends Page
                                     ),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['title']
+                                fn (array $state): ?string => $state['title']
                                     ?? 'Servicio relacionado'
                             )
                             ->collapsed()
@@ -612,7 +619,7 @@ class ManagePerformance extends Page
             ->schema([
                 Section::make('SEO básico')
                     ->description(
-                        'Configura los metadatos de la página ' .
+                        'Configura los metadatos de la página '.
                         'para los motores de búsqueda.'
                     )
                     ->schema([
@@ -621,7 +628,7 @@ class ManagePerformance extends Page
                             ->required()
                             ->maxLength(255)
                             ->helperText(
-                                'Se recomienda un título claro ' .
+                                'Se recomienda un título claro '.
                                 'de aproximadamente 50 a 60 caracteres.'
                             ),
 
@@ -632,7 +639,7 @@ class ManagePerformance extends Page
                             ->rows(3)
                             ->required()
                             ->helperText(
-                                'Como referencia, se recomiendan ' .
+                                'Como referencia, se recomiendan '.
                                 'aproximadamente 140 a 160 caracteres.'
                             ),
 
@@ -642,8 +649,8 @@ class ManagePerformance extends Page
                             ->label('URL canónica')
                             ->url()
                             ->helperText(
-                                'Opcional. URL absoluta con https://. ' .
-                                'Si está vacía, se podrá generar ' .
+                                'Opcional. URL absoluta con https://. '.
+                                'Si está vacía, se podrá generar '.
                                 'automáticamente al conectar la vista.'
                             ),
                     ]),
@@ -652,7 +659,7 @@ class ManagePerformance extends Page
                     'LinkedIn y redes sociales (Open Graph)'
                 )
                     ->description(
-                        'Configura cómo se verá esta página ' .
+                        'Configura cómo se verá esta página '.
                         'al compartirse en LinkedIn y otras redes.'
                     )
                     ->schema([
@@ -660,7 +667,7 @@ class ManagePerformance extends Page
                             ->label('Título para redes sociales')
                             ->maxLength(255)
                             ->helperText(
-                                'Opcional. Si está vacío, ' .
+                                'Opcional. Si está vacío, '.
                                 'se utilizará el metatítulo.'
                             ),
 
@@ -670,7 +677,7 @@ class ManagePerformance extends Page
                             ->label('Descripción para redes sociales')
                             ->rows(3)
                             ->helperText(
-                                'Opcional. Si está vacía, ' .
+                                'Opcional. Si está vacía, '.
                                 'se utilizará la metadescripción.'
                             ),
 
@@ -689,7 +696,7 @@ class ManagePerformance extends Page
                             ->visibility('public')
                             ->maxSize(4096)
                             ->helperText(
-                                'Se recomienda 1200 × 630 píxeles. ' .
+                                'Se recomienda 1200 × 630 píxeles. '.
                                 'JPG, PNG o WebP. Máximo 4 MB.'
                             ),
 
@@ -698,14 +705,13 @@ class ManagePerformance extends Page
                         )
                             ->label('Texto alternativo de la imagen')
                             ->required(
-                                fn (Get $get): bool =>
-                                    filled($get('og_image'))
+                                fn (Get $get): bool => filled($get('og_image'))
                             ),
                     ]),
 
                 Section::make('Indexación')
                     ->description(
-                        'Controla las directivas para ' .
+                        'Controla las directivas para '.
                         'los motores de búsqueda.'
                     )
                     ->schema([
@@ -715,7 +721,7 @@ class ManagePerformance extends Page
                             ->label('Permitir indexación')
                             ->default(true)
                             ->helperText(
-                                'Activado: index. ' .
+                                'Activado: index. '.
                                 'Desactivado: noindex.'
                             ),
 
@@ -725,7 +731,7 @@ class ManagePerformance extends Page
                             ->label('Permitir seguimiento de enlaces')
                             ->default(true)
                             ->helperText(
-                                'Activado: follow. ' .
+                                'Activado: follow. '.
                                 'Desactivado: nofollow.'
                             ),
                     ])
@@ -798,8 +804,7 @@ class ManagePerformance extends Page
             ],
 
             'seo' => [
-                'meta_title' =>
-                    'Performance & Connections — Feat.',
+                'meta_title' => 'Performance & Connections — Feat.',
 
                 'meta_description' => $p['answer'] ?? '',
                 'canonical_url' => '',
@@ -856,6 +861,11 @@ class ManagePerformance extends Page
     // GUARDAR TODAS LAS SECCIONES
     // ------------------------------------
 
+    protected function previewPath(?string $statePath = null): string
+    {
+        return '/performance-connections';
+    }
+
     public function save(): void
     {
         $state = $this->form->getState();
@@ -870,12 +880,12 @@ class ManagePerformance extends Page
                 ]);
 
                 foreach (['es', 'en'] as $lang) {
-                    $field = 'content_' . $lang;
+                    $field = 'content_'.$lang;
 
                     $current = $record->{$field} ?? [];
 
                     $submitted = $state[
-                        $section . '_' . $lang
+                        $section.'_'.$lang
                     ] ?? [];
 
                     $content = array_replace(

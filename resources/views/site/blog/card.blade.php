@@ -3,9 +3,9 @@
         @if ($article->cover_image)
             <img src="{{ $article->coverImageUrl() }}" alt="" loading="{{ $featured ?? false ? 'eager' : 'lazy' }}">
         @else
-            <span class="blog-card-art-label">{{ $copy['noImage'] }}</span><span class="blog-card-art-letter">f<span>↗</span></span><span class="blog-card-art-foot">Strategy / Creative / Technology</span>
+            <span class="blog-card-art-label">{{ $copy['noImage'] }}</span><span class="blog-card-art-letter">f<span>↗</span></span><span class="blog-card-art-foot">{{ $copy['noImageFoot'] }}</span>
         @endif
-        <span class="blog-card-number">{{ $featured ?? false ? $copy['featured'] : 'feat. / journal' }}</span>
+        <span class="blog-card-number">{{ $featured ?? false ? $copy['featured'] : $copy['cardLabel'] }}</span>
     </a>
     <div class="blog-card-copy"><div class="blog-card-meta"><time datetime="{{ $article->published_at->toDateString() }}">{{ $article->published_at->locale($locale)->translatedFormat('j M Y') }}</time><span>{{ $article->reading_minutes }} {{ $copy['minutes'] }}</span></div>
         @if ($article->categories->isNotEmpty())<span class="blog-card-category">{{ $article->categories->pluck('name')->join(' / ') }}</span>@endif

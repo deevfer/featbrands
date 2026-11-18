@@ -2,12 +2,14 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\HasLivePreview;
 use App\Models\PageSection;
+use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
@@ -17,16 +19,26 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use UnitEnum;
 
 class ManageBrand extends Page
 {
+    use HasLivePreview;
+
     protected string $view = 'filament.pages.manage-brand';
 
     protected static ?string $navigationLabel = 'Brand & Consulting';
 
     protected static ?string $title = 'Administrar Brand & Consulting';
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedSparkles;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Páginas del sitio';
+
+    protected static ?int $navigationSort = 3;
 
     public ?array $data = [];
 
@@ -69,7 +81,7 @@ class ManageBrand extends Page
 
                 $saved = $records
                     ->get($section)
-                    ?->getAttribute('content_' . $lang);
+                    ?->getAttribute('content_'.$lang);
 
                 $state["{$section}_{$lang}"] = array_replace(
                     $defaults,
@@ -148,7 +160,7 @@ class ManageBrand extends Page
             'hero' => [
                 Section::make('Encabezado principal')
                     ->description(
-                        'Administra los textos de presentación ' .
+                        'Administra los textos de presentación '.
                         'de Brand & Consulting.'
                     )
                     ->schema([
@@ -163,7 +175,7 @@ class ManageBrand extends Page
                         TextInput::make("{$s}.accent")
                             ->label('Texto destacado del título')
                             ->helperText(
-                                'Se mostrará con la tipografía y ' .
+                                'Se mostrará con la tipografía y '.
                                 'el estilo original del elemento em.'
                             )
                             ->required(),
@@ -194,9 +206,9 @@ class ManageBrand extends Page
             'specimen' => [
                 Section::make('Contenido de la pieza editorial')
                     ->description(
-                        'Administra los textos del elemento ' .
-                        'visual situado junto al encabezado. ' .
-                        'La composición, tipografía y colores ' .
+                        'Administra los textos del elemento '.
+                        'visual situado junto al encabezado. '.
+                        'La composición, tipografía y colores '.
                         'permanecerán intactos.'
                     )
                     ->schema([
@@ -249,8 +261,8 @@ class ManageBrand extends Page
 
                 Section::make('Preguntas desplegables')
                     ->description(
-                        'Cada elemento contiene una pregunta ' .
-                        'y su respuesta. Se conservará el ' .
+                        'Cada elemento contiene una pregunta '.
+                        'y su respuesta. Se conservará el '.
                         'funcionamiento original con details.'
                     )
                     ->schema([
@@ -267,8 +279,7 @@ class ManageBrand extends Page
                                     ->required(),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['question']
+                                fn (array $state): ?string => $state['question']
                                     ?? 'Nueva pregunta'
                             )
                             ->collapsed()
@@ -348,7 +359,7 @@ class ManageBrand extends Page
                             ->label('Título del ecosistema')
                             ->rows(3)
                             ->helperText(
-                                'Se conservarán los saltos de ' .
+                                'Se conservarán los saltos de '.
                                 'línea mediante la clase preserve-lines.'
                             )
                             ->required(),
@@ -383,8 +394,8 @@ class ManageBrand extends Page
 
                 Section::make('Pasos del Workshop')
                     ->description(
-                        'Puedes agregar, eliminar o reordenar ' .
-                        'los pasos. La numeración visual ' .
+                        'Puedes agregar, eliminar o reordenar '.
+                        'los pasos. La numeración visual '.
                         'continuará generándose automáticamente.'
                     )
                     ->schema([
@@ -397,8 +408,7 @@ class ManageBrand extends Page
                                     ->required(),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['text']
+                                fn (array $state): ?string => $state['text']
                                     ?? 'Nuevo paso'
                             )
                             ->collapsed()
@@ -433,8 +443,8 @@ class ManageBrand extends Page
                             ->label('Enlace del botón')
                             ->required()
                             ->helperText(
-                                'Ejemplo: /contacto. ' .
-                                'Al conectar el frontend se ' .
+                                'Ejemplo: /contacto. '.
+                                'Al conectar el frontend se '.
                                 'conservarán el idioma y el mercado.'
                             ),
                     ])
@@ -474,7 +484,7 @@ class ManageBrand extends Page
                             ->required()
                             ->maxLength(255)
                             ->helperText(
-                                'Recomendación: aproximadamente ' .
+                                'Recomendación: aproximadamente '.
                                 '50 a 60 caracteres.'
                             ),
 
@@ -483,7 +493,7 @@ class ManageBrand extends Page
                             ->rows(4)
                             ->required()
                             ->helperText(
-                                'Recomendación: aproximadamente ' .
+                                'Recomendación: aproximadamente '.
                                 '140 a 160 caracteres.'
                             ),
 
@@ -491,14 +501,14 @@ class ManageBrand extends Page
                             ->label('URL canónica')
                             ->url()
                             ->helperText(
-                                'Opcional. Si queda vacía, se ' .
+                                'Opcional. Si queda vacía, se '.
                                 'generará desde la ruta de Brand.'
                             ),
                     ]),
 
                 Section::make('LinkedIn y redes sociales')
                     ->description(
-                        'Metadatos Open Graph para compartir ' .
+                        'Metadatos Open Graph para compartir '.
                         'la página en redes sociales.'
                     )
                     ->schema([
@@ -506,7 +516,7 @@ class ManageBrand extends Page
                             ->label('Título para redes sociales')
                             ->maxLength(255)
                             ->helperText(
-                                'Opcional. Se utilizará el ' .
+                                'Opcional. Se utilizará el '.
                                 'metatítulo si queda vacío.'
                             ),
 
@@ -514,7 +524,7 @@ class ManageBrand extends Page
                             ->label('Descripción para redes sociales')
                             ->rows(4)
                             ->helperText(
-                                'Opcional. Se utilizará la ' .
+                                'Opcional. Se utilizará la '.
                                 'metadescripción si queda vacía.'
                             ),
 
@@ -531,7 +541,7 @@ class ManageBrand extends Page
                             ->visibility('public')
                             ->maxSize(4096)
                             ->helperText(
-                                'Recomendación: 1200 × 630 píxeles. ' .
+                                'Recomendación: 1200 × 630 píxeles. '.
                                 'JPG, PNG o WebP. Máximo 4 MB.'
                             ),
 
@@ -545,7 +555,7 @@ class ManageBrand extends Page
                             ->label('Permitir indexación')
                             ->default(true)
                             ->helperText(
-                                'Activado: index. ' .
+                                'Activado: index. '.
                                 'Desactivado: noindex.'
                             ),
 
@@ -553,7 +563,7 @@ class ManageBrand extends Page
                             ->label('Permitir seguimiento de enlaces')
                             ->default(true)
                             ->helperText(
-                                'Activado: follow. ' .
+                                'Activado: follow. '.
                                 'Desactivado: nofollow.'
                             ),
                     ])
@@ -706,6 +716,11 @@ class ManageBrand extends Page
     // GUARDAR LAS SIETE SECCIONES
     // ------------------------------------
 
+    protected function previewPath(?string $statePath = null): string
+    {
+        return '/brand-consulting';
+    }
+
     public function save(): void
     {
         $state = $this->form->getState();
@@ -718,7 +733,7 @@ class ManageBrand extends Page
                 ]);
 
                 foreach (['es', 'en'] as $lang) {
-                    $column = 'content_' . $lang;
+                    $column = 'content_'.$lang;
 
                     $previous = $record->{$column} ?? [];
 

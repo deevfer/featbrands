@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources\BlogPosts;
 
+use App\Filament\Components\SearchSnippet;
 use App\Filament\Resources\BlogPosts\Pages\CreateBlogPost;
 use App\Filament\Resources\BlogPosts\Pages\EditBlogPost;
 use App\Filament\Resources\BlogPosts\Pages\ListBlogPosts;
 use App\Models\BlogPost;
+use App\Services\SiteSeo;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
@@ -59,8 +61,9 @@ class BlogPostResource extends Resource
             TextInput::make('cover_image')->label('Imagen de portada')->maxLength(1000)->helperText('URL de la imagen o ruta actual.')->columnSpanFull(),
             TextInput::make('cover_alt')->label('Descripción de la imagen')->maxLength(1000)->columnSpanFull(),
             RichEditor::make('content')->label('Contenido completo')->required()->fileAttachmentsDisk('public')->fileAttachmentsDirectory('blog')->columnSpanFull(),
-            TextInput::make('seo_title')->label('Título SEO')->maxLength(1000)->columnSpanFull(),
-            Textarea::make('seo_description')->label('Descripción SEO')->rows(3)->columnSpanFull(),
+            TextInput::make('seo_title')->label('Título SEO')->live(debounce: 400)->maxLength(1000)->columnSpanFull(),
+            Textarea::make('seo_description')->label('Descripción SEO')->live(debounce: 400)->rows(3)->columnSpanFull(),
+            SearchSnippet::make(['seo_title', 'title'], ['seo_description', 'excerpt'], fn (?BlogPost $record): string => app(SiteSeo::class)->absolute($record?->path ?? '/blog')),
             Repeater::make('faqs')->label('Preguntas relacionadas')->schema([
                 TextInput::make('question')->label('Pregunta')->required()->maxLength(500),
                 Textarea::make('answer')->label('Respuesta')->required()->rows(3)->maxLength(2000),

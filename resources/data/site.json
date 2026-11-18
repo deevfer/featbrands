@@ -1,6 +1,7 @@
 {
   "es": {
     "cta": "Hablemos",
+    "skipLink": "Ir al contenido",
     "explore": "Ver",
     "demoTag": "Dato demostrativo",
     "addrLabel": "Dirección",
@@ -188,6 +189,13 @@
             "Experience & Tech",
             "Makitha",
             "Social Media"
+          ],
+          "hrefs": [
+            "",
+            "",
+            "",
+            "",
+            ""
           ]
         },
         {
@@ -197,6 +205,12 @@
             "Casos",
             "Premios",
             "Blog"
+          ],
+          "hrefs": [
+            "",
+            "",
+            "",
+            ""
           ]
         },
         {
@@ -206,6 +220,12 @@
             "Guatemala",
             "Costa Rica",
             "Miami"
+          ],
+          "hrefs": [
+            "",
+            "",
+            "",
+            ""
           ]
         }
       ],
@@ -329,6 +349,7 @@
   },
   "en": {
     "cta": "Let’s talk",
+    "skipLink": "Skip to content",
     "explore": "View",
     "demoTag": "Demo data",
     "addrLabel": "Address",
@@ -516,6 +537,13 @@
             "Experience & Tech",
             "Makitha",
             "Social Media"
+          ],
+          "hrefs": [
+            "",
+            "",
+            "",
+            "",
+            ""
           ]
         },
         {
@@ -525,6 +553,12 @@
             "Work",
             "Awards",
             "Blog"
+          ],
+          "hrefs": [
+            "",
+            "",
+            "",
+            ""
           ]
         },
         {
@@ -534,6 +568,12 @@
             "Guatemala",
             "Costa Rica",
             "Miami"
+          ],
+          "hrefs": [
+            "",
+            "",
+            "",
+            ""
           ]
         }
       ],

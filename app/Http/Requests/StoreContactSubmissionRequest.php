@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Services\SiteContent;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
@@ -90,6 +91,6 @@ class StoreContactSubmissionRequest extends FormRequest
      */
     private function copy(): array
     {
-        return File::json(resource_path('data/contact.json'))[$this->input('locale') === 'en' ? 'en' : 'es'];
+        return app(SiteContent::class)->get('contact', $this->input('locale') === 'en' ? 'en' : 'es');
     }
 }

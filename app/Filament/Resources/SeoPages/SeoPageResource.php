@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\SeoPages;
 
+use App\Filament\Components\SearchSnippet;
 use App\Filament\Resources\SeoPages\Pages\ManageSeoPages;
 use App\Models\SeoPage;
 use App\Services\SiteSeo;
@@ -45,8 +46,9 @@ class SeoPageResource extends Resource
         return $schema->components([
             TextInput::make('route_name')->label('Página')->disabled(),
             TextInput::make('locale')->label('Idioma')->disabled(),
-            TextInput::make('title')->label('Título SEO')->required()->maxLength(180)->helperText('Sugerencia editorial: 15–70 caracteres, con el tema principal y la marca.')->columnSpanFull(),
-            Textarea::make('description')->label('Descripción SEO')->required()->maxLength(320)->rows(3)->helperText('Resume lo que ofrece esta página. Se muestran hasta 170 caracteres en el HTML.')->columnSpanFull(),
+            TextInput::make('title')->label('Título SEO')->live(debounce: 400)->required()->maxLength(180)->helperText('Sugerencia editorial: 15–70 caracteres, con el tema principal y la marca.')->columnSpanFull(),
+            Textarea::make('description')->label('Descripción SEO')->live(debounce: 400)->required()->maxLength(320)->rows(3)->helperText('Resume lo que ofrece esta página. Se muestran hasta 170 caracteres en el HTML.')->columnSpanFull(),
+            SearchSnippet::make(['title'], ['description'], fn (?SeoPage $record): string => app(SiteSeo::class)->absolute($record ? app(SiteSeo::class)->mainPath($record->route_name, $record->locale) : '/')),
             TextInput::make('image')->label('Imagen para compartir')->maxLength(1000)->regex('~^(?:/(?!/)[^?#]*|https://[^\s]+)$~u')->helperText('Opcional. Ruta pública o URL HTTPS; vacía utiliza la imagen general.')->columnSpanFull(),
             Repeater::make('faqs')->label('Preguntas relacionadas')->schema([
                 TextInput::make('question')->label('Pregunta')->required()->maxLength(500),

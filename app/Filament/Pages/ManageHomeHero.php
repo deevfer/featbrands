@@ -2,13 +2,15 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\HasLivePreview;
 use App\Models\PageSection;
+use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TagsInput;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
@@ -19,16 +21,26 @@ use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use UnitEnum;
 
 class ManageHomeHero extends Page
 {
+    use HasLivePreview;
+
     protected string $view = 'filament.pages.manage-home-hero';
 
     protected static ?string $navigationLabel = 'Home';
 
     protected static ?string $title = 'Administrar Home';
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedHome;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Páginas del sitio';
+
+    protected static ?int $navigationSort = 1;
 
     public ?array $data = [];
 
@@ -125,7 +137,7 @@ class ManageHomeHero extends Page
 
                                     Section::make('Material multimedia')
                                         ->description(
-                                            'Administra el video y la imagen de portada. ' .
+                                            'Administra el video y la imagen de portada. '.
                                             'Estos archivos se comparten entre ambos idiomas.'
                                         )
                                         ->schema([
@@ -140,7 +152,7 @@ class ManageHomeHero extends Page
                                                 ->visibility('public')
                                                 ->maxSize(10240)
                                                 ->helperText(
-                                                    'Selecciona un video MP4 o WebM. ' .
+                                                    'Selecciona un video MP4 o WebM. '.
                                                     'Tamaño máximo: 10 MB.'
                                                 ),
 
@@ -148,7 +160,7 @@ class ManageHomeHero extends Page
                                                 ->label('URL de video externo')
                                                 ->url()
                                                 ->helperText(
-                                                    'Opcional. Permite utilizar ' .
+                                                    'Opcional. Permite utilizar '.
                                                     'un video alojado externamente.'
                                                 ),
 
@@ -165,7 +177,7 @@ class ManageHomeHero extends Page
                                                 ->visibility('public')
                                                 ->maxSize(4096)
                                                 ->helperText(
-                                                    'Imagen que se mostrará antes de ' .
+                                                    'Imagen que se mostrará antes de '.
                                                     'reproducir el video. Máximo 4 MB.'
                                                 ),
                                         ]),
@@ -181,8 +193,8 @@ class ManageHomeHero extends Page
 
                                     Section::make('Marcas y logotipos')
                                         ->description(
-                                            'Administra las marcas de esta sección. ' .
-                                            'Los nombres y logotipos se comparten ' .
+                                            'Administra las marcas de esta sección. '.
+                                            'Los nombres y logotipos se comparten '.
                                             'entre ambos idiomas.'
                                         )
                                         ->schema([
@@ -207,27 +219,24 @@ class ManageHomeHero extends Page
                                                         ->visibility('public')
                                                         ->maxSize(4096)
                                                         ->helperText(
-                                                            'JPG, PNG, WebP o SVG. ' .
+                                                            'JPG, PNG, WebP o SVG. '.
                                                             'Máximo 4 MB.'
                                                         ),
 
                                                     TextInput::make('alt_es')
                                                         ->label('Texto alternativo (español)')
                                                         ->required(
-                                                            fn (Get $get): bool =>
-                                                                filled($get('logo'))
+                                                            fn (Get $get): bool => filled($get('logo'))
                                                         ),
 
                                                     TextInput::make('alt_en')
                                                         ->label('Texto alternativo (inglés)')
                                                         ->required(
-                                                            fn (Get $get): bool =>
-                                                                filled($get('logo'))
+                                                            fn (Get $get): bool => filled($get('logo'))
                                                         ),
                                                 ])
                                                 ->itemLabel(
-                                                    fn (array $state): ?string =>
-                                                        $state['name']
+                                                    fn (array $state): ?string => $state['name']
                                                         ?? 'Nueva marca'
                                                 )
                                                 ->collapsed()
@@ -248,8 +257,8 @@ class ManageHomeHero extends Page
 
                                     Section::make('Oficinas')
                                         ->description(
-                                            'Administra las oficinas de Guatemala, ' .
-                                            'Costa Rica, El Salvador y Miami. Los textos se ' .
+                                            'Administra las oficinas de Guatemala, '.
+                                            'Costa Rica, El Salvador y Miami. Los textos se '.
                                             'configuran en ambos idiomas.'
                                         )
                                         ->schema([
@@ -258,8 +267,8 @@ class ManageHomeHero extends Page
                                                 ->schema([
                                                     Section::make('Identificación')
                                                         ->description(
-                                                            'Los identificadores se mantienen ' .
-                                                            'fijos porque se utilizan en ' .
+                                                            'Los identificadores se mantienen '.
+                                                            'fijos porque se utilizan en '.
                                                             'la navegación del sitio.'
                                                         )
                                                         ->schema([
@@ -343,34 +352,29 @@ class ManageHomeHero extends Page
                                                                 ->visibility('public')
                                                                 ->maxSize(4096)
                                                                 ->helperText(
-                                                                    'Opcional. Si no se carga una imagen, ' .
+                                                                    'Opcional. Si no se carga una imagen, '.
                                                                     'se conservará la ilustración original.'
                                                                 ),
 
                                                             TextInput::make('image_alt_es')
                                                                 ->label('Texto alternativo (español)')
                                                                 ->required(
-                                                                    fn (Get $get): bool =>
-                                                                        filled($get('image'))
+                                                                    fn (Get $get): bool => filled($get('image'))
                                                                 ),
 
                                                             TextInput::make('image_alt_en')
                                                                 ->label('Texto alternativo (inglés)')
                                                                 ->required(
-                                                                    fn (Get $get): bool =>
-                                                                        filled($get('image'))
+                                                                    fn (Get $get): bool => filled($get('image'))
                                                                 ),
                                                         ]),
                                                 ])
                                                 ->itemLabel(
-                                                    fn (array $state): ?string =>
-                                                        $state['city_es']
+                                                    fn (array $state): ?string => $state['city_es']
                                                         ?? $state['code']
                                                         ?? 'Oficina'
                                                 )
                                                 ->collapsed()
-                                                ->minItems(3)
-                                                ->maxItems(3)
                                                 ->addable(false)
                                                 ->deletable(false)
                                                 ->reorderable(false),
@@ -418,7 +422,7 @@ class ManageHomeHero extends Page
                         Textarea::make("hero_{$lang}.title")
                             ->label('Título principal')
                             ->helperText(
-                                'Escribe el título completo. ' .
+                                'Escribe el título completo. '.
                                 'El efecto visual se aplicará desde el frontend.'
                             )
                             ->rows(2)
@@ -456,7 +460,7 @@ class ManageHomeHero extends Page
 
                 Section::make('Tarjetas del carrusel')
                     ->description(
-                        'Estas tarjetas también se utilizan ' .
+                        'Estas tarjetas también se utilizan '.
                         'en la sección 3, Especializaciones.'
                     )
                     ->schema([
@@ -487,8 +491,7 @@ class ManageHomeHero extends Page
                                     ->required(),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['title'] ?? 'Tarjeta'
+                                fn (array $state): ?string => $state['title'] ?? 'Tarjeta'
                             )
                             ->collapsed()
                             ->minItems(5)
@@ -559,17 +562,15 @@ class ManageHomeHero extends Page
                                 TextInput::make('image_alt')
                                     ->label('Texto alternativo de la imagen')
                                     ->helperText(
-                                        'Describe la imagen para ' .
+                                        'Describe la imagen para '.
                                         'accesibilidad y SEO.'
                                     )
                                     ->required(
-                                        fn (Get $get): bool =>
-                                            filled($get('image'))
+                                        fn (Get $get): bool => filled($get('image'))
                                     ),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['big'] ?? 'Nueva tarjeta'
+                                fn (array $state): ?string => $state['big'] ?? 'Nueva tarjeta'
                             )
                             ->collapsed()
                             ->addActionLabel('Agregar tarjeta')
@@ -638,8 +639,8 @@ class ManageHomeHero extends Page
 
                 Section::make('Tarjetas compartidas')
                     ->description(
-                        'Las cinco tarjetas se administran desde ' .
-                        'la sección 1, Hero y carrusel. ' .
+                        'Las cinco tarjetas se administran desde '.
+                        'la sección 1, Hero y carrusel. '.
                         'Sus textos y enlaces son compartidos.'
                     )
                     ->schema([]),
@@ -696,7 +697,7 @@ class ManageHomeHero extends Page
                         TextInput::make("cases_{$lang}.videoLabel")
                             ->label('Descripción del botón de reproducción')
                             ->helperText(
-                                'Texto accesible que identifica ' .
+                                'Texto accesible que identifica '.
                                 'la acción de reproducir el video.'
                             ),
 
@@ -737,8 +738,7 @@ class ManageHomeHero extends Page
                                     ),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['client'] ?? 'Nuevo caso'
+                                fn (array $state): ?string => $state['client'] ?? 'Nuevo caso'
                             )
                             ->collapsed()
                             ->addActionLabel('Agregar caso')
@@ -770,7 +770,7 @@ class ManageHomeHero extends Page
                         Textarea::make("collab_{$lang}.quote")
                             ->label('Frase destacada')
                             ->helperText(
-                                'Escribe la frase completa. ' .
+                                'Escribe la frase completa. '.
                                 'El diseño aplicará el estilo visual.'
                             )
                             ->rows(3)
@@ -862,8 +862,8 @@ class ManageHomeHero extends Page
             ->schema([
                 Section::make('SEO básico')
                     ->description(
-                        'Configura la información que los ' .
-                        'motores de búsqueda pueden utilizar ' .
+                        'Configura la información que los '.
+                        'motores de búsqueda pueden utilizar '.
                         'para identificar esta página.'
                     )
                     ->schema([
@@ -872,8 +872,8 @@ class ManageHomeHero extends Page
                             ->required()
                             ->maxLength(255)
                             ->helperText(
-                                'Se recomienda un título claro ' .
-                                'y descriptivo, de aproximadamente ' .
+                                'Se recomienda un título claro '.
+                                'y descriptivo, de aproximadamente '.
                                 '50 a 60 caracteres.'
                             ),
 
@@ -882,8 +882,8 @@ class ManageHomeHero extends Page
                             ->required()
                             ->rows(3)
                             ->helperText(
-                                'Resumen de Home. Como referencia, ' .
-                                'se recomiendan aproximadamente ' .
+                                'Resumen de Home. Como referencia, '.
+                                'se recomiendan aproximadamente '.
                                 '140 a 160 caracteres.'
                             ),
 
@@ -891,17 +891,17 @@ class ManageHomeHero extends Page
                             ->label('URL canónica')
                             ->url()
                             ->helperText(
-                                'Opcional. Introduce una URL absoluta ' .
-                                'con https://. Si está vacía, se ' .
-                                'generará automáticamente durante ' .
+                                'Opcional. Introduce una URL absoluta '.
+                                'con https://. Si está vacía, se '.
+                                'generará automáticamente durante '.
                                 'la integración del frontend.'
                             ),
                     ]),
 
                 Section::make('LinkedIn y redes sociales (Open Graph)')
                     ->description(
-                        'Configura cómo se mostrará la página ' .
-                        'al compartirla en LinkedIn, Facebook ' .
+                        'Configura cómo se mostrará la página '.
+                        'al compartirla en LinkedIn, Facebook '.
                         'y otras plataformas compatibles.'
                     )
                     ->schema([
@@ -909,7 +909,7 @@ class ManageHomeHero extends Page
                             ->label('Título para LinkedIn y redes sociales')
                             ->maxLength(255)
                             ->helperText(
-                                'Opcional. Si está vacío, ' .
+                                'Opcional. Si está vacío, '.
                                 'se utilizará el metatítulo.'
                             ),
 
@@ -917,7 +917,7 @@ class ManageHomeHero extends Page
                             ->label('Descripción para LinkedIn y redes sociales')
                             ->rows(3)
                             ->helperText(
-                                'Opcional. Si está vacía, ' .
+                                'Opcional. Si está vacía, '.
                                 'se utilizará la metadescripción.'
                             ),
 
@@ -934,7 +934,7 @@ class ManageHomeHero extends Page
                             ->visibility('public')
                             ->maxSize(4096)
                             ->helperText(
-                                'Tamaño recomendado: 1200 × 630 píxeles. ' .
+                                'Tamaño recomendado: 1200 × 630 píxeles. '.
                                 'JPG, PNG o WebP. Máximo 4 MB.'
                             ),
 
@@ -944,14 +944,13 @@ class ManageHomeHero extends Page
                                 'Describe el contenido de la imagen.'
                             )
                             ->required(
-                                fn (Get $get): bool =>
-                                    filled($get('og_image'))
+                                fn (Get $get): bool => filled($get('og_image'))
                             ),
                     ]),
 
                 Section::make('Indexación')
                     ->description(
-                        'Configura las directivas para ' .
+                        'Configura las directivas para '.
                         'los robots de los motores de búsqueda.'
                     )
                     ->schema([
@@ -999,10 +998,10 @@ class ManageHomeHero extends Page
 
     private function heroData(PageSection $hero, string $lang): array
     {
-        $content = $hero->{'content_' . $lang} ?? [];
+        $content = $hero->{'content_'.$lang} ?? [];
 
         $content['title'] ??= trim(
-            ($content['titlePre'] ?? '') .
+            ($content['titlePre'] ?? '').
             ($content['titleAccent'] ?? '')
         );
 
@@ -1023,9 +1022,9 @@ class ManageHomeHero extends Page
             ->where('section', 'services')
             ->first();
 
-        $saved = $section?->getAttribute('content_' . $lang) ?? [];
+        $saved = $section?->getAttribute('content_'.$lang) ?? [];
 
-        if (!empty($saved['cards'])) {
+        if (! empty($saved['cards'])) {
             return $saved['cards'];
         }
 
@@ -1065,13 +1064,13 @@ class ManageHomeHero extends Page
             ->where('section', 'services')
             ->first();
 
-        $saved = $section?->getAttribute('content_' . $lang) ?? [];
+        $saved = $section?->getAttribute('content_'.$lang) ?? [];
 
         $defaults = [
             'eyebrow' => $site['servicesKicker'],
 
             'title' => trim(
-                $site['servicesTitle1'] . ' ' .
+                $site['servicesTitle1'].' '.
                 $site['servicesTitle2']
             ),
 
@@ -1103,7 +1102,7 @@ class ManageHomeHero extends Page
             ->where('section', 'cases')
             ->first();
 
-        $saved = $section?->getAttribute('content_' . $lang) ?? [];
+        $saved = $section?->getAttribute('content_'.$lang) ?? [];
 
         $defaults = [
             'eyebrow' => $site['casesKicker'],
@@ -1176,7 +1175,7 @@ class ManageHomeHero extends Page
             ->where('section', 'collaboration')
             ->first();
 
-        $saved = $section?->getAttribute('content_' . $lang) ?? [];
+        $saved = $section?->getAttribute('content_'.$lang) ?? [];
 
         $defaults = [
             'eyebrow' => $site['collabKicker'],
@@ -1216,8 +1215,8 @@ class ManageHomeHero extends Page
                         return [
                             'name' => $client,
                             'logo' => null,
-                            'alt_es' => 'Logotipo de ' . $client,
-                            'alt_en' => $client . ' logo',
+                            'alt_es' => 'Logotipo de '.$client,
+                            'alt_en' => $client.' logo',
                         ];
                     }
 
@@ -1243,8 +1242,8 @@ class ManageHomeHero extends Page
             $clients[] = [
                 'name' => $client,
                 'logo' => null,
-                'alt_es' => 'Logotipo de ' . $client,
-                'alt_en' => $client . ' logo',
+                'alt_es' => 'Logotipo de '.$client,
+                'alt_en' => $client.' logo',
             ];
         }
 
@@ -1264,7 +1263,7 @@ class ManageHomeHero extends Page
             ->where('section', 'markets')
             ->first();
 
-        $saved = $section?->getAttribute('content_' . $lang) ?? [];
+        $saved = $section?->getAttribute('content_'.$lang) ?? [];
 
         $defaults = [
             'eyebrow' => $site['marketKicker'],
@@ -1343,7 +1342,7 @@ class ManageHomeHero extends Page
             ->where('section', 'seo')
             ->first();
 
-        $saved = $section?->getAttribute('content_' . $lang) ?? [];
+        $saved = $section?->getAttribute('content_'.$lang) ?? [];
 
         $defaults = [
             // SEO básico
@@ -1372,6 +1371,11 @@ class ManageHomeHero extends Page
     // GUARDAR TODAS LAS SECCIONES
     // ------------------------------------
 
+    protected function previewPath(?string $statePath = null): string
+    {
+        return '/';
+    }
+
     public function save(): void
     {
         $state = $this->form->getState();
@@ -1385,11 +1389,11 @@ class ManageHomeHero extends Page
             $hero = $this->getHero();
 
             foreach (['es', 'en'] as $lang) {
-                $field = 'content_' . $lang;
+                $field = 'content_'.$lang;
 
                 $hero->{$field} = array_replace(
                     $hero->{$field} ?? [],
-                    $state['hero_' . $lang] ?? []
+                    $state['hero_'.$lang] ?? []
                 );
             }
 
@@ -1415,10 +1419,10 @@ class ManageHomeHero extends Page
             ]);
 
             foreach (['es', 'en'] as $lang) {
-                $field = 'content_' . $lang;
+                $field = 'content_'.$lang;
 
                 $content = $services->{$field} ?? [];
-                $sectionData = $state['services_' . $lang] ?? [];
+                $sectionData = $state['services_'.$lang] ?? [];
 
                 $content = array_replace(
                     $content,
@@ -1429,7 +1433,7 @@ class ManageHomeHero extends Page
                 );
 
                 $content['cards'] = array_values(
-                    $state['cards_' . $lang] ?? []
+                    $state['cards_'.$lang] ?? []
                 );
 
                 $services->{$field} = $content;
@@ -1444,11 +1448,11 @@ class ManageHomeHero extends Page
             $proof = $this->getProof();
 
             foreach (['es', 'en'] as $lang) {
-                $field = 'content_' . $lang;
+                $field = 'content_'.$lang;
 
                 $proof->{$field} = array_replace(
                     $proof->{$field} ?? [],
-                    $state['proof_' . $lang] ?? []
+                    $state['proof_'.$lang] ?? []
                 );
             }
 
@@ -1466,13 +1470,13 @@ class ManageHomeHero extends Page
             $media = $state['cases_media'] ?? [];
 
             foreach (['es', 'en'] as $lang) {
-                $field = 'content_' . $lang;
+                $field = 'content_'.$lang;
 
                 $content = $cases->{$field} ?? [];
 
                 $content = array_replace(
                     $content,
-                    $state['cases_' . $lang] ?? []
+                    $state['cases_'.$lang] ?? []
                 );
 
                 $content['media'] = $media;
@@ -1496,13 +1500,13 @@ class ManageHomeHero extends Page
             );
 
             foreach (['es', 'en'] as $lang) {
-                $field = 'content_' . $lang;
+                $field = 'content_'.$lang;
 
                 $content = $collaboration->{$field} ?? [];
 
                 $content = array_replace(
                     $content,
-                    $state['collab_' . $lang] ?? []
+                    $state['collab_'.$lang] ?? []
                 );
 
                 $content['clients'] = $clients;
@@ -1526,13 +1530,13 @@ class ManageHomeHero extends Page
             );
 
             foreach (['es', 'en'] as $lang) {
-                $field = 'content_' . $lang;
+                $field = 'content_'.$lang;
 
                 $content = $markets->{$field} ?? [];
 
                 $content = array_replace(
                     $content,
-                    $state['markets_' . $lang] ?? []
+                    $state['markets_'.$lang] ?? []
                 );
 
                 $content['offices'] = $offices;
@@ -1552,7 +1556,7 @@ class ManageHomeHero extends Page
             ]);
 
             foreach (['es', 'en'] as $lang) {
-                $field = 'content_' . $lang;
+                $field = 'content_'.$lang;
 
                 $content = $seo->{$field} ?? [];
 
@@ -1566,7 +1570,7 @@ class ManageHomeHero extends Page
                 // Guardar SEO y Open Graph para LinkedIn.
                 $content = array_replace(
                     $content,
-                    $state['seo_' . $lang] ?? []
+                    $state['seo_'.$lang] ?? []
                 );
 
                 $seo->{$field} = $content;

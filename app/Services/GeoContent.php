@@ -13,6 +13,8 @@ use RuntimeException;
  */
 class GeoContent
 {
+    public function __construct(private SiteContent $content) {}
+
     /** @return array<string, mixed> */
     public function data(): array
     {
@@ -24,7 +26,7 @@ class GeoContent
      */
     public function page(string $page): array
     {
-        $copy = $this->data()['pages'][$page];
+        $copy = $this->content->get($page, 'es');
         $blocks = array_map(fn (array $block): array => $block['type'] === 'ul'
             ? ['type' => 'ul', 'items' => $block['items']]
             : ['type' => $block['type'], 'html' => $this->linked($block['text'], $block['links'] ?? [])], $copy['body']);

@@ -5,14 +5,14 @@
     <section class="cases-opening">
         <div class="service-width">
             <div class="cases-masthead"><p class="service-eyebrow">{{ $copy['kicker'] }}</p><span>feat. / {{ $copy['name'] }}</span></div>
-            <div class="cases-cover"><h1>{{ $copy['title'] }}<em>{{ $copy['accent'] }}</em></h1><div class="cases-cover-note"><span class="cases-cover-arrow" aria-hidden="true">↙</span><p>{{ $copy['intro'] }}</p><a href="{{ $agencyUrls['about'] }}">{{ $copy['aboutLink'] }} ↗</a></div></div>
+            <div class="cases-cover"><h1>{{ $copy['title'] }}<em>{{ $copy['accent'] }}</em></h1><div class="cases-cover-note"><span class="cases-cover-arrow" aria-hidden="true">↙</span><p>{{ $copy['intro'] }}</p><a href="{{ $copy['aboutHref'] }}">{{ $copy['aboutLink'] }} ↗</a></div></div>
             <div class="cases-cover-bottom"><span>{{ $copy['heroNote'] }}</span><span>{{ sprintf('%02d', count($copy['studies'])) }} / {{ $copy['countPlural'] }}</span></div>
         </div>
     </section>
 
     <section class="cases-archive service-width" data-case-archive data-filter="all">
-        <div class="cases-archive-heading"><div><p class="service-eyebrow">{{ $copy['name'] }} / {{ $locale === 'es' ? 'Una mirada al trabajo' : 'A look at the work' }}</p><h2>{{ $copy['archiveTitle'] }}</h2></div><p class="service-body">{{ $copy['archiveIntro'] }}</p></div>
-        <div class="cases-toolbar"><div class="case-filters" role="group" aria-label="{{ $locale === 'es' ? 'Filtrar casos por enfoque' : 'Filter work by focus' }}">@foreach ($copy['filters'] as $filter)<button type="button" data-case-filter="{{ $filter[0] }}" aria-pressed="{{ $loop->first ? 'true' : 'false' }}" class="{{ $loop->first ? 'is-active' : '' }}">{{ $filter[1] }}</button>@endforeach</div><p class="case-counter" role="status" data-case-counter data-singular="{{ $copy['countSingular'] }}" data-plural="{{ $copy['countPlural'] }}">{{ count($copy['studies']) }} {{ $copy['countPlural'] }}</p></div>
+        <div class="cases-archive-heading"><div><p class="service-eyebrow">{{ $copy['name'] }} / {{ $copy['archiveKicker'] }}</p><h2>{{ $copy['archiveTitle'] }}</h2></div><p class="service-body">{{ $copy['archiveIntro'] }}</p></div>
+        <div class="cases-toolbar"><div class="case-filters" role="group" aria-label="{{ $copy['filterLabel'] }}">@foreach ($copy['filters'] as $filter)<button type="button" data-case-filter="{{ $filter[0] }}" aria-pressed="{{ $loop->first ? 'true' : 'false' }}" class="{{ $loop->first ? 'is-active' : '' }}">{{ $filter[1] }}</button>@endforeach</div><p class="case-counter" role="status" data-case-counter data-singular="{{ $copy['countSingular'] }}" data-plural="{{ $copy['countPlural'] }}">{{ count($copy['studies']) }} {{ $copy['countPlural'] }}</p></div>
         <p class="cases-demo-note"><span aria-hidden="true">◇</span>{{ $copy['demoNote'] }}</p>
         <div class="cases-collection">
             @foreach ($copy['studies'] as $study)
@@ -32,6 +32,6 @@
         <p class="cases-empty" data-case-empty hidden>{{ $copy['empty'] }}</p>
     </section>
 
-    <section class="cases-closing"><div class="service-width"><div><p class="service-eyebrow">{{ $copy['closingKicker'] }}</p><h2 class="preserve-lines">{{ $copy['closing'] }}</h2><p>{{ $copy['closingBody'] }}</p></div><a href="{{ $contactUrl }}"><span>{{ $copy['closingCta'] }}</span><b aria-hidden="true">↗</b></a></div></section>
+    <section class="cases-closing"><div class="service-width"><div><p class="service-eyebrow">{{ $copy['closingKicker'] }}</p><h2 class="preserve-lines">{{ $copy['closing'] }}</h2><p>{{ $copy['closingBody'] }}</p></div><a href="{{ $copy['closingHref'] }}"><span>{{ $copy['closingCta'] }}</span><b aria-hidden="true">↗</b></a></div></section>
 </main>
 @endsection

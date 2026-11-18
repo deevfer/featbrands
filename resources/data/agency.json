@@ -8,8 +8,11 @@
       "accent": "se vuelven acción.",
       "heroNote": "Cada reto encuentra su combinación de especialidades.",
       "aboutLink": "Así trabajamos en Feat.",
+      "aboutHref": "",
+      "archiveKicker": "Una mirada al trabajo",
       "archiveTitle": "Un reto. Varias disciplinas.",
       "archiveIntro": "Explora los ejemplos por enfoque y abre cada uno para conocer el reto, el trabajo y el resultado.",
+      "filterLabel": "Filtrar casos por enfoque",
       "filters": [
         [
           "all",
@@ -76,7 +79,8 @@
       "closingKicker": "La siguiente conversación",
       "closing": "¿Qué reto quieres\nponer sobre la mesa?",
       "closingBody": "Encontremos las especialidades que necesita tu proyecto y una dirección compartida para hacerlo avanzar.",
-      "closingCta": "Hablemos de tu proyecto"
+      "closingCta": "Hablemos de tu proyecto",
+      "closingHref": ""
     },
     "about": {
       "name": "Nosotros",
@@ -116,8 +120,10 @@
       "marketsBody": "Con base en Guatemala y presencia local en los mercados, conectamos el contexto de cada lugar con una mirada regional.",
       "closing": "Trae tu reto.\nSumemos miradas.",
       "closingCta": "Conversemos",
+      "closingHref": "",
       "workLink": "Explora cómo se traduce en trabajo",
-      "workName": "Ver casos"
+      "workName": "Ver casos",
+      "workHref": ""
     }
   },
   "en": {
@@ -129,8 +135,11 @@
       "accent": "into action.",
       "heroNote": "Every challenge finds its combination of specialties.",
       "aboutLink": "How we work at Feat.",
+      "aboutHref": "",
+      "archiveKicker": "A look at the work",
       "archiveTitle": "One challenge. Many disciplines.",
       "archiveIntro": "Explore the examples by focus and open each one to see the challenge, the work and the outcome.",
+      "filterLabel": "Filter work by focus",
       "filters": [
         [
           "all",
@@ -197,7 +206,8 @@
       "closingKicker": "The next conversation",
       "closing": "What challenge will\nyou bring to the table?",
       "closingBody": "Find the specialties your project needs and a shared direction to move it forward.",
-      "closingCta": "Let’s talk about your project"
+      "closingCta": "Let’s talk about your project",
+      "closingHref": ""
     },
     "about": {
       "name": "About",
@@ -237,8 +247,10 @@
       "marketsBody": "Headquartered in Guatemala, with local presence across our markets, we connect each place’s context with a regional perspective.",
       "closing": "Bring your challenge.\nLet’s connect perspectives.",
       "closingCta": "Let’s talk",
+      "closingHref": "",
       "workLink": "See how it translates into work",
-      "workName": "Explore work"
+      "workName": "Explore work",
+      "workHref": ""
     }
   }
 }

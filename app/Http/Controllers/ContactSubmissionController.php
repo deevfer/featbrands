@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreContactSubmissionRequest;
+use App\Services\SiteContent;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 
 class ContactSubmissionController extends Controller
 {
@@ -20,7 +20,7 @@ class ContactSubmissionController extends Controller
 
         if ($request->expectsJson()) {
             return response()->json([
-                'message' => File::json(resource_path('data/contact.json'))[$data['locale']]['success'],
+                'message' => app(SiteContent::class)->get('contact', $data['locale'])['success'],
             ], 201);
         }
 

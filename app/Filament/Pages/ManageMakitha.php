@@ -2,12 +2,14 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\HasLivePreview;
 use App\Models\PageSection;
+use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
@@ -17,16 +19,26 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use UnitEnum;
 
 class ManageMakitha extends Page
 {
+    use HasLivePreview;
+
     protected string $view = 'filament.pages.manage-makitha';
 
     protected static ?string $navigationLabel = 'Makitha';
 
     protected static ?string $title = 'Administrar Makitha';
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedVideoCamera;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Páginas del sitio';
+
+    protected static ?int $navigationSort = 5;
 
     public ?array $data = [];
 
@@ -68,7 +80,7 @@ class ManageMakitha extends Page
 
                 $saved = $records
                     ->get($section)
-                    ?->getAttribute('content_' . $lang);
+                    ?->getAttribute('content_'.$lang);
 
                 $content = array_replace(
                     $defaults,
@@ -81,8 +93,8 @@ class ManageMakitha extends Page
                 if ($section === 'hero') {
                     $content['fullTitle'] = trim(
                         (string) ($content['title'] ?? '')
-                        . ' '
-                        . (string) ($content['accent'] ?? '')
+                        .' '
+                        .(string) ($content['accent'] ?? '')
                     );
                 }
 
@@ -162,7 +174,7 @@ class ManageMakitha extends Page
             'hero' => [
                 Section::make('Información superior')
                     ->description(
-                        'Textos de la cabecera de Makitha. ' .
+                        'Textos de la cabecera de Makitha. '.
                         'La navegación y el diseño se conservan.'
                     )
                     ->schema([
@@ -202,8 +214,8 @@ class ManageMakitha extends Page
                             3
                         )
                             ->helperText(
-                                'Escribe el título completo. ' .
-                                'La última palabra conservará ' .
+                                'Escribe el título completo. '.
+                                'La última palabra conservará '.
                                 'el estilo destacado original.'
                             ),
 
@@ -216,8 +228,8 @@ class ManageMakitha extends Page
 
                 Section::make('Botones de portada')
                     ->description(
-                        'El botón de explorar seguirá ' .
-                        'desplazándose hasta la sección ' .
+                        'El botón de explorar seguirá '.
+                        'desplazándose hasta la sección '.
                         'de soluciones.'
                     )
                     ->schema([
@@ -242,8 +254,8 @@ class ManageMakitha extends Page
 
                 Section::make('Motor de crecimiento')
                     ->description(
-                        'Administra sus textos. La imagen, ' .
-                        'sus cuatro posiciones, colores, ' .
+                        'Administra sus textos. La imagen, '.
+                        'sus cuatro posiciones, colores, '.
                         'símbolos y líneas permanecerán intactos.'
                     )
                     ->schema([
@@ -260,7 +272,7 @@ class ManageMakitha extends Page
                             'Título descriptivo del motor'
                         )
                             ->helperText(
-                                'También se utiliza como ' .
+                                'También se utiliza como '.
                                 'etiqueta accesible.'
                             ),
 
@@ -278,8 +290,7 @@ class ManageMakitha extends Page
                                 ),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['text'] ?? 'Nodo'
+                                fn (array $state): ?string => $state['text'] ?? 'Nodo'
                             )
                             ->minItems(4)
                             ->maxItems(4)
@@ -330,8 +341,8 @@ class ManageMakitha extends Page
 
                 Section::make('Seis soluciones de Makitha')
                     ->description(
-                        'Edita todos los textos de cada solución. ' .
-                        'Las seis pestañas, sus posiciones y las ' .
+                        'Edita todos los textos de cada solución. '.
+                        'Las seis pestañas, sus posiciones y las '.
                         'ilustraciones individuales se conservarán.'
                     )
                     ->schema([
@@ -378,8 +389,7 @@ class ManageMakitha extends Page
                                         ),
                                     ])
                                     ->itemLabel(
-                                        fn (array $state): ?string =>
-                                            $state['text']
+                                        fn (array $state): ?string => $state['text']
                                             ?? 'Etiqueta'
                                     )
                                     ->minItems(3)
@@ -389,8 +399,7 @@ class ManageMakitha extends Page
                                     ->reorderable(false),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['short']
+                                fn (array $state): ?string => $state['short']
                                     ?? 'Solución'
                             )
                             ->collapsed()
@@ -426,8 +435,8 @@ class ManageMakitha extends Page
 
                 Section::make('Cuatro etapas del proceso')
                     ->description(
-                        'Se mantiene el orden original ' .
-                        'para conservar la presentación visual ' .
+                        'Se mantiene el orden original '.
+                        'para conservar la presentación visual '.
                         'de las cuatro columnas.'
                     )
                     ->schema([
@@ -446,8 +455,7 @@ class ManageMakitha extends Page
                                 ),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['title']
+                                fn (array $state): ?string => $state['title']
                                     ?? 'Etapa'
                             )
                             ->collapsed()
@@ -466,8 +474,8 @@ class ManageMakitha extends Page
             'bridge' => [
                 Section::make('Contenido de la sección')
                     ->description(
-                        'Administra los textos de presentación ' .
-                        'de Makitha como unidad de Feat. ' .
+                        'Administra los textos de presentación '.
+                        'de Makitha como unidad de Feat. '.
                         'Los logotipos originales no se modificarán.'
                     )
                     ->schema([
@@ -499,8 +507,8 @@ class ManageMakitha extends Page
                             ->url()
                             ->required()
                             ->helperText(
-                                'Enlace completo con https://. ' .
-                                'El valor original incluye ' .
+                                'Enlace completo con https://. '.
+                                'El valor original incluye '.
                                 'el idioma correspondiente.'
                             ),
                     ]),
@@ -589,7 +597,7 @@ class ManageMakitha extends Page
                         )
                             ->maxLength(255)
                             ->helperText(
-                                'Como referencia, se recomiendan ' .
+                                'Como referencia, se recomiendan '.
                                 'aproximadamente 50 a 60 caracteres.'
                             ),
 
@@ -599,7 +607,7 @@ class ManageMakitha extends Page
                             4
                         )
                             ->helperText(
-                                'Como referencia, se recomiendan ' .
+                                'Como referencia, se recomiendan '.
                                 'aproximadamente 140 a 160 caracteres.'
                             ),
 
@@ -607,7 +615,7 @@ class ManageMakitha extends Page
                             ->label('URL canónica')
                             ->url()
                             ->helperText(
-                                'Opcional. Si está vacía, ' .
+                                'Opcional. Si está vacía, '.
                                 'se generará desde la ruta de Makitha.'
                             ),
                     ]),
@@ -616,7 +624,7 @@ class ManageMakitha extends Page
                     'LinkedIn y redes sociales (Open Graph)'
                 )
                     ->description(
-                        'Controla cómo aparece Makitha ' .
+                        'Controla cómo aparece Makitha '.
                         'al compartirse en redes sociales.'
                     )
                     ->schema([
@@ -624,7 +632,7 @@ class ManageMakitha extends Page
                             ->label('Título para redes sociales')
                             ->maxLength(255)
                             ->helperText(
-                                'Opcional. Utiliza el metatítulo ' .
+                                'Opcional. Utiliza el metatítulo '.
                                 'cuando está vacío.'
                             ),
 
@@ -632,7 +640,7 @@ class ManageMakitha extends Page
                             ->label('Descripción para redes sociales')
                             ->rows(4)
                             ->helperText(
-                                'Opcional. Utiliza la metadescripción ' .
+                                'Opcional. Utiliza la metadescripción '.
                                 'cuando está vacía.'
                             ),
 
@@ -651,7 +659,7 @@ class ManageMakitha extends Page
                             ->visibility('public')
                             ->maxSize(4096)
                             ->helperText(
-                                'Recomendado: 1200 × 630 píxeles. ' .
+                                'Recomendado: 1200 × 630 píxeles. '.
                                 'JPG, PNG o WebP. Máximo 4 MB.'
                             ),
 
@@ -733,14 +741,13 @@ class ManageMakitha extends Page
                 // El campo visible reúne ambos textos.
                 'fullTitle' => trim(
                     (string) ($copy['title'] ?? '')
-                    . ' '
-                    . (string) ($copy['accent'] ?? '')
+                    .' '
+                    .(string) ($copy['accent'] ?? '')
                 ),
 
                 'mastheadRight' => 'MAKITHA / FEAT.',
 
-                'heroEyebrow' =>
-                    'Makitha / Tech Growth Partner',
+                'heroEyebrow' => 'Makitha / Tech Growth Partner',
 
                 'engineTagline' => 'tech + strategy',
 
@@ -771,20 +778,15 @@ class ManageMakitha extends Page
                     array_map(
                         static function (array $solution): array {
                             return [
-                                'title' =>
-                                    $solution['title'] ?? '',
+                                'title' => $solution['title'] ?? '',
 
-                                'short' =>
-                                    $solution['short'] ?? '',
+                                'short' => $solution['short'] ?? '',
 
-                                'headline' =>
-                                    $solution['headline'] ?? '',
+                                'headline' => $solution['headline'] ?? '',
 
-                                'body' =>
-                                    $solution['body'] ?? '',
+                                'body' => $solution['body'] ?? '',
 
-                                'word' =>
-                                    $solution['word'] ?? '',
+                                'word' => $solution['word'] ?? '',
 
                                 'outputs' => array_values(
                                     array_map(
@@ -810,11 +812,9 @@ class ManageMakitha extends Page
                 'process' => array_values(
                     array_map(
                         static fn (array $step): array => [
-                            'title' =>
-                                (string) ($step[0] ?? ''),
+                            'title' => (string) ($step[0] ?? ''),
 
-                            'description' =>
-                                (string) ($step[1] ?? ''),
+                            'description' => (string) ($step[1] ?? ''),
                         ],
                         $copy['process'] ?? []
                     )
@@ -828,9 +828,8 @@ class ManageMakitha extends Page
                     'websiteCta',
                 ]),
 
-                'websiteHref' =>
-                    'https://www.makitha.com/?lang='
-                    . $lang,
+                'websiteHref' => 'https://www.makitha.com/?lang='
+                    .$lang,
             ],
 
             'closing' => [
@@ -841,8 +840,7 @@ class ManageMakitha extends Page
                     'nextName',
                 ]),
 
-                'closingEyebrow' =>
-                    'Intelligence for scalable growth.',
+                'closingEyebrow' => 'Intelligence for scalable growth.',
 
                 'closingHref' => route(
                     'contact',
@@ -860,8 +858,7 @@ class ManageMakitha extends Page
             'seo' => [
                 'meta_title' => 'Makitha — Feat.',
 
-                'meta_description' =>
-                    $copy['intro'] ?? '',
+                'meta_description' => $copy['intro'] ?? '',
 
                 'canonical_url' => '',
 
@@ -895,6 +892,11 @@ class ManageMakitha extends Page
     // GUARDAR TODAS LAS SECCIONES
     // ------------------------------------
 
+    protected function previewPath(?string $statePath = null): string
+    {
+        return '/makitha';
+    }
+
     public function save(): void
     {
         $state = $this->form->getState();
@@ -907,7 +909,7 @@ class ManageMakitha extends Page
                 ]);
 
                 foreach (['es', 'en'] as $lang) {
-                    $column = 'content_' . $lang;
+                    $column = 'content_'.$lang;
 
                     $previous = $record->{$column} ?? [];
 

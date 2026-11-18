@@ -2,12 +2,14 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Concerns\HasLivePreview;
 use App\Models\PageSection;
+use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
@@ -17,16 +19,26 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use UnitEnum;
 
 class ManageExperience extends Page
 {
+    use HasLivePreview;
+
     protected string $view = 'filament.pages.manage-experience';
 
     protected static ?string $navigationLabel = 'Experience & Tech';
 
     protected static ?string $title = 'Administrar Experience & Tech';
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCursorArrowRays;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Páginas del sitio';
+
+    protected static ?int $navigationSort = 4;
 
     public ?array $data = [];
 
@@ -67,7 +79,7 @@ class ManageExperience extends Page
 
                 $saved = $records
                     ->get($section)
-                    ?->getAttribute('content_' . $lang);
+                    ?->getAttribute('content_'.$lang);
 
                 $state["{$section}_{$lang}"] = array_replace(
                     $defaults,
@@ -193,7 +205,7 @@ class ManageExperience extends Page
                             'Enlace del botón'
                         )
                             ->helperText(
-                                'Ejemplo: /contacto. Al conectar ' .
+                                'Ejemplo: /contacto. Al conectar '.
                                 'el frontend conservaremos idioma y mercado.'
                             ),
                     ])
@@ -201,7 +213,7 @@ class ManageExperience extends Page
 
                 Section::make('Ilustración orbital')
                     ->description(
-                        'Edita únicamente los textos. Los anillos, ' .
+                        'Edita únicamente los textos. Los anillos, '.
                         'colores, cursor y animaciones no se modificarán.'
                     )
                     ->schema([
@@ -223,8 +235,7 @@ class ManageExperience extends Page
                                 ),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['word'] ?? 'Etiqueta'
+                                fn (array $state): ?string => $state['word'] ?? 'Etiqueta'
                             )
                             ->minItems(3)
                             ->maxItems(3)
@@ -252,7 +263,7 @@ class ManageExperience extends Page
             'journey' => [
                 Section::make('Encabezado del recorrido')
                     ->description(
-                        'Título y descripción que aparecen ' .
+                        'Título y descripción que aparecen '.
                         'encima del recorrido interactivo.'
                     )
                     ->schema([
@@ -287,8 +298,8 @@ class ManageExperience extends Page
 
                 Section::make('Tres etapas del recorrido')
                     ->description(
-                        'Mantendremos exactamente tres etapas para ' .
-                        'preservar las pestañas, paneles y animaciones ' .
+                        'Mantendremos exactamente tres etapas para '.
+                        'preservar las pestañas, paneles y animaciones '.
                         'del JavaScript original.'
                     )
                     ->schema([
@@ -337,8 +348,7 @@ class ManageExperience extends Page
                                 ),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['label']
+                                fn (array $state): ?string => $state['label']
                                     ?? 'Etapa del recorrido'
                             )
                             ->collapsed()
@@ -351,7 +361,7 @@ class ManageExperience extends Page
 
                 Section::make('Controles del recorrido')
                     ->description(
-                        'Textos utilizados por los botones ' .
+                        'Textos utilizados por los botones '.
                         'de siguiente etapa y reinicio.'
                     )
                     ->schema([
@@ -399,7 +409,7 @@ class ManageExperience extends Page
 
                 Section::make('Disciplinas y servicios')
                     ->description(
-                        'Administra los cuatro elementos que ' .
+                        'Administra los cuatro elementos que '.
                         'aparecen en el listado original.'
                     )
                     ->schema([
@@ -426,8 +436,7 @@ class ManageExperience extends Page
                                     ),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['title']
+                                fn (array $state): ?string => $state['title']
                                     ?? 'Disciplina'
                             )
                             ->collapsed()
@@ -461,7 +470,7 @@ class ManageExperience extends Page
 
                 Section::make('Diagrama de conexión')
                     ->description(
-                        'Se conservarán los tres nodos, sus ' .
+                        'Se conservarán los tres nodos, sus '.
                         'símbolos, colores y líneas conectoras.'
                     )
                     ->schema([
@@ -474,8 +483,7 @@ class ManageExperience extends Page
                                 ),
                             ])
                             ->itemLabel(
-                                fn (array $state): ?string =>
-                                    $state['label'] ?? 'Nodo'
+                                fn (array $state): ?string => $state['label'] ?? 'Nodo'
                             )
                             ->minItems(3)
                             ->maxItems(3)
@@ -554,7 +562,7 @@ class ManageExperience extends Page
                         )
                             ->maxLength(255)
                             ->helperText(
-                                'Recomendación: aproximadamente ' .
+                                'Recomendación: aproximadamente '.
                                 '50 a 60 caracteres.'
                             ),
 
@@ -564,7 +572,7 @@ class ManageExperience extends Page
                             4
                         )
                             ->helperText(
-                                'Recomendación: aproximadamente ' .
+                                'Recomendación: aproximadamente '.
                                 '140 a 160 caracteres.'
                             ),
 
@@ -572,15 +580,15 @@ class ManageExperience extends Page
                             ->label('URL canónica')
                             ->url()
                             ->helperText(
-                                'Opcional. Utiliza una URL absoluta ' .
-                                'con https://. Si queda vacía, ' .
+                                'Opcional. Utiliza una URL absoluta '.
+                                'con https://. Si queda vacía, '.
                                 'se generará desde la ruta de Experience.'
                             ),
                     ]),
 
                 Section::make('LinkedIn y redes sociales')
                     ->description(
-                        'Metadatos Open Graph para compartir ' .
+                        'Metadatos Open Graph para compartir '.
                         'la página.'
                     )
                     ->schema([
@@ -588,7 +596,7 @@ class ManageExperience extends Page
                             ->label('Título para redes sociales')
                             ->maxLength(255)
                             ->helperText(
-                                'Opcional. Si queda vacío, ' .
+                                'Opcional. Si queda vacío, '.
                                 'se utilizará el metatítulo.'
                             ),
 
@@ -596,7 +604,7 @@ class ManageExperience extends Page
                             ->label('Descripción para redes sociales')
                             ->rows(4)
                             ->helperText(
-                                'Opcional. Si queda vacía, ' .
+                                'Opcional. Si queda vacía, '.
                                 'se utilizará la metadescripción.'
                             ),
 
@@ -615,7 +623,7 @@ class ManageExperience extends Page
                             ->visibility('public')
                             ->maxSize(4096)
                             ->helperText(
-                                'Recomendación: 1200 × 630 píxeles. ' .
+                                'Recomendación: 1200 × 630 píxeles. '.
                                 'JPG, PNG o WebP. Máximo 4 MB.'
                             ),
 
@@ -698,8 +706,7 @@ class ManageExperience extends Page
                     $copy['orbitWords'] ?? []
                 ),
 
-                'coverFootRight' =>
-                    'UX / UI / E-commerce / Tech',
+                'coverFootRight' => 'UX / UI / E-commerce / Tech',
             ],
 
             'journey' => [
@@ -711,11 +718,9 @@ class ManageExperience extends Page
                     'restart',
                 ]),
 
-                'browserLabel' =>
-                    'feat. / experience design',
+                'browserLabel' => 'feat. / experience design',
 
-                'progressLabel' =>
-                    '01 → 02 → 03',
+                'progressLabel' => '01 → 02 → 03',
 
                 'steps' => array_values(
                     $copy['steps'] ?? []
@@ -782,11 +787,9 @@ class ManageExperience extends Page
             ],
 
             'seo' => [
-                'meta_title' =>
-                    'Experience & Tech — Feat.',
+                'meta_title' => 'Experience & Tech — Feat.',
 
-                'meta_description' =>
-                    $copy['intro'] ?? '',
+                'meta_description' => $copy['intro'] ?? '',
 
                 'canonical_url' => '',
 
@@ -820,6 +823,11 @@ class ManageExperience extends Page
     // GUARDAR TODAS LAS SECCIONES
     // ------------------------------------
 
+    protected function previewPath(?string $statePath = null): string
+    {
+        return '/experience-tech';
+    }
+
     public function save(): void
     {
         $state = $this->form->getState();
@@ -832,7 +840,7 @@ class ManageExperience extends Page
                 ]);
 
                 foreach (['es', 'en'] as $lang) {
-                    $column = 'content_' . $lang;
+                    $column = 'content_'.$lang;
 
                     $previous = $record->{$column} ?? [];
 

@@ -1,4 +1,5 @@
-
 <x-filament-panels::page>
-    {{ $this->form }}
+    <x-cms-preview :config="$this->previewConfig()">
+        {{ $this->form }}
+    </x-cms-preview>
 </x-filament-panels::page>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @include('site.partials.seo')
     @stack('head')
-    <link rel="icon" href="{{ asset('assets/feat-black.svg') }}" type="image/svg+xml">
+    <link rel="icon" href="{{ $brandAssets['favicon'] }}">
     <link rel="stylesheet" href="{{ asset('css/site.css').'?v='.filemtime(public_path('css/site.css')) }}">
     <script src="{{ asset('js/site.js').'?v='.filemtime(public_path('js/site.js')) }}" defer></script>
     <script src="{{ asset('js/language.js').'?v='.filemtime(public_path('js/language.js')) }}" defer></script>
@@ -28,7 +28,7 @@
     @endif
 </head>
 <body data-page="{{ $page }}" data-market="{{ $market }}" data-performance-url="{{ $performanceUrl }}">
-    <a class="skip-link" href="#main-content">{{ $locale === 'es' ? 'Ir al contenido' : 'Skip to content' }}</a>
+    <a class="skip-link" href="#main-content">{{ $t['skipLink'] }}</a>
     <div class="site-shell" style="font-family:'Space Grotesk',sans-serif;background:#FFFFFF;color:#000000;min-height:100vh;overflow-x:clip">
         @include('site.partials.header')
         @yield('content')

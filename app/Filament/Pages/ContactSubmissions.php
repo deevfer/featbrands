@@ -2,15 +2,19 @@
 
 namespace App\Filament\Pages;
 
+use App\Services\SiteContent;
+use BackedEnum;
 use Filament\Pages\Page;
+use Filament\Support\Icons\Heroicon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 
 class ContactSubmissions extends Page
 {
     protected static ?string $title = 'Solicitudes de contacto';
 
-    protected static ?string $navigationLabel = 'Contacto';
+    protected static ?string $navigationLabel = 'Solicitudes de contacto';
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedInboxArrowDown;
 
     protected string $view = 'filament.pages.contact-submissions';
 
@@ -21,7 +25,7 @@ class ContactSubmissions extends Page
     {
         return [
             'submissions' => DB::table('contact_submissions')->orderByDesc('id')->paginate(15),
-            'referrals' => File::json(resource_path('data/contact.json'))['es']['referrals'],
+            'referrals' => app(SiteContent::class)->get('contact', 'es')['referrals'],
         ];
     }
 }

@@ -59,6 +59,7 @@
       "title": "No llenamos un feed.",
       "accent": "Abrimos conversaciones.",
       "cta": "Encontremos tu conversación",
+      "ctaHref": "",
       "postLabel": "Una voz propia",
       "postWords": [
         "Menos ruido.",
@@ -66,10 +67,13 @@
       ],
       "reply": "Eso que dices…",
       "replyAccent": "también lo pienso.",
+      "stickerTop": "let’s",
+      "stickerAccent": "talk.",
       "postFoot": "Contenido que encuentra a su gente.",
       "labKicker": "La idea cambia de formato, no de intención",
       "labTitle": "¿Qué quieres provocar?",
       "labBody": "Cada pieza tiene un papel. La estrategia conecta lo que una persona siente, lo que comparte y lo que decide hacer.",
+      "exampleLabel": "feat. / social",
       "modes": [
         {
           "label": "Inspirar",
@@ -116,7 +120,9 @@
           "Usamos los resultados para tomar mejores decisiones en el siguiente ciclo."
         ]
       ],
+      "measureKicker": "Social intelligence",
       "measureTitle": "Más allá del like.",
+      "measureStrike": "likes.",
       "measureWord": "vínculos.",
       "measureBody": "No todas las interacciones significan lo mismo. Leemos la conversación y el comportamiento para entender qué contenido conecta y qué necesita cambiar.",
       "metrics": [
@@ -127,8 +133,10 @@
       "closingQuestion": "¿De qué debería hablar tu marca?",
       "closingAnswer": "Empecemos por escuchar.",
       "closingCta": "Hablemos de tu comunidad",
+      "closingHref": "",
       "next": "Conecta contenido, herramientas y datos",
-      "nextName": "Makitha"
+      "nextName": "Makitha",
+      "nextHref": ""
     },
     "experience": {
       "name": "Experience & Tech",
@@ -397,6 +405,7 @@
       "title": "We do not fill a feed.",
       "accent": "We start conversations.",
       "cta": "Find your conversation",
+      "ctaHref": "",
       "postLabel": "A voice of your own",
       "postWords": [
         "Less noise.",
@@ -404,10 +413,13 @@
       ],
       "reply": "What you just said…",
       "replyAccent": "I feel that too.",
+      "stickerTop": "let’s",
+      "stickerAccent": "talk.",
       "postFoot": "Content that finds its people.",
       "labKicker": "The format changes. The intention stays.",
       "labTitle": "What do you want to spark?",
       "labBody": "Every piece has a role. Strategy connects what someone feels, what they share and what they choose to do.",
+      "exampleLabel": "feat. / social",
       "modes": [
         {
           "label": "Inspire",
@@ -454,7 +466,9 @@
           "We use the results to make better decisions in the next cycle."
         ]
       ],
+      "measureKicker": "Social intelligence",
       "measureTitle": "Beyond the like.",
+      "measureStrike": "likes.",
       "measureWord": "connections.",
       "measureBody": "Not every interaction means the same thing. We read the conversation and behavior to understand what connects and what needs to change.",
       "metrics": [
@@ -465,8 +479,10 @@
       "closingQuestion": "What should your brand talk about?",
       "closingAnswer": "Let’s start by listening.",
       "closingCta": "Talk about your community",
+      "closingHref": "",
       "next": "Connect content, tools and data",
-      "nextName": "Makitha"
+      "nextName": "Makitha",
+      "nextHref": ""
     },
     "experience": {
       "name": "Experience & Tech",
