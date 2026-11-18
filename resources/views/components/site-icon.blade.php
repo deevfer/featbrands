@@ -1,0 +1,1 @@
+@props(['name'])@php($icon = app(\App\Services\SiteIcons::class)->resolve($name))@if ($icon['image'])<img src="{{ $icon['image'] }}" alt="" aria-hidden="true" {{ $attributes->class('site-icon') }}>@elseif ($icon['text'] !== null){{ $icon['text'] }}@else{{ $slot }}@endif

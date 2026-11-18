@@ -6,7 +6,7 @@
       </a>
       <nav id="site-nav" class="site-nav" aria-label="{{ $locale === 'es' ? 'Navegación principal' : 'Main navigation' }}" style="display:flex;gap:16px;margin-left:6px;min-width:0;align-items:center">
         <div style="position:relative" data-services-menu>
-          <button data-services-toggle aria-expanded="false" style="background:none;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500;letter-spacing:.02em;text-transform:uppercase;color:#FFFFFF;opacity:.6;padding:4px 0;white-space:nowrap;display:flex;align-items:center;gap:5px" class="prototype-hover-0 {{ in_array($page, array_column($serviceLinks, 'route'), true) ? 'is-active' : '' }}">{{ $t['nav'][0] }}<span style="font-size:9px">▾</span></button>
+          <button data-services-toggle aria-expanded="false" style="background:none;border:none;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500;letter-spacing:.02em;text-transform:uppercase;color:#FFFFFF;opacity:.6;padding:4px 0;white-space:nowrap;display:flex;align-items:center;gap:5px" class="prototype-hover-0 {{ in_array($page, array_column($serviceLinks, 'route'), true) ? 'is-active' : '' }}">{{ $t['nav'][0] }}<span style="font-size:9px"><x-site-icon name="general.caret">▾</x-site-icon></span></button>
           <div class="services-dropdown" data-services-dropdown hidden>
             <div style="background:rgba(0,0,0,.96);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:8px;display:flex;flex-direction:column;gap:2px;min-width:250px;box-shadow:0 18px 44px rgba(0,0,0,.4)">
             @foreach ($serviceLinks as $s)

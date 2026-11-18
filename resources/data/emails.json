@@ -1,0 +1,45 @@
+{
+    "es": {
+        "confirmation": {
+            "subject": "Recibimos tu mensaje — Feat.",
+            "preheader": "Gracias por escribirnos. Nuestro equipo te contactará pronto.",
+            "eyebrow": "Mensaje recibido",
+            "title": "Gracias por escribirnos.",
+            "accent": "Ya estamos en ello.",
+            "greeting": "Hola",
+            "body": "Recibimos tu solicitud. Nuestro equipo la revisará y te contactará al correo que nos compartiste para conversar sobre tu proyecto.",
+            "summaryTitle": "Esto es lo que nos enviaste",
+            "replyNote": "¿Quieres añadir algo más? Responde a este correo y cuéntanos más sobre tu proyecto.",
+            "cta": "Conoce nuestros casos",
+            "ctaHref": "/casos",
+            "signature": "Equipo Feat.",
+            "footer": "Recibiste este correo porque completaste el formulario de contacto en featbrands.com."
+        }
+    },
+    "en": {
+        "confirmation": {
+            "subject": "We received your message — Feat.",
+            "preheader": "Thank you for reaching out. Our team will contact you soon.",
+            "eyebrow": "Message received",
+            "title": "Thank you for reaching out.",
+            "accent": "We're on it.",
+            "greeting": "Hi",
+            "body": "We received your request. Our team will review it and contact you at the email address you shared to talk about your project.",
+            "summaryTitle": "Here's what you sent us",
+            "replyNote": "Want to add anything? Reply to this email and tell us more about your project.",
+            "cta": "See our work",
+            "ctaHref": "/casos?lang=en",
+            "signature": "The Feat. team",
+            "footer": "You received this email because you filled out the contact form on featbrands.com."
+        }
+    },
+    "lead": {
+        "subject": "Nuevo contacto desde featbrands.com",
+        "eyebrow": "Nuevo lead · Formulario de contacto",
+        "title": "Hay una nueva conversación.",
+        "intro": "llenó el formulario de contacto. Estos son los datos para darle seguimiento.",
+        "cta": "Ver solicitudes en el CMS",
+        "replyNote": "Responde a este correo para escribirle directamente a la persona.",
+        "footer": "Enviado automáticamente por featbrands.com."
+    }
+}

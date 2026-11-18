@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @include('site.partials.seo')
+    @include('site.partials.measurement-head', ['siteSettings' => $siteSettings = \App\Models\SiteSetting::current()])
     @stack('head')
     <link rel="icon" href="{{ $brandAssets['favicon'] }}">
     <link rel="stylesheet" href="{{ asset('css/site.css').'?v='.filemtime(public_path('css/site.css')) }}">
@@ -35,5 +36,6 @@
         @include('site.partials.footer')
     </div>
     <p class="site-language-status" data-language-status role="status" hidden></p>
+    @include('site.partials.measurement-body', ['siteSettings' => $siteSettings])
 </body>
 </html>

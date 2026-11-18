@@ -35,6 +35,24 @@
         current.querySelector('[data-contact-status]').hidden = true;
         delete current.dataset.errorKind;
     };
+    /* reCAPTCHA v3 token for the "contact" action, when the CMS enables it. */
+    const recaptchaToken = async (current) => {
+        const siteKey = current.dataset.recaptchaSiteKey;
+        if (!siteKey) return null;
+        for (let attempt = 0; attempt < 50 && !window.grecaptcha; attempt += 1) {
+            await new Promise((resolve) => setTimeout(resolve, 100));
+        }
+        if (!window.grecaptcha) throw new Error('recaptcha_unavailable');
+        return new Promise((resolve, reject) => {
+            const timeout = setTimeout(() => reject(new Error('recaptcha_timeout')), 8000);
+            window.grecaptcha.ready(() => {
+                window.grecaptcha.execute(siteKey, { action: 'contact' }).then((token) => {
+                    clearTimeout(timeout);
+                    token ? resolve(token) : reject(new Error('recaptcha_empty'));
+                }, reject);
+            });
+        });
+    };
     const initialize = () => {
         const current = form();
         if (!current) return;
@@ -58,6 +76,14 @@
         submitted.dataset.state = 'submitting';
         setBusy(true);
         try {
+            try {
+                const token = await recaptchaToken(submitted);
+                if (token) body.set('g-recaptcha-response', token);
+            } catch {
+                showStatus('captcha');
+                submitted.querySelector('[data-contact-status]').focus();
+                return;
+            }
             const response = await fetch(submitted.action, {
                 method: 'POST', body, credentials: 'same-origin',
                 headers: { Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
@@ -66,7 +92,7 @@
             const current = form();
             if (!current) return;
             if (response.status === 422) {
-                showStatus('validation');
+                showStatus(result.errors?.['g-recaptcha-response'] ? 'captcha' : 'validation');
                 let firstInvalid;
                 for (const [name, messages] of Object.entries(result.errors || {})) {
                     const field = current.elements.namedItem(name);
@@ -83,6 +109,7 @@
                 current.querySelector('[data-contact-status]').focus();
             } else {
                 if (response.status !== 201 || typeof result.message !== 'string') throw new Error('Unexpected contact response');
+                document.dispatchEvent(new CustomEvent('feat:lead-saved', { detail: { source: 'contact', id: result.id } }));
                 current.reset();
                 current.dataset.state = 'success';
                 current.hidden = true;

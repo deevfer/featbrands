@@ -103,6 +103,7 @@
             const imported = document.importNode(nextShell, true);
             document.querySelector('.site-shell').replaceWith(imported);
             document.documentElement.lang = translated.documentElement.lang;
+            translated.querySelectorAll('[data-site-swap][id]').forEach((element) => document.getElementById(element.id)?.replaceWith(document.importNode(element, true)));
             document.title = translated.title;
             document.querySelector('meta[name="description"]').content = translated.querySelector('meta[name="description"]').content;
             document.querySelectorAll('[data-site-meta]').forEach((element) => element.remove());

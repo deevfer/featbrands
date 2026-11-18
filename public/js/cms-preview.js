@@ -132,7 +132,7 @@ window.cmsPreview = (config) => ({
     show(html) {
         const frame = this.$refs.frame;
         try { this.scrollY = frame.contentWindow?.scrollY || 0; } catch (error) {}
-        const style = '<style>[data-cms-field]{cursor:pointer;transition:outline-color .15s}[data-cms-field]:hover{outline:2px dashed #f59e0b;outline-offset:3px}.cms-focus{outline:3px solid #f59e0b!important;outline-offset:4px;background-color:rgba(253,219,2,.2)!important;border-radius:2px}</style>';
+        const style = '<style>.cookie-panel,.cookie-trigger{display:none!important}[data-cms-field]{cursor:pointer;transition:outline-color .15s}[data-cms-field]:hover{outline:2px dashed #f59e0b;outline-offset:3px}.cms-focus{outline:3px solid #f59e0b!important;outline-offset:4px;background-color:rgba(253,219,2,.2)!important;border-radius:2px}</style>';
         frame.srcdoc = html.includes('</head>') ? html.replace('</head>', `${style}</head>`) : style + html;
     },
 
@@ -185,6 +185,8 @@ window.cmsPreview = (config) => ({
     },
 
     pageOf(path) {
+        const icon = path?.match(/(?:^|\.)icons\.(\w+)\.(share_)?/);
+        if (icon) return icon[1] + (icon[2] ? '.share' : '');
         return path?.match(/(?:^|\.)c(\d+)\./)?.[1] || null;
     },
 

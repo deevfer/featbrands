@@ -6,6 +6,7 @@ use App\Models\SeoSetting;
 use App\Services\SiteSeo;
 use BackedEnum;
 use Filament\Forms\Components\TagsInput;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
@@ -48,6 +49,9 @@ class SeoSettings extends Page
             Section::make('Verificación de herramientas')->description('Pega únicamente el valor content del código que entrega cada herramienta. Guardarlo no confirma que la cuenta esté verificada.')->schema([
                 TextInput::make('search_console_verification')->label('Google Search Console')->maxLength(255)->regex('/^[A-Za-z0-9_-]*$/'),
                 TextInput::make('bing_verification')->label('Bing Webmaster Tools')->maxLength(255)->regex('/^[A-Za-z0-9_-]*$/'),
+                TextInput::make('facebook_domain_verification')->label('Facebook / Meta (verificación de dominio)')->maxLength(255)->regex('/^[A-Za-z0-9_-]*$/'),
+                TextInput::make('pinterest_verification')->label('Pinterest')->maxLength(255)->regex('/^[A-Za-z0-9_-]*$/'),
+                Textarea::make('custom_verification_tags')->label('Otras etiquetas de verificación')->rows(3)->helperText('Pega etiquetas <meta> completas de otras herramientas. Solo se publican etiquetas <meta>.'),
             ]),
             Section::make('Perfiles de la organización')->description('URLs públicas de los perfiles oficiales de Feat. (LinkedIn, Instagram, DesignRush). Se publican como sameAs en el schema Organization; vacío no se emite.')->schema([
                 TagsInput::make('same_as')->label('Perfiles oficiales (sameAs)')->placeholder('https://…')->nestedRecursiveRules(['url', 'starts_with:https://', 'max:500'])->helperText('Pega cada URL completa y presiona Enter.'),
@@ -57,7 +61,7 @@ class SeoSettings extends Page
 
     public function save(): void
     {
-        $state = Arr::only($this->form->getState(), ['public_url', 'indexing_enabled', 'default_image', 'search_console_verification', 'bing_verification', 'same_as', 'llms_enabled']);
+        $state = Arr::only($this->form->getState(), ['public_url', 'indexing_enabled', 'default_image', 'search_console_verification', 'bing_verification', 'facebook_domain_verification', 'pinterest_verification', 'custom_verification_tags', 'same_as', 'llms_enabled']);
         $settings = SeoSetting::firstOrNew(['id' => 1]);
         $previous = $settings->data ?? [];
         $state['public_url'] = rtrim($state['public_url'], '/');

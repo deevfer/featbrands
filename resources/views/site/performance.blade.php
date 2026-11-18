@@ -110,7 +110,7 @@
             <span style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,0,0,.6)">{{ $r['tag'] }}</span>
             <span style="font-family:'Bellinzo',serif;font-size:26px;letter-spacing:-.01em">{{ $r['title'] }}</span>
             <span style="font-size:14px;color:rgba(0,0,0,.7);line-height:1.5">{{ $r['desc'] }}</span>
-            <span style="font-size:14px;font-weight:600;color:#000000;margin-top:6px">{{ $r['cta'] }} →</span>
+            <span style="font-size:14px;font-weight:600;color:#000000;margin-top:6px">{{ $r['cta'] }} <x-site-icon name="general.arrow_next">→</x-site-icon></span>
           </div>
         @endforeach
       </div>

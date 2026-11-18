@@ -3,24 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreContactSubmissionRequest;
+use App\Models\ContactSubmission;
+use App\Services\LeadNotifications;
 use App\Services\SiteContent;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\DB;
 
 class ContactSubmissionController extends Controller
 {
-    public function store(StoreContactSubmissionRequest $request): JsonResponse|RedirectResponse
+    public function store(StoreContactSubmissionRequest $request, LeadNotifications $notifications): JsonResponse|RedirectResponse
     {
-        $data = $request->safe()->except(['website', 'phone_country']);
+        $data = $request->safe()->except(['website', 'phone_country', 'g-recaptcha-response']);
         $data['phone'] = preg_replace('/\D/', '', $data['phone']);
-        $data['created_at'] = now();
-        $data['updated_at'] = now();
-        DB::table('contact_submissions')->insert($data);
+        $submission = ContactSubmission::create($data);
+
+        defer(fn () => $notifications->contactSubmitted($submission));
 
         if ($request->expectsJson()) {
             return response()->json([
                 'message' => app(SiteContent::class)->get('contact', $data['locale'])['success'],
+                'id' => $submission->id,
             ], 201);
         }
 

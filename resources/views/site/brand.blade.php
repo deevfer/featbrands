@@ -5,10 +5,10 @@
     <section class="brand-opening">
         <div class="service-width brand-cover">
             <div class="brand-cover-copy">
-                <a class="service-back" href="{{ $homeUrl.'#servicios' }}">← {{ $t['nav'][0] }}</a>
+                <a class="service-back" href="{{ $homeUrl.'#servicios' }}"><x-site-icon name="general.arrow_back">←</x-site-icon> {{ $t['nav'][0] }}</a>
                 <p class="service-eyebrow">{{ $copy['name'] }} / 02</p>
                 <h1>{{ $copy['title'] }} <em>{{ $copy['accent'] }}</em></h1>
-                <div class="brand-opening-bottom"><p>{{ $copy['intro'] }}</p><a class="service-round-link" href="#brand-questions" aria-label="{{ $copy['questionsTitle'] }}">↓</a></div>
+                <div class="brand-opening-bottom"><p>{{ $copy['intro'] }}</p><a class="service-round-link" href="#brand-questions" aria-label="{{ $copy['questionsTitle'] }}"><x-site-icon name="general.arrow_down">↓</x-site-icon></a></div>
             </div>
             <div class="brand-specimen" aria-label="{{ $copy['sheet'] }}">
                 <div class="brand-paper">
@@ -16,7 +16,7 @@
                     <span class="brand-letter" aria-hidden="true">Aa<span>®</span></span>
                     <p class="specimen-note">{{ $copy['specimen'] }}</p>
                     <div class="brand-swatches" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-                    <div class="specimen-bottom"><span>Bellinzo / Miller / Space Grotesk</span><span>↗</span></div>
+                    <div class="specimen-bottom"><span>Bellinzo / Miller / Space Grotesk</span><span><x-site-icon name="brand.specimen">↗</x-site-icon></span></div>
                 </div>
                 <span class="brand-seal">{{ $copy['stamp'] }}</span>
                 <p class="brand-paper-caption">{{ $copy['note'] }}</p>
@@ -49,10 +49,10 @@
     </section>
 
     <section class="brand-workshop service-width">
-        <div class="workshop-margin"><span class="workshop-asterisk" aria-hidden="true">✳</span><p class="service-eyebrow">{{ $copy['workshopKicker'] }}</p></div>
+        <div class="workshop-margin"><span class="workshop-asterisk" aria-hidden="true"><x-site-icon name="brand.workshop">✳</x-site-icon></span><p class="service-eyebrow">{{ $copy['workshopKicker'] }}</p></div>
         <div><h2>{{ $copy['workshopTitle'] }}</h2><p class="service-body">{{ $copy['workshopBody'] }}</p><ol class="brand-workshop-steps">@foreach ($copy['workshopSteps'] as $step)<li><span>0{{ $loop->iteration }}</span>{{ $step }}</li>@endforeach</ol></div>
     </section>
 
-    <section class="brand-signoff"><div class="service-width"><p>{{ $copy['closing'] }}</p><a href="{{ $copy['closingHref'] ?? $contactUrl }}">{{ $copy['closingCta'] }}<span aria-hidden="true">↗</span></a><div class="brand-next"><span>{{ $copy['next'] }}</span><a href="{{ $copy['nextHref'] ?? $serviceUrls['social'] }}">{{ $copy['nextName'] }} →</a></div></div></section>
+    <section class="brand-signoff"><div class="service-width"><p>{{ $copy['closing'] }}</p><a href="{{ $copy['closingHref'] ?? $contactUrl }}">{{ $copy['closingCta'] }}<span aria-hidden="true"><x-site-icon name="general.arrow_out">↗</x-site-icon></span></a><div class="brand-next"><span>{{ $copy['next'] }}</span><a href="{{ $copy['nextHref'] ?? $serviceUrls['social'] }}">{{ $copy['nextName'] }} <x-site-icon name="general.arrow_next">→</x-site-icon></a></div></div></section>
 </main>
 @endsection

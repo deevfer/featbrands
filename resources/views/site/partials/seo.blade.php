@@ -23,4 +23,7 @@
 @if ($seo['modified'])<meta data-site-meta property="article:modified_time" content="{{ $seo['modified'] }}">@endif
 @if ($seo['verification']['search_console_verification'])<meta data-site-meta name="google-site-verification" content="{{ $seo['verification']['search_console_verification'] }}">@endif
 @if ($seo['verification']['bing_verification'])<meta data-site-meta name="msvalidate.01" content="{{ $seo['verification']['bing_verification'] }}">@endif
+@if ($seo['verification']['facebook_domain_verification'])<meta name="facebook-domain-verification" content="{{ $seo['verification']['facebook_domain_verification'] }}">@endif
+@if ($seo['verification']['pinterest_verification'])<meta name="p:domain_verify" content="{{ $seo['verification']['pinterest_verification'] }}">@endif
+@foreach (app(\App\Services\SiteSeo::class)->customVerificationTags() as $tag){!! $tag !!}@endforeach
 <script data-site-meta type="application/ld+json">{!! json_encode($seo['schema'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>

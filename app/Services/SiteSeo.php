@@ -25,7 +25,19 @@ class SiteSeo
     {
         $saved = Schema::hasTable('seo_settings') ? SeoSetting::find(1)?->data ?? [] : [];
 
-        return array_replace(['public_url' => config('seo.public_url'), 'indexing_enabled' => config('seo.indexing_enabled'), 'search_console_verification' => '', 'bing_verification' => '', 'default_image' => '/assets/feat-social.png', 'same_as' => [], 'llms_enabled' => true], $saved);
+        return array_replace(['public_url' => config('seo.public_url'), 'indexing_enabled' => config('seo.indexing_enabled'), 'search_console_verification' => '', 'bing_verification' => '', 'facebook_domain_verification' => '', 'pinterest_verification' => '', 'custom_verification_tags' => '', 'default_image' => '/assets/feat-social.png', 'same_as' => [], 'llms_enabled' => true], $saved);
+    }
+
+    /**
+     * Only the <meta> tags of the verification code pasted in the CMS.
+     *
+     * @return array<int, string>
+     */
+    public function customVerificationTags(): array
+    {
+        preg_match_all('~<meta\s[^<>]*?/?>~i', (string) ($this->settings()['custom_verification_tags'] ?? ''), $tags);
+
+        return array_values(array_filter($tags[0], fn (string $tag): bool => ! preg_match('~\son\w+\s*=|javascript:~i', $tag)));
     }
 
     public function origin(): string

@@ -107,7 +107,8 @@
                 office.classList.toggle('is-active', active);
                 office.setAttribute('aria-expanded', String(active));
                 office.querySelector('[data-office-details]').hidden = !active;
-                office.querySelector('[data-office-sign]').textContent = active ? '– ' : '+ ';
+                office.querySelector('[data-office-open]').hidden = !active;
+                office.querySelector('[data-office-closed]').hidden = active;
             });
             const current = new URL(window.location.href);
             if (market) current.searchParams.set('market', market);

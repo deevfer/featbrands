@@ -91,6 +91,13 @@ abstract class ManageSiteContent extends Page
         'originalLanguage' => 'Aviso de idioma original', 'originalSpanish' => 'Aviso de original en español', 'noImage' => 'Texto sin imagen',
         'noImageFoot' => 'Pie sin imagen', 'published' => 'Texto "Publicado"', 'updated' => 'Texto "Actualizado"', 'h1' => 'Título (H1)',
         'type' => 'Tipo de bloque', 'text' => 'Texto', 'links' => 'Enlaces', 'href' => 'Enlace',
+        'captchaError' => 'Error de verificación (reCAPTCHA)', 'subject' => 'Asunto del correo', 'preheader' => 'Texto previo en la bandeja de entrada',
+        'eyebrow' => 'Antetítulo', 'greeting' => 'Saludo', 'summaryTitle' => 'Título del resumen', 'replyNote' => 'Nota para responder',
+        'signature' => 'Firma',
+        'cookies' => 'Aviso de cookies', 'trigger' => 'Botón para reabrir', 'essentialTitle' => 'Necesarias (título)', 'essentialBody' => 'Necesarias (texto)',
+        'analyticsTitle' => 'Analítica (título)', 'analyticsBody' => 'Analítica (texto)', 'marketingTitle' => 'Marketing (título)', 'marketingBody' => 'Marketing (texto)',
+        'accept' => 'Botón "Aceptar todas"', 'reject' => 'Botón "Solo necesarias"', 'configure' => 'Botón "Configurar"', 'save' => 'Botón "Guardar"',
+        'close' => 'Botón "Cerrar" (accesibilidad)',
     ];
 
     public function mount(): void

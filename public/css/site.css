@@ -61,6 +61,7 @@
 a{cursor:pointer;text-decoration:none}
 button{font-family:inherit}
 [hidden]{display:none!important}
+.site-icon{display:inline-block;width:auto;height:1em;vertical-align:-.125em;object-fit:contain}
 :focus-visible{outline:3px solid #FB6C26;outline-offset:4px}
 section[id],footer[id],[id^="specialization-"]{scroll-margin-top:145px}
 .skip-link{position:fixed;left:16px;top:-100px;z-index:100;background:#FDDB02;color:#000;padding:12px 20px;border-radius:30px}
@@ -149,3 +150,22 @@ section[id],footer[id],[id^="specialization-"]{scroll-margin-top:145px}
 }
 [data-language-switcher][aria-busy="true"]{opacity:.65}
 .site-language-status{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:100;max-width:calc(100vw - 40px);padding:15px 22px;border:1px solid #111;border-radius:14px;background:#fff;color:#111;box-shadow:0 8px 32px #0002;font:400 14px/1.5 'Space Grotesk',sans-serif}
+.cookie-trigger{position:fixed;left:16px;bottom:16px;z-index:94;display:inline-flex;align-items:center;gap:8px;background:#000;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:100px;padding:8px 14px;font:600 11px 'Space Grotesk',sans-serif;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.cookie-trigger::before{content:"";width:7px;height:7px;border-radius:50%;background:#FDDB02}
+.cookie-panel{position:fixed;left:16px;bottom:16px;z-index:96;width:min(440px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow-y:auto;background:rgba(0,0,0,.96);backdrop-filter:blur(18px);color:#fff;border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:22px 22px 18px;box-shadow:0 24px 60px rgba(0,0,0,.35);font-family:'Space Grotesk',sans-serif}
+.cookie-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#9E9E9E}
+.cookie-heading button{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;font-size:18px;line-height:1;cursor:pointer}
+.cookie-panel h2{margin:14px 0 8px;font-size:24px;line-height:1.1;letter-spacing:-.02em;font-weight:700}
+.cookie-panel>p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.72)}
+.cookie-options{display:grid;gap:8px;margin-top:16px}
+.cookie-options label{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 14px;border:1px solid rgba(255,255,255,.12);border-radius:14px;cursor:pointer}
+.cookie-options span{display:grid;gap:3px}
+.cookie-options strong{font-size:13px}
+.cookie-options small{font-size:11px;line-height:1.5;color:rgba(255,255,255,.6)}
+.cookie-options input{width:20px;height:20px;flex-shrink:0;accent-color:#FDDB02}
+.cookie-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.cookie-actions button{border:1px solid rgba(255,255,255,.28);background:transparent;color:#fff;border-radius:100px;padding:10px 16px;font:600 12px 'Space Grotesk',sans-serif;cursor:pointer}
+.cookie-actions .cookie-accept{background:#FDDB02;border-color:#FDDB02;color:#000}
+.cookie-actions button:is(:hover,:focus-visible){transform:scale(1.03)}
+.cookie-note{margin-top:14px;font-size:11px!important;color:rgba(255,255,255,.5)!important}
+@media(max-width:760px){.cookie-trigger{left:12px;bottom:12px;padding:7px 12px}.cookie-panel{left:12px;bottom:12px;width:calc(100vw - 24px);padding:18px}}

@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\SiteSetting;
+use App\Services\RecaptchaVerifier;
 use App\Services\SiteContent;
+use Closure;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\File;
 use Illuminate\Validation\Rule;
@@ -34,7 +37,7 @@ class StoreContactSubmissionRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'first_name' => ['required', 'string', 'max:100'],
             'last_name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:254'],
@@ -50,6 +53,18 @@ class StoreContactSubmissionRequest extends FormRequest
             'market' => ['required', Rule::in(['gt', 'cr', 'sv', 'us'])],
             'website' => ['nullable', 'string', 'max:0'],
         ];
+
+        $settings = SiteSetting::current();
+
+        if ($settings->recaptchaIsConfigured()) {
+            $rules['g-recaptcha-response'] = ['bail', 'required', 'string', function (string $attribute, mixed $value, Closure $fail) use ($settings): void {
+                if (! app(RecaptchaVerifier::class)->verify($settings, (string) $value, 'contact', $this->ip())) {
+                    $fail($this->copy()['captchaError']);
+                }
+            }];
+        }
+
+        return $rules;
     }
 
     /**
@@ -75,7 +90,7 @@ class StoreContactSubmissionRequest extends FormRequest
      */
     public function messages(): array
     {
-        return [...$this->copy()['validation'], 'website.max' => $this->copy()['validation']['honeypot']];
+        return [...$this->copy()['validation'], 'website.max' => $this->copy()['validation']['honeypot'], 'g-recaptcha-response.required' => $this->copy()['captchaError']];
     }
 
     /**

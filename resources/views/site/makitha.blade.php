@@ -5,7 +5,7 @@
     <section class="mk-tech-opening">
         <div class="service-width">
             <div class="mk-tech-masthead">
-                <a class="service-back" href="{{ $homeUrl.'#servicios' }}">← {{ $t['nav'][0] }}</a>
+                <a class="service-back" href="{{ $homeUrl.'#servicios' }}"><x-site-icon name="general.arrow_back">←</x-site-icon> {{ $t['nav'][0] }}</a>
                 <span>{{ $copy['kicker'] }}</span>
                 <span>{{ $copy['mastheadRight'] ?? 'MAKITHA / FEAT.' }}</span>
             </div>
@@ -14,18 +14,18 @@
                     <p class="service-eyebrow">{{ $copy['heroEyebrow'] ?? 'Makitha / Tech Growth Partner' }}</p>
                     <h1>{{ $copy['title'] }}<em>{{ $copy['accent'] }}</em></h1>
                     <p class="service-body">{{ $copy['intro'] }}</p>
-                    <div class="mk-tech-actions"><a class="service-button" href="{{ $copy['ctaHref'] ?? $contactUrl }}">{{ $copy['cta'] }} ↗</a><a class="mk-tech-explore" href="#makitha-solutions">{{ $copy['explore'] }} ↓</a></div>
+                    <div class="mk-tech-actions"><a class="service-button" href="{{ $copy['ctaHref'] ?? $contactUrl }}">{{ $copy['cta'] }} <x-site-icon name="general.arrow_out">↗</x-site-icon></a><a class="mk-tech-explore" href="#makitha-solutions">{{ $copy['explore'] }} <x-site-icon name="general.arrow_down">↓</x-site-icon></a></div>
                 </div>
                 <div class="mk-growth-engine" aria-label="{{ $copy['engineTitle'] }}">
                     <div class="engine-heading"><img src="{{ asset('assets/makitha/wordmark-white.png') }}" alt="Makitha"><span>{{ $copy['engineTagline'] ?? 'tech + strategy' }}</span></div>
                     <div class="engine-diagram">
                         <div class="engine-connections" aria-hidden="true"></div>
-                        <span class="engine-core">{{ $copy['engineCenter'] }}<b aria-hidden="true">↗</b></span>
+                        <span class="engine-core">{{ $copy['engineCenter'] }}<b aria-hidden="true"><x-site-icon name="makitha.engine_center">↗</x-site-icon></b></span>
                         @foreach ($copy['engineNodes'] as $node)
-                            <span class="engine-node engine-node-{{ $loop->index }}"><i aria-hidden="true">{{ ['⌘', '↗', '↔', '✳'][$loop->index] }}</i>{{ $node }}</span>
+                            <span class="engine-node engine-node-{{ $loop->index }}"><i aria-hidden="true"><x-site-icon :name="'makitha.engine_'.$loop->iteration">{{ ['⌘', '↗', '↔', '✳'][$loop->index] }}</x-site-icon></i>{{ $node }}</span>
                         @endforeach
                     </div>
-                    <div class="engine-footer"><span>{{ $copy['engineTitle'] }}</span><i aria-hidden="true">↗</i></div>
+                    <div class="engine-footer"><span>{{ $copy['engineTitle'] }}</span><i aria-hidden="true"><x-site-icon name="general.arrow_out">↗</x-site-icon></i></div>
                 </div>
             </div>
             <div class="mk-tech-cover-footer"><span>{{ $copy['engineNote'] }}</span><span>{{ $copy['engineFoot'] }}</span></div>
@@ -38,27 +38,27 @@
             <div class="mk-solutions-workspace">
                 <div class="mk-solution-tabs" role="tablist" aria-orientation="vertical" aria-label="{{ $copy['solutionsKicker'] }}">
                     @foreach ($copy['solutions'] as $solution)
-                        <button type="button" role="tab" id="makitha-tab-{{ $loop->index }}" data-panel-tab="{{ $loop->index }}" aria-controls="makitha-panel-{{ $loop->index }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}" class="{{ $loop->first ? 'is-active' : '' }}"><span>0{{ $loop->iteration }}</span>{{ $solution['short'] }}<i aria-hidden="true">↗</i></button>
+                        <button type="button" role="tab" id="makitha-tab-{{ $loop->index }}" data-panel-tab="{{ $loop->index }}" aria-controls="makitha-panel-{{ $loop->index }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}" class="{{ $loop->first ? 'is-active' : '' }}"><span>0{{ $loop->iteration }}</span>{{ $solution['short'] }}<i aria-hidden="true"><x-site-icon name="general.arrow_out">↗</x-site-icon></i></button>
                     @endforeach
                 </div>
                 <div class="mk-solution-panels">
                     @foreach ($copy['solutions'] as $solution)
                         <article id="makitha-panel-{{ $loop->index }}" data-panel="{{ $loop->index }}" role="tabpanel" aria-labelledby="makitha-tab-{{ $loop->index }}" @if (!$loop->first) hidden @endif>
                             <div class="mk-solution-art mk-solution-art-{{ $loop->index }}" aria-hidden="true">
-                                <div class="mk-art-top"><span>makitha / {{ ['web', 'apps', 'growth', 'integrations', 'data', 'ai'][$loop->index] }}</span><span>● ● ●</span></div>
+                                <div class="mk-art-top"><span>makitha / {{ ['web', 'apps', 'growth', 'integrations', 'data', 'ai'][$loop->index] }}</span><span><x-site-icon name="makitha.window_dots">● ● ●</x-site-icon></span></div>
                                 <div class="mk-art-shapes">
                                     @if ($loop->index === 0)
-                                        <div class="mk-mini-web"><b>feat.</b><span></span><span></span><i>↗</i></div>
+                                        <div class="mk-mini-web"><b>feat.</b><span></span><span></span><i><x-site-icon name="makitha.web">↗</x-site-icon></i></div>
                                     @elseif ($loop->index === 1)
-                                        <div class="mk-app-window"></div><div class="mk-app-window"></div><div class="mk-app-window"><b>⌘</b></div>
+                                        <div class="mk-app-window"></div><div class="mk-app-window"></div><div class="mk-app-window"><b><x-site-icon name="makitha.app">⌘</x-site-icon></b></div>
                                     @elseif ($loop->index === 2)
-                                        <div class="mk-growth-ring"></div><div class="mk-growth-ring"></div><b class="mk-growth-arrow">↗</b>
+                                        <div class="mk-growth-ring"></div><div class="mk-growth-ring"></div><b class="mk-growth-arrow"><x-site-icon name="makitha.growth">↗</x-site-icon></b>
                                     @elseif ($loop->index === 3)
-                                        <div class="mk-integration-node">CRM</div><i class="mk-integration-link">↔</i><div class="mk-integration-node">DATA</div><i class="mk-integration-link">↔</i><div class="mk-integration-node">APPS</div>
+                                        <div class="mk-integration-node">CRM</div><i class="mk-integration-link"><x-site-icon name="makitha.integration">↔</x-site-icon></i><div class="mk-integration-node">DATA</div><i class="mk-integration-link"><x-site-icon name="makitha.integration">↔</x-site-icon></i><div class="mk-integration-node">APPS</div>
                                     @elseif ($loop->index === 4)
-                                        <div class="mk-data-chart">@foreach ([35, 58, 46, 75, 65, 92] as $height)<i style="--height:{{ $height }}%"></i>@endforeach</div><b class="mk-data-signal">↗</b>
+                                        <div class="mk-data-chart">@foreach ([35, 58, 46, 75, 65, 92] as $height)<i style="--height:{{ $height }}%"></i>@endforeach</div><b class="mk-data-signal"><x-site-icon name="makitha.data">↗</x-site-icon></b>
                                     @else
-                                        <span class="mk-ai-input">↳</span><div class="mk-ai-core">AI</div><span class="mk-ai-output">↗</span>
+                                        <span class="mk-ai-input"><x-site-icon name="makitha.ai_in">↳</x-site-icon></span><div class="mk-ai-core">AI</div><span class="mk-ai-output"><x-site-icon name="makitha.ai_out">↗</x-site-icon></span>
                                     @endif
                                 </div>
                                 <p>{{ $solution['word'] }}</p>
@@ -72,12 +72,12 @@
     </section>
 
     <section class="mk-build-cycle service-width">
-        <div class="mk-cycle-heading"><p class="service-eyebrow">{{ $copy['processKicker'] }}</p><h2 class="preserve-lines">{{ $copy['processTitle'] }}</h2><span aria-hidden="true">↗</span></div>
+        <div class="mk-cycle-heading"><p class="service-eyebrow">{{ $copy['processKicker'] }}</p><h2 class="preserve-lines">{{ $copy['processTitle'] }}</h2><span aria-hidden="true"><x-site-icon name="general.arrow_out">↗</x-site-icon></span></div>
         <ol class="mk-cycle-steps">@foreach ($copy['process'] as $step)<li><span class="mk-cycle-number">0{{ $loop->iteration }}</span><h3>{{ $step[0] }}</h3><p>{{ $step[1] }}</p></li>@endforeach</ol>
     </section>
 
-    <section class="mk-feat-bridge"><div class="service-width"><div class="mk-brand-pair"><img src="{{ $brandAssets['logo_light'] }}" alt="Feat."><span aria-hidden="true">+</span><img src="{{ asset('assets/makitha/wordmark-white.png') }}" alt="Makitha"></div><div><h2 class="preserve-lines">{{ $copy['bridgeTitle'] }}</h2><p class="service-body">{{ $copy['bridgeBody'] }}</p><a href="{{ $copy['websiteHref'] ?? ('https://www.makitha.com/?lang=' . $locale) }}" class="mk-website-link">{{ $copy['websiteCta'] }} <span aria-hidden="true">↗</span></a></div></div></section>
+    <section class="mk-feat-bridge"><div class="service-width"><div class="mk-brand-pair"><img src="{{ $brandAssets['logo_light'] }}" alt="Feat."><span aria-hidden="true">+</span><img src="{{ asset('assets/makitha/wordmark-white.png') }}" alt="Makitha"></div><div><h2 class="preserve-lines">{{ $copy['bridgeTitle'] }}</h2><p class="service-body">{{ $copy['bridgeBody'] }}</p><a href="{{ $copy['websiteHref'] ?? ('https://www.makitha.com/?lang=' . $locale) }}" class="mk-website-link">{{ $copy['websiteCta'] }} <span aria-hidden="true"><x-site-icon name="general.arrow_out">↗</x-site-icon></span></a></div></div></section>
 
-    <section class="mk-tech-closing"><div class="service-width"><p class="service-eyebrow">{{ $copy['closingEyebrow'] ?? 'Intelligence for scalable growth.' }}</p><h2 class="preserve-lines">{{ $copy['closing'] }}</h2><a href="{{ $copy['closingHref'] ?? $contactUrl }}">{{ $copy['closingCta'] }} <span aria-hidden="true">↗</span></a><div class="mk-tech-next"><span>{{ $copy['next'] }}</span><a href="{{ $copy['nextHref'] ?? $serviceUrls['experience'] }}">{{ $copy['nextName'] }} →</a></div></div></section>
+    <section class="mk-tech-closing"><div class="service-width"><p class="service-eyebrow">{{ $copy['closingEyebrow'] ?? 'Intelligence for scalable growth.' }}</p><h2 class="preserve-lines">{{ $copy['closing'] }}</h2><a href="{{ $copy['closingHref'] ?? $contactUrl }}">{{ $copy['closingCta'] }} <span aria-hidden="true"><x-site-icon name="general.arrow_out">↗</x-site-icon></span></a><div class="mk-tech-next"><span>{{ $copy['next'] }}</span><a href="{{ $copy['nextHref'] ?? $serviceUrls['experience'] }}">{{ $copy['nextName'] }} <x-site-icon name="general.arrow_next">→</x-site-icon></a></div></div></section>
 </main>
 @endsection

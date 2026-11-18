@@ -33,6 +33,7 @@ class PagePreview
             return $this->fetch($applyDraft());
         } finally {
             DB::rollBack();
+            app()->forgetInstance(SiteIcons::class);
         }
     }
 

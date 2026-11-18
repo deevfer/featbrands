@@ -27,10 +27,11 @@ class SiteContent
             'url' => '/',
             'label' => 'Menú y footer',
             'file' => 'site.json',
-            'only' => ['nav', 'cta', 'skipLink', 'servicesBtn', 'explore', 'demoTag', 'addrLabel', 'phoneLabel', 'newBusinessLabel', 'footer'],
+            'only' => ['nav', 'cta', 'skipLink', 'servicesBtn', 'explore', 'demoTag', 'addrLabel', 'phoneLabel', 'newBusinessLabel', 'footer', 'cookies'],
             'groups' => [
                 'Menú' => ['nav', 'cta', 'skipLink'],
                 'Footer' => ['footer'],
+                'Aviso de cookies' => ['cookies'],
                 'Etiquetas compartidas' => ['servicesBtn', 'explore', 'demoTag', 'addrLabel', 'phoneLabel', 'newBusinessLabel'],
             ],
         ],
@@ -86,7 +87,27 @@ class SiteContent
             'groups' => [
                 'Portada' => ['name', 'asideKicker', 'title', 'accent', 'intro', 'note', 'sideFoot'],
                 'Formulario' => ['kicker', 'formTitle', 'formIntro', 'requiredNote', 'personal', 'project', 'optional', 'choose', 'fields', 'placeholders', 'phoneHint', 'messageHint', 'referrals', 'send', 'sending'],
-                'Mensajes' => ['successTitle', 'success', 'again', 'errorTitle', 'networkError', 'rateLimit', 'expired', 'invalidField', 'validation'],
+                'Mensajes' => ['successTitle', 'success', 'again', 'errorTitle', 'networkError', 'rateLimit', 'expired', 'invalidField', 'captchaError', 'validation'],
+            ],
+        ],
+        'email_confirmation' => [
+            'url' => '/admin/correos/vista-previa/confirmacion',
+            'label' => 'Confirmación al cliente',
+            'file' => 'emails.json',
+            'path' => 'confirmation',
+            'groups' => [
+                'Encabezado' => ['subject', 'preheader', 'eyebrow', 'title', 'accent'],
+                'Mensaje' => ['greeting', 'body', 'summaryTitle', 'replyNote', 'cta', 'ctaHref', 'signature', 'footer'],
+            ],
+        ],
+        'email_lead' => [
+            'url' => '/admin/correos/vista-previa/lead',
+            'label' => 'Aviso al equipo',
+            'file' => 'emails.json',
+            'path' => 'lead',
+            'localized' => false,
+            'groups' => [
+                'Correo' => ['subject', 'eyebrow', 'title', 'intro', 'cta', 'replyNote', 'footer'],
             ],
         ],
         'blog' => [
