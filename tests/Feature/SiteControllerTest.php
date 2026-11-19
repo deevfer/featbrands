@@ -35,7 +35,7 @@ class SiteControllerTest extends TestCase
         $this->get('/performance-connections?lang=en&market=cr')
             ->assertOk()
             ->assertSee('<html lang="en">', false)
-            ->assertSeeText('Growth marketing measured in business, not likes.')
+            ->assertSeeText('Media investment connected to business results.')
             ->assertSee(route('performance', ['lang' => 'es', 'market' => 'cr']))
             ->assertSee('data-market="cr"', false);
     }

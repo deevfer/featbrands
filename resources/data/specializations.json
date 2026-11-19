@@ -349,10 +349,10 @@
   "en": {
     "brand": {
       "name": "Brand & Consulting",
-      "intro": "Strategy, identity and storytelling for brands with a clear direction and a personality of their own.",
+      "intro": "Brand & Consulting is the Feat. unit specialized in strategic communication, brand building and public relations. It turns local insights into actionable strategies, visual identities and production-ready briefs.",
       "kicker": "02 / Think before you make",
-      "title": "A brand is not explained.",
-      "accent": "It is recognized.",
+      "title": "Brand strategy",
+      "accent": "that turns into action.",
       "lead": "Strategy you can see. Identity you can feel.",
       "cta": "Give your brand a direction",
       "specimen": "Character lives in the details.",
@@ -394,17 +394,17 @@
         "Find the focus",
         "Shape the idea"
       ],
-      "closing": "Make your brand as clear on the outside as it is on the inside.",
-      "closingCta": "Let’s talk about your brand",
-      "next": "Bring that identity into the conversation",
+      "closing": "Shall we talk about your brand?",
+      "closingCta": "Book a KickStart",
+      "next": "The daily communication that keeps your brand strategy alive.",
       "nextName": "Social Media Strategies"
     },
     "social": {
       "name": "Social Media Strategies",
-      "intro": "Social strategy, content and community that make your brand part of conversations that matter.",
+      "intro": "Social Media Strategies is the Feat. creative studio in charge of brands’ everyday communication. It plans, creates and measures social content that aims to become part of popular culture.",
       "kicker": "05 / Culture, content and connection",
-      "title": "We do not fill a feed.",
-      "accent": "We start conversations.",
+      "title": "Your brand’s daily conversation,",
+      "accent": "with strategy.",
       "cta": "Find your conversation",
       "ctaHref": "",
       "postLabel": "A voice of your own",
@@ -477,20 +477,20 @@
         "Quality of conversation",
         "Intentional action"
       ],
-      "closingQuestion": "What should your brand talk about?",
-      "closingAnswer": "Let’s start by listening.",
-      "closingCta": "Talk about your community",
+      "closingQuestion": "Shall we talk about your social media?",
+      "closingAnswer": "Every project starts with a KickStart: a strategic alignment workshop with our own tools, where we make sure we work as an extension of your marketing department.",
+      "closingCta": "Book a KickStart",
       "closingHref": "",
       "next": "Connect content, tools and data",
       "nextName": "Makitha",
       "nextHref": ""
     },
     "experience": {
-      "name": "Experience & Tech",
-      "intro": "We design digital experiences and build the technology that makes them simple, useful and connected to your business.",
+      "name": "Experience",
+      "intro": "Experience is the Feat. unit specialized in brand experiences and activations. It designs, produces and runs activations at the point of sale and in public spaces, from concept to teardown.",
       "kicker": "03 / Designed for people",
-      "title": "Make it feel easy.",
-      "accent": "Make it work better.",
+      "title": "Brand experiences",
+      "accent": "lived in person.",
       "cta": "Design the next step",
       "orbitWords": [
         "People",
@@ -563,17 +563,17 @@
         "The experience",
         "Your ecosystem"
       ],
-      "closing": "Make the complicated feel simple.",
-      "closingCta": "Tell us your digital challenge",
+      "closing": "Shall we talk about your next activation?",
+      "closingCta": "Book a KickStart",
       "next": "Connect the experience with results",
       "nextName": "Performance & Connections"
     },
     "makitha": {
       "name": "Makitha",
-      "intro": "Feat.’s technology business unit and your Tech Growth Partner for Marketing and Sales. We connect strategy, development, tools, data and AI to build scalable, measurable growth.",
+      "intro": "Makitha is Feat.’s development unit. It builds platforms, automations and tools that improve experiences, processes and interaction, and make sales more efficient.",
       "kicker": "04 / Technology for growth",
-      "title": "We make technology",
-      "accent": "simple.",
+      "title": "Technology that helps your brand",
+      "accent": "sell and grow.",
       "cta": "Tell us your challenge",
       "explore": "Explore solutions",
       "engineTitle": "One connected engine.",
@@ -686,10 +686,11 @@
       "bridgeTitle": "A technology business unit.\nThe same Feat. team.",
       "bridgeBody": "Makitha connects technology and strategy with marketing and sales teams. As part of Feat., it brings development, integrations, data and AI to brand, media and experience.",
       "websiteCta": "Explore the Makitha website",
-      "closing": "Turn your challenge\ninto growth.",
-      "closingCta": "Start a conversation",
-      "next": "Connect technology with experience",
-      "nextName": "Experience & Tech"
+      "closing": "Shall we talk about your next build?",
+      "closingCta": "Book a KickStart",
+      "next": "Point-of-sale activations connected to digital.",
+      "nextName": "Experience",
+      "heroEyebrow": "Makitha · Intelligence for scalable growth"
     }
   }
 }

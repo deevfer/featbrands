@@ -401,13 +401,13 @@
     ],
     "hero": {
       "eyebrow": "Collab Driven Growth",
-      "titlePre": "We combine specializations to accelerate your ",
-      "titleAccent": "brand.",
+      "titlePre": "Understand, connect, add value, ",
+      "titleAccent": "repeat.",
       "cardText": "5 integrated specializations for your brand’s development. Meet our teams.",
       "card1Btn": "See services",
       "reelBtn": "Watch the reel",
       "card2Text": "Innovation and strategic communication for brand development. We decode your brief in a Workshop.",
-      "card2Btn": "Request a Workshop",
+      "card2Btn": "Book a KickStart",
       "sub": "Feat. is an integrated advertising and growth marketing agency in Central America. Strategy, creative, media and technology working as one team.",
       "ctaPrimary": "Start a project",
       "ctaSecondary": "See Performance",
@@ -415,31 +415,31 @@
     },
     "proof": [
       {
-        "big": "9",
-        "label": "Markets supporting brands."
+        "big": "10",
+        "label": "Years as an independent agency, connecting brands and people across the region."
       },
       {
-        "big": "2025",
-        "label": "DesignRush · Best Digital Agency."
+        "big": "40+",
+        "label": "Specialists working from local insights for global brands."
       },
       {
         "big": "3",
-        "label": "Effie Awards since 2017 — proven effectiveness."
+        "label": "Effies, 6 Symbol Awards and plenty of real cultural impact."
       }
     ],
-    "proofKicker": "Recognition",
-    "proofTitle": "Regional effectiveness with local backing.",
-    "servicesKicker": "What we do",
+    "proofKicker": "We are Feat.",
+    "proofTitle": "Independent, with regional backing.",
+    "servicesKicker": "What we work with",
     "servicesTitle1": "Five specializations,",
     "servicesTitle2": "one team.",
-    "servicesIntro": "We don’t sell standalone services. We combine disciplines around your business goal.",
+    "servicesIntro": "We combine units according to each project’s needs, never a fixed package.",
     "servicesHint": "Hover each specialization — each one owns its color.",
-    "servicesBtn": "View specialization",
+    "servicesBtn": "View unit",
     "services": [
       {
         "title": "Performance & Connections",
         "kind": "View detail →",
-        "desc": "Media strategy and management, live dashboards, data science and execution audit.",
+        "desc": "Media management and content generation, with human talent and artificial intelligence, plus influencer management to integrate brand content organically and efficiently.",
         "tags": [
           "Media",
           "Data Science",
@@ -449,7 +449,7 @@
       {
         "title": "Brand & Consulting",
         "kind": "",
-        "desc": "Identity, storytelling, brand ecosystem and creative sprints.",
+        "desc": "Strategic communication, brand building and public relations.",
         "tags": [
           "Identity",
           "Storytelling",
@@ -457,9 +457,9 @@
         ]
       },
       {
-        "title": "Experience & Tech",
+        "title": "Experience",
         "kind": "",
-        "desc": "UX, interface design, e-commerce and live experiences.",
+        "desc": "Brand experiences and activations at the point of sale and in public spaces.",
         "tags": [
           "UX",
           "E-commerce",
@@ -468,8 +468,8 @@
       },
       {
         "title": "Makitha",
-        "kind": "Tech Growth Partner",
-        "desc": "Technology for Marketing and Sales: web, apps, integrations, data, growth and applied AI.",
+        "kind": "Intelligence for scalable growth",
+        "desc": "Technology development to sell, serve customers and organize your brand’s operations.",
         "tags": [
           "Web & Apps",
           "Data",
@@ -479,7 +479,7 @@
       {
         "title": "Social Media Strategies",
         "kind": "",
-        "desc": "Connection content, campaigns, DCO and analytics.",
+        "desc": "Your brand’s day-to-day communication, designed to become part of popular culture.",
         "tags": [
           "Content",
           "DCO",
@@ -487,8 +487,8 @@
         ]
       }
     ],
-    "casesKicker": "Results",
-    "casesTitle": "The work speaks.",
+    "casesKicker": "Our work",
+    "casesTitle": "Ideas with measurable results.",
     "cases": [
       {
         "client": "Retail CA",
@@ -500,20 +500,20 @@
         "client": "CPG",
         "metric": "2.4×",
         "metricLabel": "Incremental reach vs. prior year",
-        "desc": "Social connection strategy + in-house production."
+        "desc": "Social strategy with Content Studio production."
       },
       {
         "client": "Tech / e-commerce",
-        "metric": "−27%",
-        "metricLabel": "CPA after execution audit",
-        "desc": "Data science applied to funnel optimization."
+        "metric": "-27%",
+        "metricLabel": "CPA after optimization",
+        "desc": "Funnel optimization with data and live dashboards."
       }
     ],
-    "collabKicker": "Our difference",
-    "collabQuote": "Collaboration isn’t a nice word — it’s how we operate.",
+    "collabKicker": "How we do it",
+    "collabQuote": "We work with brands and for brands.",
     "collabResult": "one idea that accelerates your brand.",
-    "collabBody": "Every project brings together the specializations it needs and only those. No silos, no handoffs that dilute the idea. One team accountable for the outcome.",
-    "clientsTitle": "Brands that trust Feat.",
+    "collabBody": "We understand needs rather than just taking requests. Every project starts with a KickStart, a workshop where we challenge the brief and define goals together. Then we combine only the units the project needs.",
+    "clientsTitle": "Brands we collaborate with.",
     "clients": [
       "Xiaomi",
       "McDonald’s",
@@ -523,16 +523,16 @@
       "Miniso",
       "CMI"
     ],
-    "marketKicker": "Where we operate",
-    "marketTitle": "Central America, headquartered in Guatemala.",
-    "marketBody": "Guatemala is our anchor. We operate with local presence in each market — not a single signal fighting itself. Pick a market to see its office.",
+    "marketKicker": "Where we are",
+    "marketTitle": "From Guatemala, for the region.",
+    "marketBody": "Headquartered in Guatemala, we work across Central America, the Caribbean and northern South America, with representation in the United States.",
     "offices": [
       {
         "city": "Guatemala",
         "tag": "Headquarters",
         "code": "GT",
         "mk": "gt",
-        "message": "The hub of our operation: talent ready to give local support wherever your brand is.",
+        "message": "Our hub: more than 35 strategists, creatives and producers serving the entire region.",
         "address": "Featmia, S.A · 7 ave 5-45 zona 4, Edificio XPO1, segundo nivel, Oficina 105, Guatemala, Guatemala, 01004, GT",
         "phone": "+502 2296-7668",
         "newBusiness": "admin@featbrands.com"
@@ -542,7 +542,7 @@
         "tag": "Costa Rica",
         "code": "CR",
         "mk": "cr",
-        "message": "Local presence in Costa Rica, connected to the same regional team.",
+        "message": "A local team in Costa Rica, connected to the Guatemala hub and held to the same standard of work.",
         "address": "Distrito Desamparados, Río Segundo de Alajuela, Costa Rica"
       },
       {
@@ -554,25 +554,25 @@
         "address": "9 calle poniente, Col. Escalón, #4365, San Salvador"
       },
       {
-        "city": "Miami",
-        "tag": "US · international",
+        "city": "United States",
+        "tag": "Representation",
         "code": "US",
         "mk": "us",
-        "message": "Our gateway to US and international markets, with the same execution standard.",
+        "message": "Commercial representation for brands operating in the United States and international accounts.",
         "address": "7901 4th St N, Ste 300, St. Petersburg, FL"
       }
     ],
     "footer": {
-      "tagline": "We combine specializations to accelerate brand development.",
+      "tagline": "We prove and amplify the value of collaboration.",
       "cols": [
         {
-          "head": "Services",
+          "head": "Units",
           "items": [
             "Performance & Connections",
             "Brand & Consulting",
-            "Experience & Tech",
+            "Experience",
             "Makitha",
-            "Social Media"
+            "Social Media Strategies"
           ],
           "hrefs": [
             "",
@@ -603,7 +603,7 @@
             "Start a project",
             "Guatemala",
             "Costa Rica",
-            "Miami"
+            "United States"
           ],
           "hrefs": [
             "",
@@ -613,119 +613,119 @@
           ]
         }
       ],
-      "legal": "© 2026 Feat. All rights reserved.",
+      "legal": "© 2026 Featmia S.A. (Feat.). All rights reserved.",
       "offices": "GT · CR · SV · US"
     },
     "perf": {
       "crumbServices": "Services",
       "crumbCurrent": "Performance & Connections",
       "kicker": "Performance & Connections",
-      "h1": "Growth marketing measured in business, not likes.",
-      "answerTag": "Direct answer",
-      "answer": "Feat.’s Performance & Connections manages your media investment with strategy, data science and live dashboards to lower CPA and raise ROAS measurably across Central America.",
-      "problemH": "The problem",
-      "problem": "Most brands invest in media without knowing which campaign drives business. Late reports, disconnected from sales, decisions made blind.",
-      "capsH": "Capabilities",
+      "h1": "Media investment connected to business results.",
+      "answerTag": "In a nutshell",
+      "answer": "Performance & Connections is the Feat. unit that plans, manages and optimizes your digital and ATL media investment. It combines human talent and artificial intelligence to manage paid media and measure CPC, CPA and ROAS in Guatemala and the region.",
+      "problemH": "The challenge",
+      "problem": "Investing in media is easy. Knowing which part of that investment moves the business is not, and without timely data, decisions come too late.",
+      "capsH": "What we deliver",
       "caps": [
         {
           "n": "01",
-          "title": "Media Strategies",
-          "desc": "Media planning connected to the business goal."
+          "title": "Media plans",
+          "desc": "Annual or per campaign, digital and ATL, connected to the business goal."
         },
         {
           "n": "02",
-          "title": "Media Management",
-          "desc": "Continuous management and optimization of spend."
+          "title": "Campaign management",
+          "desc": "Campaign setup and management on Meta, Google and TikTok."
         },
         {
           "n": "03",
-          "title": "Live Analytics & Dashboards",
-          "desc": "Real-time visibility, not month-end reports."
+          "title": "Dynamic Creative Optimization",
+          "desc": "Assets that adjust automatically by audience, context and performance."
         },
         {
           "n": "04",
-          "title": "Data Science",
-          "desc": "Attribution modeling and funnel optimization."
+          "title": "Results dashboards",
+          "desc": "CPC, CPA and ROAS visible in real time, without waiting for month-end."
         },
         {
           "n": "05",
-          "title": "Execution Audit",
-          "desc": "Independent audit of your current execution."
+          "title": "Optimization and control",
+          "desc": "Weekly data-driven adjustments and investment vs. results tracking."
         }
       ],
-      "processH": "How we work",
+      "processH": "Our methodology",
       "process": [
         {
           "n": "01",
-          "title": "Diagnosis",
-          "desc": "Execution audit and metric baseline."
+          "title": "KickStart",
+          "desc": "Workshop to align goals, expectations and metrics."
         },
         {
           "n": "02",
-          "title": "Strategy",
-          "desc": "Media plan connected to business objectives."
+          "title": "Blueprint",
+          "desc": "Media plan, budget and KPIs ready for review."
         },
         {
           "n": "03",
-          "title": "Activation",
-          "desc": "Execution and continuous optimization with live dashboards."
+          "title": "Sign Off",
+          "desc": "Joint approval of the plan, the assets and the measurement dashboard."
         },
         {
           "n": "04",
-          "title": "Scale",
-          "desc": "Reallocate budget toward what works."
+          "title": "Unleash",
+          "desc": "Launch, weekly optimization and monthly reporting on investment, CPA and ROAS."
         }
       ],
-      "casesH": "Linked work",
+      "casesH": "Related work",
       "cases": [
         {
-          "client": "Retail CA",
+          "client": "VyO case",
           "metric": "+38%",
           "metricLabel": "ROAS in peak season",
           "desc": "Media restructure across 3 markets."
         },
         {
           "client": "Tech",
-          "metric": "−27%",
-          "metricLabel": "CPA after audit",
-          "desc": "Data science applied to the funnel."
+          "metric": "-27%",
+          "metricLabel": "CPA after optimization",
+          "desc": "Funnel optimized with live data."
         }
       ],
       "faqH": "FAQ",
       "faq": [
         {
-          "q": "What is Performance & Connections?",
-          "a": "It is Feat.’s specialization that manages a brand’s media investment with strategy, data science and live dashboards, focused on measurable business results."
+          "q": "What does Performance & Connections do?",
+          "a": "It plans, manages and optimizes a brand’s media investment: campaigns on Meta, Google and TikTok, dynamic creative optimization, influencer management, results dashboards and investment vs. results tracking."
         },
         {
-          "q": "Which markets do you operate in?",
-          "a": "Guatemala as anchor, plus Costa Rica, El Salvador and Miami. Each market with local presence and measurement."
+          "q": "Which markets do you work in?",
+          "a": "We have offices in Guatemala and Costa Rica, and we work across Central America, the Caribbean and northern South America, with representation in the United States."
         },
         {
           "q": "How do you measure results?",
-          "a": "With live dashboards connected to ROAS, CPA and business objectives — not month-end reports."
+          "a": "With real-time CPC, CPA and ROAS dashboards, weekly optimization and a monthly report on investment and results."
         },
         {
           "q": "Do you work with my existing execution?",
           "a": "Yes. We start with an independent Execution Audit before proposing changes."
         }
       ],
-      "ctaTitle": "Is your media investment working for your business?",
-      "ctaBody": "Let’s start with an execution audit. No commitment, data on the table.",
-      "ctaBtn": "Request an audit",
+      "ctaTitle": "Shall we talk about your media investment?",
+      "ctaBody": "Every project starts with a KickStart: a strategic alignment workshop with our own tools, where we make sure we work as an extension of your marketing department.",
+      "ctaBtn": "Book a KickStart",
       "related": [
         {
-          "tag": "You may also need",
-          "title": "Experience & Tech",
+          "tag": "Pairs well with",
+          "title": "Experience",
           "desc": "Sites, e-commerce and digital products that turn media investment into sales.",
-          "cta": "View specialization",
+          "cta": "View unit",
           "bg": "#15F7A8"
         },
         {
-          "tag": "You may also need",
-          "title": "Social Media",
-          "desc": "Content and community that sustain demand between campaigns.",
-          "cta": "View specialization",
+          "tag": "Pairs well with",
+          "title": "Social Media Strategies",
+          "desc": "Daily content and community that sustain demand between campaigns.",
+          "cta": "View unit",
           "bg": "#D48BFD"
         }
       ]

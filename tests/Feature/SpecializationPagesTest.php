@@ -16,10 +16,10 @@ class SpecializationPagesTest extends TestCase
     public static function specializations(): array
     {
         return [
-            'brand' => ['brand', 'Estrategia de marca', 'A brand is not explained.'],
-            'social' => ['social', 'La conversación diaria de tu marca,', 'We do not fill a feed.'],
-            'experience' => ['experience', 'Experiencias de marca', 'Make it feel easy.'],
-            'makitha' => ['makitha', 'Tecnología que ayuda a tu marca', 'We make technology'],
+            'brand' => ['brand', 'Estrategia de marca', 'Brand strategy'],
+            'social' => ['social', 'La conversación diaria de tu marca,', 'Your brand’s daily conversation,'],
+            'experience' => ['experience', 'Experiencias de marca', 'Brand experiences'],
+            'makitha' => ['makitha', 'Tecnología que ayuda a tu marca', 'Technology that helps your brand'],
         ];
     }
 
