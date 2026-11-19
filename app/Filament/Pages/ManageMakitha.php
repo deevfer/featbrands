@@ -747,7 +747,7 @@ class ManageMakitha extends Page
 
                 'mastheadRight' => 'MAKITHA / FEAT.',
 
-                'heroEyebrow' => 'Makitha / Tech Growth Partner',
+                'heroEyebrow' => $copy['heroEyebrow'] ?? 'Makitha / Tech Growth Partner',
 
                 'engineTagline' => 'tech + strategy',
 

@@ -14,7 +14,7 @@ class SiteControllerTest extends TestCase
         $this->get('/')
             ->assertOk()
             ->assertViewIs('site.home')
-            ->assertSeeText('Combinamos especializaciones para acelerar tu')
+            ->assertSeeText('Entender, conectar, agregar valor,')
             ->assertSee(route('performance', ['lang' => 'es', 'market' => 'gt']))
             ->assertSee(asset('uploads/proof-bg-0.webp'))
             ->assertDontSee('data-dc-script');
@@ -25,7 +25,7 @@ class SiteControllerTest extends TestCase
         $this->get('/performance-connections')
             ->assertOk()
             ->assertViewIs('site.performance')
-            ->assertSeeText('Growth Marketing en Guatemala que se mide en negocio, no en likes.')
+            ->assertSeeText('Inversión en medios conectada a resultados de negocio.')
             ->assertSeeText('Preguntas frecuentes')
             ->assertDontSee('data-deck-card');
     }

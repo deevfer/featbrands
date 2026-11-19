@@ -58,7 +58,7 @@ class AgencyPagesTest extends TestCase
             ->assertSeeText('Dato demostrativo')
             ->assertSeeText('+38%')
             ->assertSeeText('2.4×')
-            ->assertSeeText('−27%')
+            ->assertSeeText('-27%')
             ->assertSeeText('El reto')
             ->assertSeeText('El trabajo')
             ->assertSeeText('El resultado')
@@ -75,10 +75,10 @@ class AgencyPagesTest extends TestCase
         $this->get('/nosotros')
             ->assertOk()
             ->assertSeeText('La colaboración es nuestra forma de trabajar.')
-            ->assertSeeText('Tecnología para Marketing y Ventas: web, apps, integraciones, data, growth e IA aplicada al negocio.')
+            ->assertSeeText('Desarrollo tecnológico para vender, atender y ordenar la operación de tu marca.')
             ->assertSeeText('Guatemala')
             ->assertSeeText('San José')
-            ->assertSeeText('Miami')
+            ->assertSeeText('Estados Unidos')
             ->assertSee('id="reconocimientos"', false)
             ->assertSee('data-office="cr"', false);
     }

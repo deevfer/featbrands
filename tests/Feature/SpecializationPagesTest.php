@@ -16,10 +16,10 @@ class SpecializationPagesTest extends TestCase
     public static function specializations(): array
     {
         return [
-            'brand' => ['brand', 'Una marca no se explica.', 'A brand is not explained.'],
-            'social' => ['social', 'No llenamos un feed.', 'We do not fill a feed.'],
-            'experience' => ['experience', 'Que se sienta fácil.', 'Make it feel easy.'],
-            'makitha' => ['makitha', 'Hacemos la tecnología', 'We make technology'],
+            'brand' => ['brand', 'Estrategia de marca', 'A brand is not explained.'],
+            'social' => ['social', 'La conversación diaria de tu marca,', 'We do not fill a feed.'],
+            'experience' => ['experience', 'Experiencias de marca', 'Make it feel easy.'],
+            'makitha' => ['makitha', 'Tecnología que ayuda a tu marca', 'We make technology'],
         ];
     }
 
@@ -30,7 +30,7 @@ class SpecializationPagesTest extends TestCase
             ->assertOk()
             ->assertViewIs('site.'.$route)
             ->assertSeeText($spanishTitle)
-            ->assertDontSeeText('Growth Marketing en Guatemala que se mide en negocio, no en likes.')
+            ->assertDontSeeText('Inversión en medios conectada a resultados de negocio.')
             ->assertSee('aria-current="page"', false);
     }
 
@@ -58,7 +58,7 @@ class SpecializationPagesTest extends TestCase
     {
         $response = $this->get('/makitha')->assertOk();
 
-        foreach (['Tech Growth Partner', 'Páginas Web y Landing Pages', 'Apps SaaS & Web', 'Estrategias de Growth', 'Integración de Herramientas', 'Data & Dashboards', 'IA Aplicada al Negocio'] as $offering) {
+        foreach (['Intelligence for scalable growth', 'Páginas Web y Landing Pages', 'Apps SaaS & Web', 'Estrategias de Growth', 'Integración de Herramientas', 'Data & Dashboards', 'IA Aplicada al Negocio'] as $offering) {
             $response->assertSeeText($offering);
         }
 
@@ -68,7 +68,7 @@ class SpecializationPagesTest extends TestCase
 
         $this->get('/')
             ->assertOk()
-            ->assertSeeText('Tecnología para Marketing y Ventas: web, apps, integraciones, data, growth e IA aplicada al negocio.')
+            ->assertSeeText('Desarrollo tecnológico para vender, atender y ordenar la operación de tu marca.')
             ->assertDontSeeText('Producción ágil, animación 2D/3D, audio y estudio audiovisual.');
 
         $this->get('/social-media-strategies')
