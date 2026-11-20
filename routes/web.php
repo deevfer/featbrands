@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\EmailPreviewController;
 use App\Http\Controllers\SeoController;
 use App\Http\Controllers\SiteController;
+use App\Http\Middleware\DetectVisitorRegion;
 use App\Services\SiteSeo;
 use Illuminate\Support\Facades\Route;
 
@@ -18,15 +19,17 @@ foreach (['' => 'es', 'en_' => 'en'] as $prefix => $language) {
     Route::get('/'.$prefix.'blog-categories-sitemap.xml', [SeoController::class, 'sitemap'])->defaults('section', 'categories')->defaults('locale', $language);
 }
 
-Route::get('/', [SiteController::class, 'home'])->name('home');
-Route::get('/performance-connections', [SiteController::class, 'performance'])->name('performance');
-Route::get('/brand-consulting', [SiteController::class, 'brand'])->name('brand');
-Route::get('/social-media-strategies', [SiteController::class, 'social'])->name('social');
-Route::get('/experience-tech', [SiteController::class, 'experience'])->name('experience');
-Route::get('/makitha', [SiteController::class, 'makitha'])->name('makitha');
-Route::get('/casos', [SiteController::class, 'cases'])->name('cases');
-Route::get('/nosotros', [SiteController::class, 'about'])->name('about');
-Route::get('/contacto', [SiteController::class, 'contact'])->name('contact');
+Route::middleware(DetectVisitorRegion::class)->group(function (): void {
+    Route::get('/', [SiteController::class, 'home'])->name('home');
+    Route::get('/performance-connections', [SiteController::class, 'performance'])->name('performance');
+    Route::get('/brand-consulting', [SiteController::class, 'brand'])->name('brand');
+    Route::get('/social-media-strategies', [SiteController::class, 'social'])->name('social');
+    Route::get('/experience-tech', [SiteController::class, 'experience'])->name('experience');
+    Route::get('/makitha', [SiteController::class, 'makitha'])->name('makitha');
+    Route::get('/casos', [SiteController::class, 'cases'])->name('cases');
+    Route::get('/nosotros', [SiteController::class, 'about'])->name('about');
+    Route::get('/contacto', [SiteController::class, 'contact'])->name('contact');
+});
 foreach (SiteSeo::GEO_PAGES as $geoPage) {
     Route::get('/'.$geoPage, [SiteController::class, 'geo'])->name($geoPage);
 }

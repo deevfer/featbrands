@@ -17,7 +17,7 @@
         @endforeach
       </div>
       <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:60px;padding-top:26px;border-top:1px solid rgba(255,255,255,.1);font-size:13px;color:#5C5C5C">
-        <span>{{ $t['footer']['legal'] }}</span>
+        <span>{{ $t['footer']['legal'] }}@if (filled($t['footer']['ipCredit'] ?? null)) · <a href="https://db-ip.com" target="_blank" rel="noopener" style="color:inherit">{{ $t['footer']['ipCredit'] }}</a>@endif</span>
         <span>{{ $t['footer']['offices'] }}</span>
       </div>
     </div>

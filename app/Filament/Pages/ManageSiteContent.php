@@ -45,7 +45,7 @@ abstract class ManageSiteContent extends Page
         'explore' => 'Texto "Ver"', 'demoTag' => 'Etiqueta de caso demostrativo', 'addrLabel' => 'Etiqueta de dirección',
         'phoneLabel' => 'Etiqueta de teléfono', 'newBusinessLabel' => 'Etiqueta de nuevos negocios', 'footer' => 'Footer',
         'tagline' => 'Frase', 'cols' => 'Columnas', 'head' => 'Título de la columna', 'items' => 'Elementos', 'hrefs' => 'Enlaces de los elementos',
-        'legal' => 'Texto legal', 'offices' => 'Oficinas', 'name' => 'Nombre de la página', 'intro' => 'Introducción',
+        'legal' => 'Texto legal', 'ipCredit' => 'Crédito de geolocalización (DB-IP)', 'offices' => 'Oficinas', 'name' => 'Nombre de la página', 'intro' => 'Introducción',
         'kicker' => 'Antetítulo', 'title' => 'Título', 'accent' => 'Título (parte destacada)', 'note' => 'Nota',
         'postLabel' => 'Descripción del collage', 'postWords' => 'Texto de la publicación', 'reply' => 'Respuesta', 'replyAccent' => 'Respuesta (parte destacada)',
         'stickerTop' => 'Sticker (línea 1)', 'stickerAccent' => 'Sticker (línea 2)', 'postFoot' => 'Pie del collage',
