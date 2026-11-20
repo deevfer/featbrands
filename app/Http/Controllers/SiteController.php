@@ -936,8 +936,15 @@ class SiteController extends Controller
     // RESOLVER IMÁGENES DEL CMS
     // ------------------------------------
 
+    /**
+     * CMS uploads live on the public disk; images bundled with the site (assets/...) are served from public/.
+     */
     private function storedImageUrl(?string $path): ?string
     {
+        if (filled($path) && str_starts_with($path, 'assets/')) {
+            return is_file(public_path($path)) ? asset($path) : null;
+        }
+
         if (
             blank($path)
             || ! Storage::disk('public')->exists($path)

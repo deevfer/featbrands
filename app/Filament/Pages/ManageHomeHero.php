@@ -217,6 +217,12 @@ class ManageHomeHero extends Page
                                                         ->disk('public')
                                                         ->directory('home/clients')
                                                         ->visibility('public')
+                                                        ->fetchFileInformation(false)
+                                                        ->getUploadedFileUsing(
+                                                            fn (FileUpload $component, string $file, string|array|null $storedFileNames): ?array => str_starts_with($file, 'assets/')
+                                                                ? ['name' => basename($file), 'size' => 0, 'type' => null, 'url' => asset($file)]
+                                                                : $component->getUploadedFile($file, $storedFileNames)
+                                                        )
                                                         ->maxSize(4096)
                                                         ->helperText(
                                                             'JPG, PNG, WebP o SVG. '.
@@ -1239,11 +1245,13 @@ class ManageHomeHero extends Page
         $clients = [];
 
         foreach ($site['es']['clients'] as $client) {
+            $name = is_array($client) ? ($client['name'] ?? '') : $client;
+
             $clients[] = [
-                'name' => $client,
-                'logo' => null,
-                'alt_es' => 'Logotipo de '.$client,
-                'alt_en' => $client.' logo',
+                'name' => $name,
+                'logo' => is_array($client) ? ($client['logo'] ?? null) : null,
+                'alt_es' => is_array($client) ? ($client['alt_es'] ?? 'Logotipo de '.$name) : 'Logotipo de '.$name,
+                'alt_en' => is_array($client) ? ($client['alt_en'] ?? $name.' logo') : $name.' logo',
             ];
         }
 

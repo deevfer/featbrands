@@ -64,6 +64,18 @@ class LivePreviewTest extends TestCase
         $this->assertEquals($saved, PageSection::query()->where('page', 'home')->pluck('content_es', 'section'));
     }
 
+    public function test_saving_the_home_keeps_the_client_logos_bundled_with_the_site(): void
+    {
+        $this->seed([HomeHeroSeeder::class, HomeProofSeeder::class]);
+
+        Livewire::test(ManageHomeHero::class)->call('save')->assertHasNoFormErrors();
+
+        $clients = PageSection::query()->where('page', 'home')->where('section', 'collaboration')->value('content_es')['clients'];
+        $this->assertCount(44, $clients);
+        $this->assertSame('assets/client-logos/beiersdorf.webp', $clients[0]['logo']);
+        $this->get('/')->assertSee('src="'.asset('assets/client-logos/beiersdorf.webp').'"', false);
+    }
+
     public function test_invalid_values_do_not_break_the_preview_or_the_form(): void
     {
         $post = BlogPost::factory()->create();

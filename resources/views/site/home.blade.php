@@ -232,23 +232,32 @@
         </div>
         <div>
           <h3 style="font-family:'Bellinzo',serif;font-weight:300;font-size:16px;margin-bottom:18px">{{ $t['clientsTitle'] }}</h3>
-          <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px">
-            @foreach ($homeCms['clients'] as $cl)
-              <div style="aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;padding:16px">
-                <div class="client-placeholder" role="img" aria-label="{{ $cl['alt'] }}">
-                  @if (!empty($cl['logo_url']))
-                    <img
-                      src="{{ $cl['logo_url'] }}"
-                      alt=""
-                      loading="lazy"
-                      style="max-width:100%;max-height:100%;object-fit:contain"
-                    >
-                  @else
-                    {{ $cl['name'] }}
-                  @endif
-                </div>
+          @php($clientSlides = array_chunk($homeCms['clients'], 8))
+          <div class="client-slider" data-client-slider role="region" aria-roledescription="carousel" aria-label="{{ $t['clientsTitle'] }}">
+            <div class="client-slider-viewport">
+              <div class="client-slider-track" data-client-track>
+                @foreach ($clientSlides as $slide)
+                  <div class="client-slide" data-client-slide role="group" aria-roledescription="slide" aria-label="{{ $loop->iteration }} / {{ $loop->count }}">
+                    @foreach ($slide as $cl)
+                      <div class="client-logo">
+                        @if (!empty($cl['logo_url']))
+                          <img src="{{ $cl['logo_url'] }}" alt="{{ $cl['alt'] }}" loading="lazy" decoding="async" width="400" height="400">
+                        @else
+                          <span>{{ $cl['name'] }}</span>
+                        @endif
+                      </div>
+                    @endforeach
+                  </div>
+                @endforeach
               </div>
-            @endforeach
+            </div>
+            @if (count($clientSlides) > 1)
+              <div class="client-slider-dots">
+                @foreach ($clientSlides as $slide)
+                  <button type="button" data-client-dot="{{ $loop->index }}" aria-label="{{ $t['clientsTitle'] }} {{ $loop->iteration }} / {{ $loop->count }}" aria-current="{{ $loop->first ? 'true' : 'false' }}"></button>
+                @endforeach
+              </div>
+            @endif
           </div>
           <p style="font-size:12px;color:#8A8A8A;margin-top:12px">{{ $t['clientsNote'] }}</p>
         </div>

@@ -69,4 +69,27 @@ class SiteControllerTest extends TestCase
                 ->assertSee('home-reel has-video', false);
         }
     }
+
+    public function test_home_shows_the_client_logos_in_slides_of_eight(): void
+    {
+        $response = $this->get('/')->assertOk();
+        $html = $response->getContent();
+
+        $this->assertSame(6, substr_count($html, 'data-client-slide '));
+        $this->assertSame(6, substr_count($html, 'data-client-dot='));
+        $this->assertSame(44, substr_count($html, 'class="client-logo"'));
+        $response->assertSee('src="'.asset('assets/client-logos/tigo.webp').'" alt="Logotipo de Tigo"', false);
+
+        $this->get('/?lang=en')->assertSee('alt="Tigo logo"', false);
+    }
+
+    public function test_about_scrolls_every_client_logo_in_an_endless_row(): void
+    {
+        $html = $this->get('/nosotros')->assertOk()->getContent();
+
+        $this->assertSame(2, substr_count($html, 'class="about-brand-names"'));
+        $this->assertSame(1, substr_count($html, 'alt="Logotipo de Coca-Cola"'));
+        $this->assertSame(88, substr_count($html, 'src="'.asset('assets/client-logos/')));
+        $this->assertMatchesRegularExpression('/<ul class="about-brand-names"\s+aria-hidden="true"/', $html);
+    }
 }

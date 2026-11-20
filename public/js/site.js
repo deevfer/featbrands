@@ -1,9 +1,12 @@
 (() => {
     let lifecycle;
     let deckTimer;
+    let clientTimers = [];
     const initialize = () => {
         lifecycle?.abort();
         clearInterval(deckTimer);
+        clientTimers.forEach(clearInterval);
+        clientTimers = [];
         lifecycle = new AbortController();
         const listen = (element, type, callback, options = {}) => {
             element.addEventListener(type, callback, { ...options, signal: lifecycle.signal });
@@ -152,6 +155,44 @@
             });
         });
 
+        document.querySelectorAll('[data-client-slider]').forEach((slider) => {
+            const track = slider.querySelector('[data-client-track]');
+            const slides = [...slider.querySelectorAll('[data-client-slide]')];
+            const dots = [...slider.querySelectorAll('[data-client-dot]')];
+            if (slides.length < 2) return;
+            let current = 0;
+            let paused = false;
+            const go = (index) => {
+                current = (index + slides.length) % slides.length;
+                track.style.transform = `translateX(-${current * 100}%)`;
+                slides.forEach((slide, slideIndex) => {
+                    slide.setAttribute('aria-hidden', String(slideIndex !== current));
+                    slide.inert = slideIndex !== current;
+                });
+                dots.forEach((dot, dotIndex) => dot.setAttribute('aria-current', String(dotIndex === current)));
+            };
+            dots.forEach((dot) => listen(dot, 'click', () => go(Number(dot.dataset.clientDot))));
+            listen(slider, 'mouseenter', () => paused = true);
+            listen(slider, 'mouseleave', () => paused = false);
+            listen(slider, 'focusin', () => paused = true);
+            listen(slider, 'focusout', (event) => {
+                if (!slider.contains(event.relatedTarget)) paused = false;
+            });
+            let touchStart = null;
+            listen(slider, 'touchstart', (event) => touchStart = event.touches[0].clientX, { passive: true });
+            listen(slider, 'touchend', (event) => {
+                if (touchStart === null) return;
+                const distance = event.changedTouches[0].clientX - touchStart;
+                touchStart = null;
+                if (Math.abs(distance) > 40) go(current + (distance < 0 ? 1 : -1));
+            });
+            if (!reducedMotion) {
+                clientTimers.push(setInterval(() => {
+                    if (!paused && !document.hidden) go(current + 1);
+                }, 4000));
+            }
+            go(0);
+        });
         const deck = document.querySelector('[data-deck]');
         if (!deck) return;
         const cards = [...deck.querySelectorAll('[data-deck-card]')];
