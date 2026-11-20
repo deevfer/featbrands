@@ -169,3 +169,4 @@ section[id],footer[id],[id^="specialization-"]{scroll-margin-top:145px}
 .cookie-actions button:is(:hover,:focus-visible){transform:scale(1.03)}
 .cookie-note{margin-top:14px;font-size:11px!important;color:rgba(255,255,255,.5)!important}
 @media(max-width:760px){.cookie-trigger{left:12px;bottom:12px;padding:7px 12px}.cookie-panel{left:12px;bottom:12px;width:calc(100vw - 24px);padding:18px}}
+@media(max-width:760px){.home-reel.has-video{aspect-ratio:16/9!important}}

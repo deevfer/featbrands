@@ -160,7 +160,7 @@
         <a class="home-section-link" href="{{ $homeCms['cases']['explore_url'] }}">{{ $homeCms['cases']['explore_text'] }} <x-site-icon name="general.arrow_out">↗</x-site-icon></a>
       </div>
 
-      <div style="position:relative;border-radius:24px;overflow:hidden;aspect-ratio:16/7;background:linear-gradient(140deg,#141414,#000000 70%);border:1px solid rgba(0,0,0,.14);margin-bottom:52px">
+      <div class="home-reel {{ !empty($homeCms['cases']['video_src']) || !empty($homeCms['cases']['embed_url']) ? 'has-video' : '' }}" style="position:relative;border-radius:24px;overflow:hidden;aspect-ratio:16/7;background:linear-gradient(140deg,#141414,#000000 70%);border:1px solid rgba(0,0,0,.14);margin-bottom:52px">
         <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 100%,rgba(251,108,38,.16),transparent 65%)"></div>
         <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px">
           <div style="width:76px;height:76px;border-radius:50%;background:#FFFFFF;display:flex;align-items:center;justify-content:center" class="prototype-hover-6">

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\PageSection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -52,5 +53,20 @@ class SiteControllerTest extends TestCase
     {
         $this->get('/admin/login')->assertOk();
         $this->get('/admin')->assertRedirect('/admin/login');
+    }
+
+    public function test_home_embeds_the_youtube_reel_saved_in_the_cms(): void
+    {
+        $this->get('/')->assertOk()->assertDontSee('youtube-nocookie.com', false)->assertDontSee('home-reel has-video', false);
+
+        $media = ['video_file' => null, 'video_url' => 'https://www.youtube.com/watch?v=52N7Q5XoT-I&authuser=0', 'poster' => null];
+        PageSection::create(['page' => 'home', 'section' => 'cases', 'content_es' => ['media' => $media], 'content_en' => ['media' => $media]]);
+
+        foreach (['/', '/?lang=en'] as $url) {
+            $this->get($url)
+                ->assertOk()
+                ->assertSee('src="https://www.youtube-nocookie.com/embed/52N7Q5XoT-I"', false)
+                ->assertSee('home-reel has-video', false);
+        }
     }
 }
