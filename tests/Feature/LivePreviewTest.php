@@ -73,6 +73,11 @@ class LivePreviewTest extends TestCase
         $clients = PageSection::query()->where('page', 'home')->where('section', 'collaboration')->value('content_es')['clients'];
         $this->assertCount(44, $clients);
         $this->assertSame('assets/client-logos/beiersdorf.webp', $clients[0]['logo']);
+
+        $styles = PageSection::query()->where('page', 'home')->where('section', 'services')->value('content_en')['card_styles'];
+        $this->assertCount(5, $styles);
+        $this->assertSame('#FB6C26', $styles[0]['background']);
+        $this->assertNull($styles[0]['image']);
         $this->get('/')->assertSee('src="'.asset('assets/client-logos/beiersdorf.webp').'"', false);
     }
 

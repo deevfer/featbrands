@@ -13,6 +13,19 @@ use Illuminate\Support\Facades\Storage;
 
 class SiteController extends Controller
 {
+    /**
+     * Default background and text color of each hero deck card, in service order.
+     *
+     * @var array<int, array{0: string, 1: string}>
+     */
+    public const DECK_COLORS = [
+        ['#FB6C26', '#000000'],
+        ['#2D48F2', '#FFFFFF'],
+        ['#15F7A8', '#000000'],
+        ['#FDDB02', '#000000'],
+        ['#D48BFD', '#000000'],
+    ];
+
     public function home(Request $request): View
     {
         return $this->render($request, 'home');
@@ -766,13 +779,7 @@ class SiteController extends Controller
         // TARJETAS Y NAVEGACIÓN
         // ------------------------------------
 
-        $colors = [
-            ['#FB6C26', '#000000'],
-            ['#2D48F2', '#FFFFFF'],
-            ['#15F7A8', '#000000'],
-            ['#FDDB02', '#000000'],
-            ['#D48BFD', '#000000'],
-        ];
+        $colors = self::DECK_COLORS;
 
         $serviceLinks = [];
         $deckCards = [];
@@ -799,11 +806,15 @@ class SiteController extends Controller
                 ][$index],
             ];
 
+            $style = $services['card_styles'][$index] ?? [];
+
             $deckCards[] = [
                 ...$service,
                 'num' => sprintf('%02d', $index + 1),
-                'background' => $colors[$index][0],
-                'foreground' => $colors[$index][1],
+                'background' => $this->hexColor($style['background'] ?? null) ?? $colors[$index][0],
+                'foreground' => $this->hexColor($style['foreground'] ?? null) ?? $colors[$index][1],
+                'image' => $this->storedImageUrl($style['image'] ?? null),
+                'overlay' => min(80, max(0, (int) ($style['overlay'] ?? 0))),
                 'cta' => $page === 'home'
                     ? ($service['cta'] ?? $t['servicesBtn'])
                     : $t['servicesBtn'],
@@ -939,6 +950,14 @@ class SiteController extends Controller
     // ------------------------------------
     // RESOLVER IMÁGENES DEL CMS
     // ------------------------------------
+
+    /**
+     * A CMS color only when it is a valid hex value, so it is safe inside a style attribute.
+     */
+    private function hexColor(mixed $value): ?string
+    {
+        return is_string($value) && preg_match('/^#(?:[0-9a-fA-F]{3}){1,2}$/', $value) === 1 ? $value : null;
+    }
 
     /**
      * Height of a client logo as a percentage of its padded box, so wide and tall logos look equally heavy:

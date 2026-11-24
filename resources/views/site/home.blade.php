@@ -22,9 +22,9 @@
           <div style="display:flex;flex-direction:column;gap:26px;width:min(480px,100%);margin-left:auto" data-deck>
             <div style="position:relative;height:440px">
               @foreach ($deckCards as $c)
-                <div data-deck-open="{{ $loop->index }}" class="deck-card" data-deck-card="{{ $loop->index }}" data-service-url="{{ $c['href'] }}" role="link" tabindex="0" style="background:{{ $c['background'] }};color:{{ $c['foreground'] }}">
-                  <div style="display:flex;flex-direction:column;gap:12px;min-width:0;overflow:hidden">
-                    <span style="font-family:'Bellinzo',serif;font-weight:700;font-size:38px;line-height:.9">{{ $c['num'] }}</span>
+                <div data-deck-open="{{ $loop->index }}" class="deck-card{{ !empty($c['image']) ? ' has-image' : '' }}" data-deck-card="{{ $loop->index }}" data-service-url="{{ $c['href'] }}" role="link" tabindex="0" style="background-color:{{ $c['background'] }};color:{{ $c['foreground'] }}@if (!empty($c['image']));--deck-image:url('{{ $c['image'] }}');--deck-overlay:{{ ($c['overlay'] ?? 0) / 100 }}@endif">
+                  <div style="display:flex;flex-direction:column;gap:12px;min-width:0;overflow:hidden;padding-top:4px">
+                    <span style="font-family:'Bellinzo',serif;font-weight:700;font-size:38px;line-height:1.1">{{ $c['num'] }}</span>
                     <h3 style="font-family:'Bellinzo',serif;font-weight:700;font-size:29px;line-height:1;letter-spacing:-.01em">{{ $c['title'] }}</h3>
                     <p style="font-family:'Miller Text Italic',serif;font-style:italic;font-size:15px;line-height:1.4;opacity:.85">{{ $c['desc'] }}</p>
                   </div>

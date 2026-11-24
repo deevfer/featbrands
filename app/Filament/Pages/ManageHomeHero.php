@@ -3,11 +3,15 @@
 namespace App\Filament\Pages;
 
 use App\Filament\Concerns\HasLivePreview;
+use App\Http\Controllers\SiteController;
 use App\Models\PageSection;
 use BackedEnum;
 use Filament\Actions\Action;
+use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -59,6 +63,7 @@ class ManageHomeHero extends Page
             'hero_en' => $this->heroData($hero, 'en'),
             'cards_es' => $this->cardsData('es'),
             'cards_en' => $this->cardsData('en'),
+            'deck_styles' => $this->deckStylesData(),
 
             // Sección 2
             'proof_es' => $proof->content_es ?? [],
@@ -107,6 +112,8 @@ class ManageHomeHero extends Page
                                             $this->heroTab('Español', 'es'),
                                             $this->heroTab('Inglés', 'en'),
                                         ]),
+
+                                    $this->deckStylesSection(),
                                 ]),
 
                             Tab::make('2. Reconocimientos')
@@ -1017,6 +1024,105 @@ class ManageHomeHero extends Page
         return $content;
     }
 
+    /**
+     * Background of each hero deck card, shared by both languages: a solid color or an image.
+     */
+    private function deckStylesSection(): Section
+    {
+        return Section::make('Fondo de las tarjetas del carrusel')
+            ->description(
+                'Cada tarjeta puede tener un fondo de color sólido o una imagen. '.
+                'Si subes una imagen, se muestra sobre el color. '.
+                'Se comparte entre ambos idiomas.'
+            )
+            ->schema([
+                Repeater::make('deck_styles')
+                    ->label('Tarjetas')
+                    ->schema([
+                        Hidden::make('unit'),
+
+                        ColorPicker::make('background')
+                            ->label('Color de fondo')
+                            ->regex('/^#(?:[0-9a-fA-F]{3}){1,2}$/')
+                            ->required(),
+
+                        ColorPicker::make('foreground')
+                            ->label('Color del texto')
+                            ->regex('/^#(?:[0-9a-fA-F]{3}){1,2}$/')
+                            ->required(),
+
+                        FileUpload::make('image')
+                            ->label('Imagen de fondo (opcional)')
+                            ->image()
+                            ->acceptedFileTypes([
+                                'image/jpeg',
+                                'image/png',
+                                'image/webp',
+                            ])
+                            ->disk('public')
+                            ->directory('home/deck')
+                            ->visibility('public')
+                            ->maxSize(4096)
+                            ->helperText(
+                                'JPG, PNG o WebP, idealmente de 960 × 680 px. '.
+                                'Máximo 4 MB. Déjala vacía para usar solo el color.'
+                            ),
+
+                        Select::make('overlay')
+                            ->label('Oscurecer la imagen')
+                            ->options([
+                                0 => 'Sin oscurecer',
+                                20 => '20 %',
+                                40 => '40 %',
+                                60 => '60 %',
+                            ])
+                            ->default(0)
+                            ->selectablePlaceholder(false)
+                            ->helperText('Ayuda a que el texto se lea sobre la imagen.'),
+                    ])
+                    ->columns(2)
+                    ->itemLabel(
+                        fn (array $state): ?string => $state['unit'] ?? 'Tarjeta'
+                    )
+                    ->collapsed()
+                    ->minItems(5)
+                    ->maxItems(5)
+                    ->addable(false)
+                    ->deletable(false)
+                    ->reorderable(false),
+            ]);
+    }
+
+    /**
+     * @return array<int, array{unit: string, background: string, foreground: string, image: ?string, overlay: int}>
+     */
+    private function deckStylesData(): array
+    {
+        $saved = PageSection::query()
+            ->where('page', 'home')
+            ->where('section', 'services')
+            ->first()?->content_es['card_styles'] ?? [];
+
+        $site = File::json(resource_path('data/site.json'))['es'];
+
+        $styles = [];
+
+        foreach (SiteController::DECK_COLORS as $index => [$background, $foreground]) {
+            $styles[] = array_replace(
+                [
+                    'background' => $background,
+                    'foreground' => $foreground,
+                    'image' => null,
+                    'overlay' => 0,
+                ],
+                $saved[$index] ?? [],
+                ['unit' => sprintf('%02d · %s', $index + 1, $site['services'][$index]['title'] ?? '')],
+            );
+        }
+
+        return $styles;
+    }
+
     // ------------------------------------
     // DATOS INICIALES - CARRUSEL
     // ------------------------------------
@@ -1442,6 +1548,10 @@ class ManageHomeHero extends Page
 
                 $content['cards'] = array_values(
                     $state['cards_'.$lang] ?? []
+                );
+
+                $content['card_styles'] = array_values(
+                    $state['deck_styles'] ?? []
                 );
 
                 $services->{$field} = $content;

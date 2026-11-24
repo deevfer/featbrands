@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\PageSection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class SiteControllerTest extends TestCase
@@ -83,6 +84,27 @@ class SiteControllerTest extends TestCase
         $response->assertSee('alt="Logotipo de Beiersdorf" loading="lazy" decoding="async" style="height:41%"', false);
 
         $this->get('/?lang=en')->assertSee('alt="Tigo logo"', false);
+    }
+
+    public function test_hero_deck_cards_use_a_solid_color_or_an_image_from_the_cms(): void
+    {
+        $this->get('/')->assertSee('class="deck-card" data-deck-card="0"', false)
+            ->assertSee('style="background-color:#FB6C26;color:#000000"', false);
+
+        Storage::fake('public');
+        Storage::disk('public')->put('home/deck/performance.webp', 'image');
+        $styles = [
+            ['background' => '#111111', 'foreground' => '#FFFFFF', 'image' => 'home/deck/performance.webp', 'overlay' => 40],
+            ['background' => 'red;position:fixed', 'foreground' => '#FFFFFF', 'image' => null, 'overlay' => 0],
+        ];
+        PageSection::create(['page' => 'home', 'section' => 'services', 'content_es' => ['card_styles' => $styles], 'content_en' => ['card_styles' => $styles]]);
+
+        $this->get('/')
+            ->assertSee('class="deck-card has-image" data-deck-card="0"', false)
+            ->assertSee("background-color:#111111;color:#FFFFFF;--deck-image:url('".Storage::disk('public')->url('home/deck/performance.webp')."');--deck-overlay:0.4", false)
+            ->assertSee('class="deck-card" data-deck-card="1" data-service-url', false)
+            ->assertSee('style="background-color:#2D48F2;color:#FFFFFF"', false)
+            ->assertDontSee('position:fixed', false);
     }
 
     public function test_about_scrolls_every_client_logo_in_an_endless_row(): void

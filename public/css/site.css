@@ -79,6 +79,7 @@ section[id],footer[id],[id^="specialization-"]{scroll-margin-top:145px}
 .site-nav>a.is-active,.site-nav [data-services-toggle].is-active{color:#FDDB02!important;opacity:1!important;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:7px}
 .site-nav .services-dropdown a.is-active{color:#FDDB02!important;opacity:1!important;background:rgba(253,219,2,.12)!important}
 .deck-card{position:absolute;left:0;right:0;top:0;height:340px;border-radius:26px;padding:26px 28px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 24px 60px rgba(0,0,0,.22);cursor:pointer;transition:transform .6s cubic-bezier(.22,1,.36,1),opacity .45s ease}
+.deck-card.has-image{background-image:linear-gradient(rgba(0,0,0,var(--deck-overlay,0)),rgba(0,0,0,var(--deck-overlay,0))),var(--deck-image);background-size:cover;background-position:center}
 .deck-card:nth-child(1){z-index:50;transform:translate(0,0) rotate(0deg) scale(1)}
 .deck-card:nth-child(2){z-index:40;transform:translate(0,32px) rotate(2.5deg) scale(.94)}
 .deck-card:nth-child(3){z-index:30;transform:translate(0,62px) rotate(-3deg) scale(.885)}
