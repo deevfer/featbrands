@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('css/site.css').'?v='.filemtime(public_path('css/site.css')) }}">
     <script src="{{ asset('js/site.js').'?v='.filemtime(public_path('js/site.js')) }}" defer></script>
     <script src="{{ asset('js/language.js').'?v='.filemtime(public_path('js/language.js')) }}" defer></script>
-    @if ($copy !== null)
+    @if ($copy !== null || $page === 'performance')
         <link rel="stylesheet" href="{{ asset('css/specializations.css').'?v='.filemtime(public_path('css/specializations.css')) }}">
         <script src="{{ asset('js/specializations.js').'?v='.filemtime(public_path('js/specializations.js')) }}" defer></script>
     @endif
