@@ -52,6 +52,7 @@ class StoreContactSubmissionRequest extends FormRequest
             'locale' => ['required', Rule::in(['es', 'en'])],
             'market' => ['required', Rule::in(['gt', 'cr', 'sv', 'us'])],
             'website' => ['nullable', 'string', 'max:0'],
+            'intent_key' => ['nullable', 'uuid'],
         ];
 
         $settings = SiteSetting::current();

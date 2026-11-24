@@ -18,5 +18,5 @@ class ManageEmailTexts extends ManageSiteContent
 
     protected static ?int $navigationSort = 2;
 
-    protected static array $contentKeys = ['email_confirmation', 'email_lead'];
+    protected static array $contentKeys = ['email_confirmation', 'email_lead', 'email_abandoned'];
 }

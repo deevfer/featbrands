@@ -110,6 +110,16 @@ class SiteContent
                 'Correo' => ['subject', 'eyebrow', 'title', 'intro', 'cta', 'replyNote', 'footer'],
             ],
         ],
+        'email_abandoned' => [
+            'url' => '/admin/correos/vista-previa/sin-completar',
+            'label' => 'Aviso de formulario sin completar',
+            'file' => 'emails.json',
+            'path' => 'abandoned',
+            'localized' => false,
+            'groups' => [
+                'Correo' => ['subject', 'eyebrow', 'title', 'intro', 'trackingLabel', 'noTracking', 'cta', 'replyNote', 'footer'],
+            ],
+        ],
         'blog' => [
             'url' => '/blog',
             'label' => 'Textos del blog',

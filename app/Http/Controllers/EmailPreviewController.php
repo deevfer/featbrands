@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactAbandonedMail;
 use App\Mail\ContactConfirmationMail;
 use App\Mail\ContactLeadMail;
+use App\Models\ContactIntent;
 use App\Models\ContactSubmission;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -37,6 +39,14 @@ class EmailPreviewController extends Controller
         $mailable = match ($mail) {
             'confirmacion' => new ContactConfirmationMail($submission),
             'lead' => new ContactLeadMail($submission),
+            'sin-completar' => new ContactAbandonedMail((new ContactIntent)->forceFill([
+                ...$submission->only(['first_name', 'last_name', 'email', 'country_code', 'phone', 'company', 'job_title', 'locale', 'market']),
+                'id' => 64,
+                'message' => $english ? 'We are launching a new product line next' : 'Vamos a lanzar una nueva línea de productos el próximo',
+                'marketing_consent' => true,
+                'tracking' => ['fbp' => 'fb.1.1764000000000.1234567890', 'ga' => 'GA1.1.1234567890.1764000000'],
+                'last_activity_at' => now()->subMinutes(32),
+            ])),
             default => abort(404),
         };
 

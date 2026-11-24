@@ -15,7 +15,7 @@
             <h2>{{ $copy['formTitle'] }}</h2>
             <p class="contact-form-intro">{{ $copy['formIntro'] }}</p>
             <p class="contact-required-note">{{ $copy['requiredNote'] }}</p>
-            <form data-contact-form @if (\App\Models\SiteSetting::current()->recaptchaIsConfigured()) data-recaptcha-site-key="{{ \App\Models\SiteSetting::current()->recaptcha_site_key }}" @endif data-state="{{ session('contact_submitted') ? 'success' : 'idle' }}" action="{{ route('contact.store', ['lang' => $locale, 'market' => $market]) }}" method="POST" @if (session('contact_submitted')) hidden @endif>
+            <form data-contact-form @if (\App\Models\SiteSetting::current()->recaptchaIsConfigured()) data-recaptcha-site-key="{{ \App\Models\SiteSetting::current()->recaptcha_site_key }}" @endif data-state="{{ session('contact_submitted') ? 'success' : 'idle' }}" action="{{ route('contact.store', ['lang' => $locale, 'market' => $market]) }}" data-intent-url="{{ route('contact.intent') }}" method="POST" @if (session('contact_submitted')) hidden @endif>
                 @csrf
                 <input type="hidden" name="locale" value="{{ $locale }}">
                 <input type="hidden" name="market" value="{{ $market }}">

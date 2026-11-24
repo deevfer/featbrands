@@ -41,5 +41,16 @@
         "cta": "Ver solicitudes en el CMS",
         "replyNote": "Responde a este correo para escribirle directamente a la persona.",
         "footer": "Enviado automáticamente por featbrands.com."
+    },
+    "abandoned": {
+        "subject": "Formulario sin completar en featbrands.com",
+        "eyebrow": "Lead sin completar · Formulario de contacto",
+        "title": "Alguien empezó a escribirnos y no terminó.",
+        "intro": "empezó a llenar el formulario de contacto y no lo envió en los últimos 30 minutos. Estos son los datos que alcanzó a escribir, para darle seguimiento o incluirlo en retargeting.",
+        "trackingLabel": "Cookies para retargeting",
+        "noTracking": "No aceptó las cookies de marketing, así que no guardamos identificadores publicitarios.",
+        "cta": "Ver formularios sin completar en el CMS",
+        "replyNote": "Responde a este correo para escribirle directamente a la persona.",
+        "footer": "Enviado automáticamente por featbrands.com."
     }
 }

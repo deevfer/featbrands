@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ContactIntentController;
 use App\Http\Controllers\ContactSubmissionController;
 use App\Http\Controllers\EmailPreviewController;
 use App\Http\Controllers\SeoController;
@@ -34,6 +35,7 @@ foreach (SiteSeo::GEO_PAGES as $geoPage) {
     Route::get('/'.$geoPage, [SiteController::class, 'geo'])->name($geoPage);
 }
 Route::post('/contacto', [ContactSubmissionController::class, 'store'])->middleware('throttle:6,1')->name('contact.store');
+Route::post('/contacto/intencion', [ContactIntentController::class, 'store'])->middleware('throttle:30,1')->name('contact.intent');
 Route::get('/admin/correos/vista-previa/{mail}', EmailPreviewController::class)->middleware('auth')->name('emails.preview');
 
 foreach (['' => 'blog.', '/en' => 'blog.en.'] as $prefix => $name) {

@@ -92,7 +92,7 @@ abstract class ManageSiteContent extends Page
         'noImageFoot' => 'Pie sin imagen', 'published' => 'Texto "Publicado"', 'updated' => 'Texto "Actualizado"', 'h1' => 'Título (H1)',
         'type' => 'Tipo de bloque', 'text' => 'Texto', 'links' => 'Enlaces', 'href' => 'Enlace',
         'captchaError' => 'Error de verificación (reCAPTCHA)', 'subject' => 'Asunto del correo', 'preheader' => 'Texto previo en la bandeja de entrada',
-        'eyebrow' => 'Antetítulo', 'greeting' => 'Saludo', 'summaryTitle' => 'Título del resumen', 'replyNote' => 'Nota para responder',
+        'eyebrow' => 'Antetítulo', 'greeting' => 'Saludo', 'summaryTitle' => 'Título del resumen', 'replyNote' => 'Nota para responder', 'trackingLabel' => 'Título de las cookies de retargeting', 'noTracking' => 'Texto si no aceptó cookies de marketing',
         'signature' => 'Firma',
         'cookies' => 'Aviso de cookies', 'trigger' => 'Botón para reabrir', 'essentialTitle' => 'Necesarias (título)', 'essentialBody' => 'Necesarias (texto)',
         'analyticsTitle' => 'Analítica (título)', 'analyticsBody' => 'Analítica (texto)', 'marketingTitle' => 'Marketing (título)', 'marketingBody' => 'Marketing (texto)',
