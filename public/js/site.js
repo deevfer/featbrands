@@ -164,7 +164,7 @@
             let paused = false;
             const go = (index) => {
                 current = (index + slides.length) % slides.length;
-                track.style.transform = `translateX(-${current * 100}%)`;
+                track.style.transform = `translateX(calc(-${current} * (100% + 24px)))`;
                 slides.forEach((slide, slideIndex) => {
                     slide.setAttribute('aria-hidden', String(slideIndex !== current));
                     slide.inert = slideIndex !== current;

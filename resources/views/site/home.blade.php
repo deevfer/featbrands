@@ -241,7 +241,7 @@
                     @foreach ($slide as $cl)
                       <div class="client-logo">
                         @if (!empty($cl['logo_url']))
-                          <img src="{{ $cl['logo_url'] }}" alt="{{ $cl['alt'] }}" loading="lazy" decoding="async" width="400" height="400">
+                          <img src="{{ $cl['logo_url'] }}" alt="{{ $cl['alt'] }}" loading="lazy" decoding="async" style="height:{{ $cl['logo_height'] ?? 100 }}%">
                         @else
                           <span>{{ $cl['name'] }}</span>
                         @endif

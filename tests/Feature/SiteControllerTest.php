@@ -79,6 +79,8 @@ class SiteControllerTest extends TestCase
         $this->assertSame(6, substr_count($html, 'data-client-dot='));
         $this->assertSame(44, substr_count($html, 'class="client-logo"'));
         $response->assertSee('src="'.asset('assets/client-logos/tigo.webp').'" alt="Logotipo de Tigo"', false);
+        $response->assertSee('alt="Logotipo de Nivea" loading="lazy" decoding="async" style="height:100%"', false);
+        $response->assertSee('alt="Logotipo de Beiersdorf" loading="lazy" decoding="async" style="height:41%"', false);
 
         $this->get('/?lang=en')->assertSee('alt="Tigo logo"', false);
     }

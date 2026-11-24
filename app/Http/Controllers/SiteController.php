@@ -502,6 +502,10 @@ class SiteController extends Controller
                 'alt' => $client[
                     'alt_'.$locale
                 ] ?? $client['name'] ?? '',
+
+                'logo_height' => $this->logoHeight(
+                    $client['logo'] ?? null
+                ),
             ];
         }
 
@@ -935,6 +939,28 @@ class SiteController extends Controller
     // ------------------------------------
     // RESOLVER IMÁGENES DEL CMS
     // ------------------------------------
+
+    /**
+     * Height of a client logo as a percentage of its padded box, so wide and tall logos look equally heavy:
+     * a square logo fills the height, and wider ones shrink with the square root of their proportion.
+     */
+    private function logoHeight(?string $path): int
+    {
+        if (blank($path)) {
+            return 100;
+        }
+
+        $file = str_starts_with($path, 'assets/')
+            ? public_path($path)
+            : Storage::disk('public')->path($path);
+        $size = is_file($file) ? @getimagesize($file) : false;
+
+        if ($size === false || $size[0] < 1 || $size[1] < 1) {
+            return 100;
+        }
+
+        return (int) round(min(1, sqrt($size[1] / $size[0])) * 100);
+    }
 
     /**
      * CMS uploads live on the public disk; images bundled with the site (assets/...) are served from public/.
